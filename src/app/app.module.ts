@@ -6,15 +6,20 @@ import { AppComponent } from './app.component';
 
 // Material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCardModule, MatSidenavModule, MatIconModule, MatListModule, MatSelectModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatSidenavModule, MatIconModule, MatListModule, MatSelectModule, MatProgressSpinnerModule } from '@angular/material';
 import { ConstructorComponent } from './../views/constructor/constructor.component';
 import { LanguageSelectorComponent } from '../components/language-selector/language-selector.component';
+import { ConstructorListComponent } from './../components/constructor-list/constructor-list.component';
+import { EditConstructorComponent } from '../views/edit-constructor/edit-constructor.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     ConstructorComponent,
-    LanguageSelectorComponent
+    LanguageSelectorComponent,
+    ConstructorListComponent,
+    EditConstructorComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +30,9 @@ import { LanguageSelectorComponent } from '../components/language-selector/langu
     MatIconModule,
     MatCardModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressSpinnerModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

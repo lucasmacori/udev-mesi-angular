@@ -38,3 +38,9 @@ $udev-mesi-angular-theme: mat-light-theme($udev-mesi-angular-primary, $udev-mesi
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+h1, h2 {
+  color: $udev-mesi-angular-title;
+}
+mat-spinner {
+  margin: auto;
+}

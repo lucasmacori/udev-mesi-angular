@@ -1,1 +1,4 @@
-<p>constructor works!</p>
+<h2>{{ messages.get('menu_constructors') }}</h2>
+<app-constructor-list [constructors]="constructors" *ngIf="!isLoading"></app-constructor-list>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+

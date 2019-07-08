@@ -15,7 +15,6 @@
         margin: 10px;
       }
       h2 {
-        color: $udev-mesi-angular-title;
         width: calc(100% - 20px);
         margin: auto;
       }
@@ -25,6 +24,10 @@
       mat-list-item {
         button {
           width: 100%;
+          border-radius: 0;
+          padding: 5px;
+          position: relative;
+          padding-left: 30px;
           mat-icon, a {
             float: left;
           }
@@ -36,13 +39,23 @@
           }
         }
       }
+      .active {
+        background-color: #E3E3E3;
+      }
     }
   }
   mat-drawer-content {
     app-language-selector {
-      position: absolute;
+      position: fixed;
       bottom: 20px;
       right: 20px;
+      z-index: 1000;
+    }
+    mat-card {
+      width: 95%;
+      margin: auto;
+      position: relative;
+      top: 20px;
     }
   }
 }
