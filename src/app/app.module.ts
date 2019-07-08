@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 
 // Material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCardModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatSidenavModule, MatIconModule, MatListModule, MatSelectModule } from '@angular/material';
 import { ConstructorComponent } from './../views/constructor/constructor.component';
+import { LanguageSelectorComponent } from '../components/language-selector/language-selector.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ConstructorComponent
+    ConstructorComponent,
+    LanguageSelectorComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +24,8 @@ import { ConstructorComponent } from './../views/constructor/constructor.compone
     MatListModule,
     MatIconModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -8,48 +8,49 @@
       <mat-list-item routerLink="/constructors">
         <button mat-button>
           <mat-icon class="button-icon">build</mat-icon>
-          <a matLine>Constructeurs</a>
+          <a matLine>{{messageService.getMessageFromName('menu_constructors').content}}</a>
         </button>
       </mat-list-item>
       <mat-list-item routerLink="/models">
         <button mat-button>
           <mat-icon class="button-icon">book</mat-icon>
-          <a matLine>Modèles</a>
+          <a matLine>{{messageService.getMessageFromName('menu_models').content}}</a>
         </button>
       </mat-list-item>
       <mat-list-item routerLink="/planes">
         <button mat-button>
           <mat-icon class="button-icon">airplanemode_active</mat-icon>
-          <a matLine>Avions</a>
+          <a matLine>{{messageService.getMessageFromName('menu_planes').content}}</a>
         </button>
       </mat-list-item>
       <mat-list-item routerLink="/flights">
         <button mat-button>
           <mat-icon class="button-icon">personal_video</mat-icon>
-          <a matLine>Vols</a>
+          <a matLine>{{messageService.getMessageFromName('menu_flights').content}}</a>
         </button>
       </mat-list-item>
       <mat-list-item routerLink="/flightDetails">
         <button mat-button>
           <mat-icon class="button-icon">calendar_today</mat-icon>
-          <a matLine>Planification</a>
+          <a matLine>{{messageService.getMessageFromName('menu_planning').content}}</a>
         </button>
       </mat-list-item>
       <mat-list-item routerLink="/passengers">
         <button mat-button>
           <mat-icon class="button-icon">people</mat-icon>
-          <a matLine>Passagers</a>
+          <a matLine>{{messageService.getMessageFromName('menu_passengers').content}}</a>
         </button>
       </mat-list-item>
       <mat-list-item routerLink="/reservations">
         <button mat-button>
           <mat-icon class="button-icon">business_center</mat-icon>
-          <a matLine>Réservations</a>
+          <a matLine>{{messageService.getMessageFromName('menu_reservations').content}}</a>
         </button>
       </mat-list-item>
     </div>
   </mat-drawer>
   <mat-drawer-content>
+    <app-language-selector></app-language-selector>
     <router-outlet></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>
