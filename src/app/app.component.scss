@@ -38,4 +38,11 @@
       }
     }
   }
+  mat-drawer-content {
+    app-language-selector {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+    }
+  }
 }

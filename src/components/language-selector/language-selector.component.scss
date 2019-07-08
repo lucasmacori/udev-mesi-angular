@@ -1,1 +1,16 @@
-
+.language-icon {
+  position: relative;
+  top: 5px;
+}
+.language-icon-selected {
+  position: relative;
+  top: 8px;
+  right: 10px;
+}
+.language-name {
+  position: relative;
+  left: 10px;
+}
+.inline {
+  display: inline-block;
+}
