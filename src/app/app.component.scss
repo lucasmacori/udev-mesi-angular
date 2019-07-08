@@ -1,0 +1,41 @@
+@import "./../styles.scss";
+
+.container {
+  width: 100%;
+  height: 100%;
+  mat-drawer {
+    width: 200px;
+    .header {
+      text-align: center;
+      background-color: $udev-mesi-angular-secondary;
+      padding: 10px;
+      .logo {
+        width: 70%;
+        padding: auto;
+        margin: 10px;
+      }
+      h2 {
+        color: $udev-mesi-angular-title;
+        width: calc(100% - 20px);
+        margin: auto;
+      }
+    }
+    .items {
+      width: 100%;
+      mat-list-item {
+        button {
+          width: 100%;
+          mat-icon, a {
+            float: left;
+          }
+          mat-icon {
+            margin-right: 10px;
+            position: relative;
+            top: 4px;
+            color: $udev-mesi-angular-title;
+          }
+        }
+      }
+    }
+  }
+}
