@@ -1,8 +1,8 @@
 <mat-nav-list>
-    <mat-list-item *ngFor="let constructor of constructors">
-       <a matLine [routerLink]="'/constructor/' + constructor.id">{{ constructor.name }}</a>
-       <button mat-icon-button>
-          <mat-icon>create</mat-icon>
-       </button>
-    </mat-list-item>
-  </mat-nav-list>
+  <mat-list-item *ngFor="let constructor of constructors">
+      <a matLine [routerLink]="'/constructor/' + constructor.id">{{ constructor.name }}</a>
+      <button mat-icon-button [routerLink]="'/constructor/' + constructor.id">
+        <mat-icon>create</mat-icon>
+      </button>
+  </mat-list-item>
+</mat-nav-list>

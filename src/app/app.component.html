@@ -6,43 +6,43 @@
     </div>
     <div class="items">
       <mat-list-item routerLink="/constructors">
-        <button mat-button [ngClass]="{'active': this.router.url === '/constructors'}">
+        <button mat-button [ngClass]="{'active': this.router.url.startsWith('/constructor')}">
           <mat-icon class="button-icon">build</mat-icon>
           <a matLine>{{ messages.get('menu_constructors') }}</a>
         </button>
       </mat-list-item>
       <mat-list-item routerLink="/models">
-        <button mat-button [ngClass]="{'active': this.router.url === '/models'}">
+        <button mat-button [ngClass]="{'active': this.router.url.startsWith('/models')}">
           <mat-icon class="button-icon">book</mat-icon>
           <a matLine>{{ messages.get('menu_models') }}</a>
         </button>
       </mat-list-item>
       <mat-list-item routerLink="/planes">
-        <button mat-button [ngClass]="{'active': this.router.url === '/planes'}">
+        <button mat-button [ngClass]="{'active': this.router.url.startsWith('/planes')}">
           <mat-icon class="button-icon">airplanemode_active</mat-icon>
           <a matLine>{{ messages.get('menu_planes') }}</a>
         </button>
       </mat-list-item>
       <mat-list-item routerLink="/flights">
-        <button mat-button [ngClass]="{'active': this.router.url === '/flights'}">
+        <button mat-button [ngClass]="{'active': this.router.url.startsWith('/flights')}">
           <mat-icon class="button-icon">personal_video</mat-icon>
           <a matLine>{{ messages.get('menu_flights') }}</a>
         </button>
       </mat-list-item>
       <mat-list-item routerLink="/flightDetails">
-        <button mat-button [ngClass]="{'active': this.router.url === '/flightDetails'}">
+        <button mat-button [ngClass]="{'active': this.router.url.startsWith('/flightDetails')}">
           <mat-icon class="button-icon">calendar_today</mat-icon>
           <a matLine>{{ messages.get('menu_planning') }}</a>
         </button>
       </mat-list-item>
       <mat-list-item routerLink="/passengers">
-        <button mat-button [ngClass]="{'active': this.router.url === '/passengers'}">
+        <button mat-button [ngClass]="{'active': this.router.url.startsWith('/passengers')}">
           <mat-icon class="button-icon">people</mat-icon>
           <a matLine>{{ messages.get('menu_passengers') }}</a>
         </button>
       </mat-list-item>
       <mat-list-item routerLink="/reservations">
-        <button mat-button [ngClass]="{'active': this.router.url === '/reservations'}">
+        <button mat-button [ngClass]="{'active': this.router.url.startsWith('/reservations')}">
           <mat-icon class="button-icon">business_center</mat-icon>
           <a matLine>{{ messages.get('menu_reservations') }}</a>
         </button>
@@ -51,8 +51,6 @@
   </mat-drawer>
   <mat-drawer-content>
     <app-language-selector></app-language-selector>
-    <mat-card>
-      <router-outlet></router-outlet>
-    </mat-card>
+    <router-outlet></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>

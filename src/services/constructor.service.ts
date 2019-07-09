@@ -1,22 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Constructor } from 'src/models/constructor.model';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from './config.service';
+import { reject } from 'q';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConstructorService {
 
-  private endpoint: string = "constructor";
+  private endpoint: string = "manufacturer";
 
   private _constructorSub: Subject<Array<Constructor>>;
   private _constructors: Array<Constructor>;
 
   constructor(
     private httpClient: HttpClient,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private _snackBar: MatSnackBar
   ) {
     this._constructorSub = new Subject<Array<Constructor>>();
   }
@@ -25,13 +28,87 @@ export class ConstructorService {
     return this._constructorSub;
   }
 
-  public fetchConstructors(): void {
-    this.httpClient.get(this.configService.URL + this.endpoint)
-      .subscribe(res => {
-        this._constructors = res['constructors'];
-        this._constructorSub.next(this._constructors);
+  public fetchConstructors(): Promise<null> {
+    return new Promise((resolve, reject) => {
+      this.httpClient.get(this.configService.URL + this.endpoint,
+        { headers: this.configService.HEADERS })
+        .subscribe(res => {
+          this._constructors = res['manufacturers'];
+          this._constructorSub.next(this._constructors);
+          resolve();
+        }, err => {
+          // TODO: Gérer les erreurs
+          reject();
+        });
+    });
+  }
+
+  public getConstructorById(id: number): Promise<Constructor> {
+    return new Promise((resolve, reject) => {
+      this.httpClient.get(this.configService.URL + this.endpoint + `/${id}`,
+      { headers: this.configService.HEADERS })
+        .subscribe(res => {
+          resolve(res['manufacturer']);
+        }), err => {
+          //TODO: Gérer les erreurs;
+          reject(err);
+        }
+    });
+  }
+
+  public saveConstructor(constructor: Constructor): Promise<null> {
+    return new Promise((resolve, reject) => {
+
+      const body = new URLSearchParams();
+      body.set('name', constructor.name);
+
+      // Appel du web service
+      let response: Observable<any>;
+      if (constructor.id) {
+        body.set('id', constructor.id.toString())
+        response = this.httpClient.put(this.configService.URL + this.endpoint, body.toString(),
+        { headers: this.configService.HEADERS });
+      } else {
+        response = this.httpClient.post(this.configService.URL + this.endpoint, body.toString(),
+        { headers: this.configService.HEADERS });
+      }
+
+      // Récupération de la réponse
+      response.subscribe(res => {
+        if (res['status'] === 'OK') {
+          resolve();
+        } else {
+          reject();
+        }
       }, err => {
-        // TODO: Gérer les erreurs
-      });
+        reject(err);
+      })
+    });
+  }
+
+  public deleteConstructor(constructor: Constructor): Promise<null> {
+    return new Promise((resolve, reject) => {
+
+      const body = new URLSearchParams();
+
+      // Appel du web service
+      let response: Observable<any>;
+      if (constructor.id) {
+        body.set('id', constructor.id.toString())
+        response = this.httpClient.delete(this.configService.URL + this.endpoint + `/${constructor.id}`,
+        { headers: this.configService.HEADERS });
+      }
+
+      // Récupération de la réponse
+      response.subscribe(res => {
+        if (res['status'] === 'OK') {
+          resolve();
+        } else {
+          reject();
+        }
+      }, err => {
+        reject(err);
+      })
+    });
   }
 }

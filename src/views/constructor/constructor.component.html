@@ -1,4 +1,10 @@
-<h2>{{ messages.get('menu_constructors') }}</h2>
-<app-constructor-list [constructors]="constructors" *ngIf="!isLoading"></app-constructor-list>
-<mat-spinner *ngIf="isLoading"></mat-spinner>
-
+<mat-card class="content">
+  <h2>{{ messages.get('menu_constructors') }}</h2>
+  <app-constructor-list [constructors]="constructors" *ngIf="!isLoading"></app-constructor-list>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+</mat-card>
+<div class="actions">
+  <button mat-fab color="primary" routerLink="/constructor/new">
+    <mat-icon class="button-icon">add</mat-icon>
+  </button>
+</div>

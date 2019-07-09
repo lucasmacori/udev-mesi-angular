@@ -1,0 +1,31 @@
+.back_button {
+  position: relative;
+  left: 2.5%;
+  margin-top: 10px;
+}
+.mode_badges {
+  float: right;
+  position: relative;
+  right: 20px;
+  top: 25px;
+}
+.name {
+  width: 400px;
+}
+
+.actions {
+  position: fixed;
+  z-index: 1001;
+  bottom: 150px;
+  right: 70px;
+  .smallDelete {
+    position: relative;
+    bottom: 5px;
+    left: 8px;
+  }
+  .delete_label {
+    position: relative;
+    bottom: 50px;
+    left: 70px;
+  }
+}

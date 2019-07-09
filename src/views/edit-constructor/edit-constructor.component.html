@@ -1,0 +1,49 @@
+<button mat-fab class="back_button" color="warn" routerLink="/constructors">
+  <mat-icon>arrow_back</mat-icon>
+</button>
+<mat-chip-list class="mode_badges" *ngIf="currentConstructor">
+  <mat-chip color="primary" *ngIf="currentConstructor.id">
+    <mat-icon>create</mat-icon>
+    {{ messages.get('crud_edition') }}
+  </mat-chip>
+  <mat-chip *ngIf="!currentConstructor.id">
+    <mat-icon>create</mat-icon>
+    {{ messages.get('crud_creation') }}
+  </mat-chip>
+</mat-chip-list>
+<mat-card class="content">
+    <div *ngIf="currentConstructor && !isLoading">
+      <h2>{{ title }}</h2>
+      <form>
+        <mat-form-field class="name">
+          <input matInput #name [placeholder]="messages.get('name')" maxlength="50" autocomplete="off" [formControl]="constructorFormControl" [errorStateMatcher]="matcher">
+          <mat-hint align="end">{{ name.value.length }} / 50</mat-hint>
+          <mat-error *ngIf="constructorFormControl.hasError('maxlength') && !constructorFormControl.hasError('required')">
+            Le nom ne peut pas contenir plus de 50 caractères
+          </mat-error>
+          <mat-error *ngIf="constructorFormControl.hasError('minlength') && !constructorFormControl.hasError('required')">
+            Le nom ne peut pas contenir moins de 2 caractères
+          </mat-error>
+          <mat-error *ngIf="constructorFormControl.hasError('required')">
+            Le nom est requis
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+</mat-card>
+<div class="actions" *ngIf="currentConstructor">
+  <span class="delete_label" *ngIf="validateDeletion">Supprimer ?</span>
+  <button mat-fab color="warn" *ngIf="!hasChanged() && currentConstructor.id" [disabled]="isLoading" (click)="delete()">
+    <mat-icon class="button-icon" *ngIf="!validateDeletion">delete</mat-icon>
+    <mat-icon class="button-icon" *ngIf="validateDeletion">check</mat-icon>
+  </button>
+  <button mat-mini-fab color="warn" class="smallDelete" *ngIf="hasChanged() && currentConstructor.id" [disabled]="isLoading" (click)="delete()">
+      <mat-icon class="button-icon" *ngIf="!validateDeletion">delete</mat-icon>
+      <mat-icon class="button-icon" *ngIf="validateDeletion">check</mat-icon>
+  </button>
+  <br />
+  <button mat-fab [disabled]="!constructorFormControl.valid" color="primary" *ngIf="hasChanged()" (click)="save()">
+    <mat-icon class="button-icon">save</mat-icon>
+  </button>
+</div>

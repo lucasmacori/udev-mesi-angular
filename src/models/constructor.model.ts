@@ -1,7 +1,7 @@
 export class Constructor {
   constructor(
-    public id: number,
-    public name: string,
-    public isActive: boolean
+    public id: number = undefined,
+    public name: string = undefined,
+    public isActive: boolean = undefined
   ) {}
 }
