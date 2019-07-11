@@ -3,8 +3,6 @@ import { Constructor } from 'src/models/constructor.model';
 import { Subject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from './config.service';
-import { reject } from 'q';
-import { MatSnackBar } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +16,7 @@ export class ConstructorService {
 
   constructor(
     private httpClient: HttpClient,
-    private configService: ConfigService,
-    private _snackBar: MatSnackBar
+    private configService: ConfigService
   ) {
     this._constructorSub = new Subject<Array<Constructor>>();
   }
