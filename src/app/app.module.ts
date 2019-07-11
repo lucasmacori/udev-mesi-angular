@@ -16,6 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConstructorService } from 'src/services/constructor.service';
 import { ValidateDialogComponent } from './../components/validate-dialog/validate-dialog.component';
 import { CreateButtonComponent } from './../components/create-button/create-button.component';
+import { ModelComponent } from '../views/model/model.component';
+import { ModelService } from 'src/services/model.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { CreateButtonComponent } from './../components/create-button/create-butt
     ConstructorListComponent,
     EditConstructorComponent,
     ValidateDialogComponent,
-    CreateButtonComponent
+    CreateButtonComponent,
+    ModelComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,8 @@ import { CreateButtonComponent } from './../components/create-button/create-butt
     HttpClientModule
   ],
   providers: [
-    ConstructorService
+    ConstructorService,
+    ModelService
   ],
   bootstrap: [AppComponent]
 })

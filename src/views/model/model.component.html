@@ -1,0 +1,8 @@
+<mat-card class="content">
+  <h2>{{ messages.get('menu_models') }}</h2>
+
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+</mat-card>
+<div class="actions">
+  <app-create-button routerLink="/model/new"></app-create-button>
+</div>
