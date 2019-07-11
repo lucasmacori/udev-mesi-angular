@@ -4,7 +4,5 @@
   <mat-spinner *ngIf="isLoading"></mat-spinner>
 </mat-card>
 <div class="actions">
-  <button mat-fab color="primary" routerLink="/constructor/new">
-    <mat-icon class="button-icon">add</mat-icon>
-  </button>
+  <app-create-button routerLink="/constructor/new"></app-create-button>
 </div>

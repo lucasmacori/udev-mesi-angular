@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConstructorService } from 'src/services/constructor.service';
 import { ValidateDialogComponent } from './../components/validate-dialog/validate-dialog.component';
+import { CreateButtonComponent } from './../components/create-button/create-button.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ValidateDialogComponent } from './../components/validate-dialog/validat
     LanguageSelectorComponent,
     ConstructorListComponent,
     EditConstructorComponent,
-    ValidateDialogComponent
+    ValidateDialogComponent,
+    CreateButtonComponent
   ],
   imports: [
     BrowserModule,

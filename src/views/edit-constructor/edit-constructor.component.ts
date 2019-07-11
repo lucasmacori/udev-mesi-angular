@@ -125,6 +125,10 @@ export class EditConstructorComponent implements OnInit, OnDestroy {
         });
     } else {
       this.validateDeletion = true;
+      // Annulation de la suppression au bout de 5 secondes sans valider
+      setTimeout(() => {
+        this.validateDeletion = false;
+      }, 5000);
     }
   }
 }
