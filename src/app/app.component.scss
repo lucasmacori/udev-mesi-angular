@@ -38,6 +38,10 @@
             color: $udev-mesi-angular-title;
           }
         }
+        .language-selector {
+          position: relative;
+          left: 10px;
+        }
       }
       .active {
         background-color: #E3E3E3;
@@ -45,11 +49,10 @@
     }
   }
   mat-drawer-content {
-    app-language-selector {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 1000;
+    .toolbar {
+      .title {
+        color: white;
+      }
     }
   }
 }

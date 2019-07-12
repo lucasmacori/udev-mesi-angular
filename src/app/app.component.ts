@@ -1,8 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'src/services/message.service';
-import { Language } from 'src/models/language.model';
-import { Message } from 'src/models/message.model';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -11,6 +9,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
+
+  public menuOpened: boolean;
 
   private messagesSub: Subscription;
   public messages: Map<string, string>;
@@ -21,6 +21,8 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.menuOpened = false;
+
     this.messagesSub = this.messageService.messagesSub.subscribe(
       (messages: Map<string, string>) => {
         this.messages = new Map<string, string>();
@@ -38,5 +40,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.messagesSub.unsubscribe();
+  }
+
+  toggleSidebar() {
+    this.menuOpened = !this.menuOpened;
   }
 }

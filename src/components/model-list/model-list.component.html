@@ -2,7 +2,7 @@
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrer les résultats" autocomplete="off" />
 </mat-form-field>
 
-<div class="mat-elevation-z8">
+<div class="mat-elevation-z8 tableContainer">
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
     <!-- Name -->

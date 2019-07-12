@@ -1,56 +1,64 @@
-<mat-drawer-container class="container">
-  <mat-drawer mode="side" opened>
+<mat-drawer-container #sidebar class="container">
+  <mat-drawer mode="over">
     <div class="header">
       <img src="../assets/logo.png" class="logo" />
       <h2>udev-mesi</h2>
     </div>
     <div class="items">
-      <mat-list-item routerLink="/constructors">
+      <mat-list-item routerLink="/constructors" (click)="sidebar.close()">
         <button mat-button [ngClass]="{'active': this.router.url.startsWith('/constructor')}">
           <mat-icon class="button-icon">build</mat-icon>
           <a matLine>{{ messages.get('menu_constructors') }}</a>
         </button>
       </mat-list-item>
-      <mat-list-item routerLink="/models">
+      <mat-list-item routerLink="/models" (click)="sidebar.close()">
         <button mat-button [ngClass]="{'active': this.router.url.startsWith('/model')}">
           <mat-icon class="button-icon">book</mat-icon>
           <a matLine>{{ messages.get('menu_models') }}</a>
         </button>
       </mat-list-item>
-      <mat-list-item routerLink="/planes">
+      <mat-list-item routerLink="/planes" (click)="sidebar.close()">
         <button mat-button [ngClass]="{'active': this.router.url.startsWith('/plane')}">
           <mat-icon class="button-icon">airplanemode_active</mat-icon>
           <a matLine>{{ messages.get('menu_planes') }}</a>
         </button>
       </mat-list-item>
-      <mat-list-item routerLink="/flights">
+      <mat-list-item routerLink="/flights" (click)="sidebar.close()">
         <button mat-button [ngClass]="{'active': this.router.url.startsWith('/flight')}">
           <mat-icon class="button-icon">personal_video</mat-icon>
           <a matLine>{{ messages.get('menu_flights') }}</a>
         </button>
       </mat-list-item>
-      <mat-list-item routerLink="/flightDetails">
+      <mat-list-item routerLink="/flightDetails" (click)="sidebar.close()">
         <button mat-button [ngClass]="{'active': this.router.url.startsWith('/flightDetail')}">
           <mat-icon class="button-icon">calendar_today</mat-icon>
           <a matLine>{{ messages.get('menu_planning') }}</a>
         </button>
       </mat-list-item>
-      <mat-list-item routerLink="/passengers">
+      <mat-list-item routerLink="/passengers" (click)="sidebar.close()">
         <button mat-button [ngClass]="{'active': this.router.url.startsWith('/passenger')}">
           <mat-icon class="button-icon">people</mat-icon>
           <a matLine>{{ messages.get('menu_passengers') }}</a>
         </button>
       </mat-list-item>
-      <mat-list-item routerLink="/reservations">
+      <mat-list-item routerLink="/reservations" (click)="sidebar.close()">
         <button mat-button [ngClass]="{'active': this.router.url.startsWith('/reservation')}">
           <mat-icon class="button-icon">business_center</mat-icon>
           <a matLine>{{ messages.get('menu_reservations') }}</a>
         </button>
       </mat-list-item>
+      <mat-list-item>
+        <app-language-selector class="language-selector"></app-language-selector>
+      </mat-list-item>
     </div>
   </mat-drawer>
   <mat-drawer-content>
-    <app-language-selector></app-language-selector>
+    <mat-toolbar color="primary" class="toolbar">
+      <button mat-icon-button (click)="sidebar.open()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <h1 class="title">udev-mesi</h1>
+    </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>

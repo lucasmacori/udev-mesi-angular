@@ -42,11 +42,17 @@ h1, h2 {
   color: $udev-mesi-angular-title;
 }
 mat-card.content {
-  width: 95%;
+  //width: 100%;
   margin: auto;
   position: relative;
-  top: 20px;
+  top: 10px;
 }
 mat-spinner {
   margin: auto;
+}
+
+@media screen and (min-width: 701px) {
+  mat-card.content {
+    width: 95%;
+  }
 }

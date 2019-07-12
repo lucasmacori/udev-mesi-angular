@@ -1,11 +1,8 @@
-<mat-card class="languages_container">
-  <img [src]="selectedLanguage.icon" class="inline language-icon-selected" />
-  <mat-form-field class="inline">
-    <mat-select (selectionChange)="onChange($event)" [value]="selectedLanguage">
-      <mat-option *ngFor="let language of messageService.languages" [value]="language">
-        <img [src]="language.icon" class="language-icon" />
-        <span class="language-name">{{language.name}}</span>
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</mat-card>
+<mat-form-field class="inline">
+  <mat-select (selectionChange)="onChange($event)" [value]="selectedLanguage">
+    <mat-option *ngFor="let language of messageService.languages" [value]="language">
+      <img [src]="language.icon" class="language-icon" />
+      <span class="language-name">{{language.name}}</span>
+    </mat-option>
+  </mat-select>
+</mat-form-field>
