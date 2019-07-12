@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Model } from '../../models/model.model';
+import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 
 @Component({
   selector: 'app-model-list',
@@ -9,11 +10,26 @@ import { Model } from '../../models/model.model';
 export class ModelListComponent implements OnInit {
 
   @Input() models: Array<Model>;
-  public displayedColumns: string[] = ['Nom', 'Constructeur', 'actions'];
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+
+
+  public dataSource;
+  public displayedColumns: string[] = ['Name', 'Manufacturer', 'CountEcoSlots', 'CountBusinessSlots', 'actions'];
 
   constructor() { }
 
   ngOnInit() {
+    this.dataSource = new MatTableDataSource(this.models);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
 }
