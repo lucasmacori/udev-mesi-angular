@@ -1,47 +1,47 @@
 <mat-drawer-container #sidebar class="container">
-  <mat-drawer mode="over">
+  <mat-drawer [mode]="mode" [opened]="menuOpened" (closedStart)="toggleSidebar(true, true)">
     <div class="header">
       <img src="../assets/logo.png" class="logo" />
       <h2>udev-mesi</h2>
     </div>
     <div class="items">
-      <mat-list-item routerLink="/constructors" (click)="sidebar.close()">
+      <mat-list-item routerLink="/constructors" (click)="toggleSidebar()">
         <button mat-button [ngClass]="{'active': this.router.url.startsWith('/constructor')}">
           <mat-icon class="button-icon">build</mat-icon>
           <a matLine>{{ messages.get('menu_constructors') }}</a>
         </button>
       </mat-list-item>
-      <mat-list-item routerLink="/models" (click)="sidebar.close()">
+      <mat-list-item routerLink="/models" (click)="toggleSidebar()">
         <button mat-button [ngClass]="{'active': this.router.url.startsWith('/model')}">
           <mat-icon class="button-icon">book</mat-icon>
           <a matLine>{{ messages.get('menu_models') }}</a>
         </button>
       </mat-list-item>
-      <mat-list-item routerLink="/planes" (click)="sidebar.close()">
+      <mat-list-item routerLink="/planes" (click)="toggleSidebar()">
         <button mat-button [ngClass]="{'active': this.router.url.startsWith('/plane')}">
           <mat-icon class="button-icon">airplanemode_active</mat-icon>
           <a matLine>{{ messages.get('menu_planes') }}</a>
         </button>
       </mat-list-item>
-      <mat-list-item routerLink="/flights" (click)="sidebar.close()">
+      <mat-list-item routerLink="/flights" (click)="toggleSidebar()">
         <button mat-button [ngClass]="{'active': this.router.url.startsWith('/flight')}">
           <mat-icon class="button-icon">personal_video</mat-icon>
           <a matLine>{{ messages.get('menu_flights') }}</a>
         </button>
       </mat-list-item>
-      <mat-list-item routerLink="/flightDetails" (click)="sidebar.close()">
+      <mat-list-item routerLink="/flightDetails" (click)="toggleSidebar()">
         <button mat-button [ngClass]="{'active': this.router.url.startsWith('/flightDetail')}">
           <mat-icon class="button-icon">calendar_today</mat-icon>
           <a matLine>{{ messages.get('menu_planning') }}</a>
         </button>
       </mat-list-item>
-      <mat-list-item routerLink="/passengers" (click)="sidebar.close()">
+      <mat-list-item routerLink="/passengers" (click)="toggleSidebar()">
         <button mat-button [ngClass]="{'active': this.router.url.startsWith('/passenger')}">
           <mat-icon class="button-icon">people</mat-icon>
           <a matLine>{{ messages.get('menu_passengers') }}</a>
         </button>
       </mat-list-item>
-      <mat-list-item routerLink="/reservations" (click)="sidebar.close()">
+      <mat-list-item routerLink="/reservations" (click)="toggleSidebar()">
         <button mat-button [ngClass]="{'active': this.router.url.startsWith('/reservation')}">
           <mat-icon class="button-icon">business_center</mat-icon>
           <a matLine>{{ messages.get('menu_reservations') }}</a>
@@ -50,15 +50,24 @@
       <mat-list-item>
         <app-language-selector class="language-selector"></app-language-selector>
       </mat-list-item>
+      <mat-list-item>
+        <button mat-button>
+          <mat-slide-toggle class="menu_toggle" (toggleChange)="toggleMenu()" [checked]="mode === 'side'" color="primary">
+            <mat-icon>chrome_reader_mode</mat-icon>
+          </mat-slide-toggle>
+        </button>
+      </mat-list-item>
     </div>
   </mat-drawer>
   <mat-drawer-content>
     <mat-toolbar color="primary" class="toolbar">
-      <button mat-icon-button (click)="sidebar.open()">
+      <button mat-icon-button (click)="toggleSidebar(true)">
         <mat-icon>menu</mat-icon>
       </button>
       <h1 class="title">udev-mesi</h1>
     </mat-toolbar>
-    <router-outlet></router-outlet>
+    <div class="app-content">
+      <router-outlet></router-outlet>
+    </div>
   </mat-drawer-content>
 </mat-drawer-container>

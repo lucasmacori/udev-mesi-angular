@@ -20,4 +20,12 @@ export class ConfigService {
   public get URL(): string {
     return this._URL;
   }
+
+  public isMobile(): boolean {
+    // Récupération du UserAgent
+    const userAgent = navigator.userAgent;
+
+    // Détéction de l'appareil
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(userAgent);
+  }
 }

@@ -37,6 +37,13 @@
             top: 4px;
             color: $udev-mesi-angular-title;
           }
+          .menu_toggle {
+            mat-icon {
+              color: black;
+              position: relative;
+              top: 0px;
+            }
+          }
         }
         .language-selector {
           position: relative;
@@ -50,9 +57,13 @@
   }
   mat-drawer-content {
     .toolbar {
+      position: fixed;
       .title {
         color: white;
       }
+    }
+    .app-content {
+      margin-top: 60px;
     }
   }
 }
