@@ -70,6 +70,9 @@ export class MessageService {
       new Message('fr', 'countBusinessSlots', 'Nombre de places affaires'),
       new Message('en', 'countBusinessSlots', 'Business slots number'),
       new Message('it', 'countBusinessSlots', 'Numero di luoghi di lavoro'),
+      new Message('fr', 'nothing_to_do_here', 'Il n\'y a rien à faire ici'),
+      new Message('en', 'nothing_to_do_here', 'Nothing to do here'),
+      new Message('it', 'nothing_to_do_here', 'Non c\'è niente da fare qui'),
     ];
 
     // Initialisation du subscribable

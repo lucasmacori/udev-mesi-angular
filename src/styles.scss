@@ -51,6 +51,10 @@ mat-spinner {
   margin: auto;
 }
 
+.centered {
+  text-align: center;
+}
+
 @media screen and (min-width: 701px) {
   mat-card.content {
     width: 95%;

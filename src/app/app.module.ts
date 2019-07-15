@@ -20,6 +20,7 @@ import { ModelComponent } from '../views/model/model.component';
 import { ModelService } from 'src/services/model.service';
 import { ModelListComponent } from '../components/model-list/model-list.component';
 import { EditModelComponent } from '../views/edit-model/edit-model.component';
+import { NothingToDoHereComponent } from '../components/nothing-to-do-here/nothing-to-do-here.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { EditModelComponent } from '../views/edit-model/edit-model.component';
     CreateButtonComponent,
     ModelComponent,
     ModelListComponent,
-    EditModelComponent
+    EditModelComponent,
+    NothingToDoHereComponent
   ],
   imports: [
     BrowserModule,
