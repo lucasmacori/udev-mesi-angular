@@ -2,7 +2,11 @@
   <mat-icon>arrow_back</mat-icon>
 </button>
 <mat-chip-list class="mode_badges" *ngIf="currentModel">
-  <mat-chip color="primary" *ngIf="currentModel.id">
+  <mat-chip color="primary" *ngIf="currentModel.id && !hasChanged()">
+    <mat-icon>remove_red_eye</mat-icon>
+    {{ messages.get('crud_read') }}
+  </mat-chip>
+  <mat-chip color="primary" *ngIf="currentModel.id && hasChanged()">
     <mat-icon>create</mat-icon>
     {{ messages.get('crud_edition') }}
   </mat-chip>
@@ -31,7 +35,7 @@
       <mat-form-field class="field">
         <mat-label>Constructeur</mat-label>
         <mat-select formControlName="manufacturer">
-          <mat-option [value]="null"></mat-option>
+          <mat-option [value]="currentModel.manufacturer.id">{{ currentModel.manufacturer.name }}</mat-option>
           <mat-option *ngFor="let manufacturer of manufacturers" [value]="manufacturer.id">
             {{ manufacturer.name }}
           </mat-option>

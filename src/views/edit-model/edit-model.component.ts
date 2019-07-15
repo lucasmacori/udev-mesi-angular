@@ -49,6 +49,7 @@ export class EditModelComponent implements OnInit, OnDestroy {
       (messages: Map<string, string>) => {
         this.messages = new Map<string, string>();
         this.messages.set('crud_creation', messages.get('crud_creation'));
+        this.messages.set('crud_read', messages.get('crud_read'));
         this.messages.set('crud_edition', messages.get('crud_edition'));
         this.messages.set('name', messages.get('name'));
         this.messages.set('menu_constructor', messages.get('menu_constructor'));
@@ -115,7 +116,9 @@ export class EditModelComponent implements OnInit, OnDestroy {
 
   hasChanged() {
     return (this.modelFormGroup.controls.name.value !== this.currentModel.name ||
-      this.modelFormGroup.controls.manufacturer.value !== this.currentModel.manufacturer.id);
+      this.modelFormGroup.controls.manufacturer.value !== this.currentModel.manufacturer.id ||
+      this.modelFormGroup.controls.countEcoSlots.value !== this.currentModel.countEcoSlots ||
+      this.modelFormGroup.controls.countBusinessSlots.value !== this.currentModel.countBusinessSlots);
   }
 
   save() {

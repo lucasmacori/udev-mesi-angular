@@ -2,8 +2,12 @@
   <mat-icon>arrow_back</mat-icon>
 </button>
 <mat-chip-list class="mode_badges" *ngIf="currentConstructor">
-  <mat-chip color="primary" *ngIf="currentConstructor.id">
-    <mat-icon>create</mat-icon>
+  <mat-chip color="primary" *ngIf="currentConstructor.id && !hasChanged()">
+      <mat-icon>remove_red_eye</mat-icon>
+      {{ messages.get('crud_read') }}
+    </mat-chip>
+  <mat-chip color="primary" *ngIf="currentConstructor.id && hasChanged()">
+  <mat-icon>create</mat-icon>
     {{ messages.get('crud_edition') }}
   </mat-chip>
   <mat-chip *ngIf="!currentConstructor.id">
@@ -15,7 +19,7 @@
     <div *ngIf="currentConstructor && !isLoading">
       <h2>{{ title }}</h2>
       <form>
-        <mat-form-field class="name">
+        <mat-form-field class="field">
           <input matInput #name [placeholder]="messages.get('name')" maxlength="50" autocomplete="off" [formControl]="constructorFormControl" [errorStateMatcher]="matcher">
           <mat-hint align="end">{{ name.value.length }} / 50</mat-hint>
           <mat-error *ngIf="constructorFormControl.hasError('maxlength') && !constructorFormControl.hasError('required')">

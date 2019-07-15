@@ -43,6 +43,7 @@ export class EditConstructorComponent implements OnInit, OnDestroy {
       (messages: Map<string, string>) => {
         this.messages = new Map<string, string>();
         this.messages.set('crud_creation', messages.get('crud_creation'));
+        this.messages.set('crud_read', messages.get('crud_read'));
         this.messages.set('crud_edition', messages.get('crud_edition'));
         this.messages.set('name', messages.get('name'));
       }
