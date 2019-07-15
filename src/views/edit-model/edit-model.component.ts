@@ -141,4 +141,29 @@ export class EditModelComponent implements OnInit, OnDestroy {
         this.isLoading = false;
       });
   }
+
+  delete() {
+    if (this.validateDeletion) {
+      this.isLoading = true;
+
+      // Récupération des valeurs
+      this.modelService.deleteModel(this.currentModel)
+        .then(() => {
+          this.router.navigate(['/models', { message: 'Le modèle à bien été supprimé' }]);
+          this.isLoading = false;
+          this.validateDeletion = false;
+        })
+        .catch(err => {
+          this.snackBar.open('Erreur lors la suppression du modèle. ' + err, 'Fermer', { duration: 5000 });
+          this.isLoading = false;
+          this.validateDeletion = false;
+        });
+    } else {
+      this.validateDeletion = true;
+      // Annulation de la suppression au bout de 5 secondes sans valider
+      setTimeout(() => {
+        this.validateDeletion = false;
+      }, 5000);
+    }
+  }
 }
