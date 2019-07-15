@@ -78,7 +78,7 @@ export class ConstructorService {
           reject();
         }
       }, err => {
-        reject(err);
+        reject(err['message']);
       })
     });
   }
@@ -104,7 +104,7 @@ export class ConstructorService {
           reject();
         }
       }, err => {
-        reject(err);
+        reject(err['message']);
       })
     });
   }

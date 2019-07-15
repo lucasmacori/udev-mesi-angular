@@ -58,6 +58,7 @@
   mat-drawer-content {
     .toolbar {
       position: fixed;
+      z-index: 1000;
       .title {
         color: white;
       }

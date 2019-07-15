@@ -51,16 +51,19 @@ export class ModelService {
     });
   }
 
-  public saveConstructor(model: Model): Promise<null> {
+  public saveModel(model: Model): Promise<null> {
     return new Promise((resolve, reject) => {
 
       const body = new URLSearchParams();
       body.set('name', model.name);
+      body.set('manufacturer', model.manufacturer.id.toString());
+      body.set('countEcoSlots', model.countEcoSlots.toString());
+      body.set('countBusinessSlots', model.countBusinessSlots.toString());
 
       // Appel du web service
       let response: Observable<any>;
       if (model.id) {
-        body.set('id', model.id.toString())
+        body.set('id', model.id.toString());
         response = this.httpClient.put(this.configService.URL + this.endpoint, body.toString(),
         { headers: this.configService.HEADERS });
       } else {
@@ -76,7 +79,7 @@ export class ModelService {
           reject();
         }
       }, err => {
-        reject(err);
+        reject(err['message']);
       })
     });
   }
@@ -102,7 +105,7 @@ export class ModelService {
           reject();
         }
       }, err => {
-        reject(err);
+        reject(err['message']);
       })
     });
   }

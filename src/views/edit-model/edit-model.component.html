@@ -12,24 +12,45 @@
   </mat-chip>
 </mat-chip-list>
 <mat-card class="content">
-    <div *ngIf="currentModel && !isLoading">
-      <h2>{{ title }}</h2>
-      <form [formGroup]="modelFormGroup">
-        <mat-form-field class="name">
-          <input matInput #name [placeholder]="messages.get('name')" maxlength="50" autocomplete="off" [errorStateMatcher]="matcher">
-          <mat-hint align="end">{{ name.value.length }} / 50</mat-hint>
-          <mat-error *ngIf="modelFormGroup.value['name'].hasError('maxlength') && !constructorFormControl.hasError('required')">
-            Le nom ne peut pas contenir plus de 50 caractères
-          </mat-error>
-          <mat-error *ngIf="modelFormGroup.value['name'].hasError('minlength') && !constructorFormControl.hasError('required')">
-            Le nom ne peut pas contenir moins de 2 caractères
-          </mat-error>
-          <mat-error *ngIf="modelFormGroup.value['name'].hasError('required')">
-            Le nom est requis
-          </mat-error>
-        </mat-form-field>
-      </form>
-    </div>
+  <div *ngIf="currentModel && !isLoading">
+    <h2>{{ title }}</h2>
+    <form [formGroup]="modelFormGroup">
+      <mat-form-field class="field">
+        <input matInput #name [placeholder]="messages.get('name')" maxlength="50" autocomplete="off" [errorStateMatcher]="matcher" formControlName="name">
+        <mat-hint align="end">{{ name.value.length }} / 50</mat-hint>
+        <mat-error *ngIf="modelFormGroup.controls.name.hasError('maxlength') && !modelFormGroup.controls.name.hasError('required')">
+          Le nom ne peut pas contenir plus de 50 caractères
+        </mat-error>
+        <mat-error *ngIf="modelFormGroup.controls.name.hasError('minlength') && !modelFormGroup.controls.name.hasError('required')">
+          Le nom ne peut pas contenir moins de 2 caractères
+        </mat-error>
+        <mat-error *ngIf="modelFormGroup.controls.name.hasError('required')">
+          Le nom est requis
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="field">
+        <mat-label>Constructeur</mat-label>
+        <mat-select formControlName="manufacturer">
+          <mat-option [value]="null"></mat-option>
+          <mat-option *ngFor="let manufacturer of manufacturers" [value]="manufacturer.id">
+            {{ manufacturer.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="field">
+        <input matInput type="number" #countEcoSlots [placeholder]="messages.get('countEcoSlots')" autocomplete="off" [errorStateMatcher]="matcher" formControlName="countEcoSlots">
+        <mat-error *ngIf="modelFormGroup.controls.countEcoSlots.hasError('required')">
+          Le nombre de places eco est requis
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="field">
+        <input matInput type="number" #countBusinessSlots [placeholder]="messages.get('countBusinessSlots')" autocomplete="off" [errorStateMatcher]="matcher" formControlName="countBusinessSlots">
+        <mat-error *ngIf="modelFormGroup.controls.countBusinessSlots.hasError('required')">
+          Le nombre de places affaires est requis
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </div>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
 </mat-card>
 <div class="actions" *ngIf="currentModel">
@@ -43,7 +64,7 @@
       <mat-icon class="button-icon" *ngIf="validateDeletion">check</mat-icon>
   </button>
   <br />
-  <button mat-fab [disabled]="!constructorFormControl.valid" color="primary" *ngIf="hasChanged()" (click)="save()">
+  <button mat-fab [disabled]="!modelFormGroup.valid" color="primary" *ngIf="hasChanged()" (click)="save()">
     <mat-icon class="button-icon">save</mat-icon>
   </button>
 </div>

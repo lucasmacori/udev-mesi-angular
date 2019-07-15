@@ -61,6 +61,12 @@ export class MessageService {
       new Message('fr', 'name', 'Nom'),
       new Message('en', 'name', 'Name'),
       new Message('it', 'name', 'Nominativo'),
+      new Message('fr', 'countEcoSlots', 'Nombre de places éco'),
+      new Message('en', 'countEcoSlots', 'Eco slots number'),
+      new Message('it', 'countEcoSlots', 'Numero di luoghi eco'),
+      new Message('fr', 'countBusinessSlots', 'Nombre de places affaires'),
+      new Message('en', 'countBusinessSlots', 'Business slots number'),
+      new Message('it', 'countBusinessSlots', 'Numero di luoghi di lavoro'),
     ];
 
     // Initialisation du subscribable
