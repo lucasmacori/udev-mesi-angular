@@ -22,6 +22,9 @@ import { ModelListComponent } from '../components/model-list/model-list.componen
 import { EditModelComponent } from '../views/edit-model/edit-model.component';
 import { NothingToDoHereComponent } from '../components/nothing-to-do-here/nothing-to-do-here.component';
 import { DeleteButtonComponent } from '../components/delete-button/delete-button.component';
+import { PlaneComponent } from '../views/plane/plane.component';
+import { EditPlaneComponent } from '../views/edit-plane/edit-plane.component';
+import { PlaneListComponent } from '../components/plane-list/plane-list.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,10 @@ import { DeleteButtonComponent } from '../components/delete-button/delete-button
     ModelListComponent,
     EditModelComponent,
     NothingToDoHereComponent,
-    DeleteButtonComponent
+    DeleteButtonComponent,
+    PlaneComponent,
+    EditPlaneComponent,
+    PlaneListComponent
   ],
   imports: [
     BrowserModule,
