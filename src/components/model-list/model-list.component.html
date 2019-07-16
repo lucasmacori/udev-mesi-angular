@@ -1,6 +1,6 @@
 <div *ngIf="models && models.length !== 0">
   <mat-form-field class="filterbar">
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrer les résultats" autocomplete="off" />
+    <input matInput (keyup)="applyFilter($event.target.value)" [placeholder]="messages.get('filter')" autocomplete="off" />
   </mat-form-field>
 
   <div class="mat-elevation-z8 tableContainer">
@@ -8,7 +8,7 @@
 
       <!-- Name -->
       <ng-container matColumnDef="Name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ messages.get('name') }}</th>
         <td mat-cell *matCellDef="let model">
           <a class="no-link" [routerLink]="'/model/' + model.id">
             {{ model.name }}
@@ -18,7 +18,7 @@
 
       <!-- Manufacturer -->
       <ng-container matColumnDef="Manufacturer">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Constructeur</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ messages.get('entity_constructor') }}</th>
         <td mat-cell *matCellDef="let model">
           <a class="no-link" [routerLink]="'/constructor/' + model.manufacturer.id">
             {{ model.manufacturer.name }}
@@ -28,7 +28,7 @@
 
       <!-- CountEcoSlots -->
       <ng-container matColumnDef="CountEcoSlots">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Places éco</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ messages.get('countEcoSlots') }}</th>
         <td mat-cell *matCellDef="let model">
           {{ model.countEcoSlots }}
         </td>
@@ -36,7 +36,7 @@
 
       <!-- CountBusinessSlots -->
       <ng-container matColumnDef="CountBusinessSlots">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Places affaires</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ messages.get('countBusinessSlots') }}</th>
         <td mat-cell *matCellDef="let model">
           {{ model.countBusinessSlots }}
         </td>

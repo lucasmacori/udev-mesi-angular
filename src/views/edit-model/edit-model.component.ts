@@ -52,9 +52,14 @@ export class EditModelComponent implements OnInit, OnDestroy {
         this.messages.set('crud_read', messages.get('crud_read'));
         this.messages.set('crud_edition', messages.get('crud_edition'));
         this.messages.set('name', messages.get('name'));
-        this.messages.set('menu_constructor', messages.get('menu_constructor'));
+        this.messages.set('entity_constructor', messages.get('entity_constructor'));
         this.messages.set('countEcoSlots', messages.get('countEcoSlots'));
         this.messages.set('countBusinessSlots', messages.get('countBusinessSlots'));
+        this.messages.set('field_is_required', messages.get('field_is_required'));
+        this.messages.set('field_cannot_contain_less_than_2_characters', messages.get('field_cannot_contain_less_than_2_characters'));
+        this.messages.set('model_has_been_created', messages.get('model_has_been_created'));
+        this.messages.set('model_has_been_edited', messages.get('model_has_been_edited'));
+        this.messages.set('model_has_been_deleted', messages.get('model_has_been_deleted'));
       }
     );
     this.messageService.sendMessages();
@@ -66,9 +71,9 @@ export class EditModelComponent implements OnInit, OnDestroy {
       });
     this.constructorService.fetchConstructors()
       .then(() => {
-        if (this.router.url !== "/model/new") {
+        if (this.router.url !== '/model/new') {
           // Récupération du modèle
-          this.id = this.route.snapshot.params['id'];
+          this.id = this.route.snapshot.params.id;
           this.modelService.getModelById(this.id)
             .then((model: Model) => {
               this.currentModel = model;
@@ -131,42 +136,33 @@ export class EditModelComponent implements OnInit, OnDestroy {
     });
     this.currentModel.countEcoSlots = this.modelFormGroup.controls.countEcoSlots.value;
     this.currentModel.countBusinessSlots = this.modelFormGroup.controls.countBusinessSlots.value;
-    let message = (this.currentModel.id) ? 'Le modèle à bien été modifié' : 'Le modèle à bien été créé';
+    const message = (this.currentModel.id) ? this.messages.get('model_has_been_edited') : this.messages.get('model_has_been_created');
 
     // Appel du web service
     this.modelService.saveModel(this.currentModel)
       .then(() => {
-        this.router.navigate(['/models', { message: message }]);
+        this.router.navigate(['/models', { message }]);
         this.isLoading = false;
       })
       .catch(err => {
-        this.snackBar.open('Erreur lors la sauvegarde du modèle. ' + err, 'Fermer', { duration: 5000 });
+        this.snackBar.open(err, 'Fermer', { duration: 5000 });
         this.isLoading = false;
       });
   }
 
   delete() {
-    if (this.validateDeletion) {
-      this.isLoading = true;
-
-      // Récupération des valeurs
-      this.modelService.deleteModel(this.currentModel)
-        .then(() => {
-          this.router.navigate(['/models', { message: 'Le modèle à bien été supprimé' }]);
-          this.isLoading = false;
-          this.validateDeletion = false;
-        })
-        .catch(err => {
-          this.snackBar.open('Erreur lors la suppression du modèle. ' + err, 'Fermer', { duration: 5000 });
-          this.isLoading = false;
-          this.validateDeletion = false;
-        });
-    } else {
-      this.validateDeletion = true;
-      // Annulation de la suppression au bout de 5 secondes sans valider
-      setTimeout(() => {
+    this.isLoading = true;
+    // Récupération des valeurs
+    this.modelService.deleteModel(this.currentModel)
+      .then(() => {
+        this.router.navigate(['/models', { message: this.messages.get('model_has_been_deleted') }]);
+        this.isLoading = false;
         this.validateDeletion = false;
-      }, 5000);
-    }
+      })
+      .catch(err => {
+        this.snackBar.open(err, 'Fermer', { duration: 5000 });
+        this.isLoading = false;
+        this.validateDeletion = false;
+      });
   }
 }

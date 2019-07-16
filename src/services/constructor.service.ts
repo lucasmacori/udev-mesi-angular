@@ -9,7 +9,7 @@ import { ConfigService } from './config.service';
 })
 export class ConstructorService {
 
-  private endpoint: string = "manufacturer";
+  private endpoint = 'manufacturer';
 
   private _constructorSub: Subject<Array<Constructor>>;
   private _constructors: Array<Constructor>;
@@ -46,10 +46,9 @@ export class ConstructorService {
       { headers: this.configService.HEADERS })
         .subscribe(res => {
           resolve(res['manufacturer']);
-        }), err => {
-          //TODO: Gérer les erreurs;
+        }, err => {
           reject(err);
-        }
+        });
     });
   }
 

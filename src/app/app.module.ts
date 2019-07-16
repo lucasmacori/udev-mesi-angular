@@ -21,6 +21,7 @@ import { ModelService } from 'src/services/model.service';
 import { ModelListComponent } from '../components/model-list/model-list.component';
 import { EditModelComponent } from '../views/edit-model/edit-model.component';
 import { NothingToDoHereComponent } from '../components/nothing-to-do-here/nothing-to-do-here.component';
+import { DeleteButtonComponent } from '../components/delete-button/delete-button.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { NothingToDoHereComponent } from '../components/nothing-to-do-here/nothi
     ModelComponent,
     ModelListComponent,
     EditModelComponent,
-    NothingToDoHereComponent
+    NothingToDoHereComponent,
+    DeleteButtonComponent
   ],
   imports: [
     BrowserModule,

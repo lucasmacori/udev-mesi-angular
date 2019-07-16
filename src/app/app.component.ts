@@ -27,13 +27,13 @@ export class AppComponent implements OnInit, OnDestroy {
     const defaultMode = (this.configService.isMobile()) ? 'over' : 'side';
 
     // Récupération du mode depuis le local storage
-    const menu_mode: string = localStorage.getItem('menu_mode');
-    this.mode = (menu_mode) ? menu_mode : defaultMode;
+    const menuMode: string = localStorage.getItem('menu_mode');
+    this.mode = (menuMode) ? menuMode : defaultMode;
 
     // Récupération de l'ouverture du menu depuis le local storage
-    const menu_opened: boolean = (localStorage.getItem('menu_opened') === 'true');
-    if (menu_opened && this.mode === 'side') {
-      this.menuOpened = menu_opened;
+    const menuOpened: boolean = (localStorage.getItem('menu_opened') === 'true');
+    if (menuOpened && this.mode === 'side') {
+      this.menuOpened = menuOpened;
     } else {
       this.menuOpened = (this.mode === 'over') ? false : true;
     }

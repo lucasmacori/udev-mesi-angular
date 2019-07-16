@@ -22,18 +22,15 @@
       <mat-form-field class="field">
         <input matInput #name [placeholder]="messages.get('name')" maxlength="50" autocomplete="off" [errorStateMatcher]="matcher" formControlName="name">
         <mat-hint align="end">{{ name.value.length }} / 50</mat-hint>
-        <mat-error *ngIf="modelFormGroup.controls.name.hasError('maxlength') && !modelFormGroup.controls.name.hasError('required')">
-          Le nom ne peut pas contenir plus de 50 caractères
-        </mat-error>
         <mat-error *ngIf="modelFormGroup.controls.name.hasError('minlength') && !modelFormGroup.controls.name.hasError('required')">
-          Le nom ne peut pas contenir moins de 2 caractères
+          {{ messages.get('field_cannot_contain_less_than_2_characters') }}
         </mat-error>
         <mat-error *ngIf="modelFormGroup.controls.name.hasError('required')">
-          Le nom est requis
+          {{ messages.get('field_is_required') }}
         </mat-error>
       </mat-form-field>
       <mat-form-field class="field">
-        <mat-label>Constructeur</mat-label>
+        <mat-label>{{ messages.get('entity_constructor') }}</mat-label>
         <mat-select formControlName="manufacturer">
           <mat-option [value]="currentModel.manufacturer.id">{{ currentModel.manufacturer.name }}</mat-option>
           <mat-option *ngFor="let manufacturer of manufacturers" [value]="manufacturer.id">
@@ -44,13 +41,13 @@
       <mat-form-field class="field">
         <input matInput type="number" #countEcoSlots [placeholder]="messages.get('countEcoSlots')" autocomplete="off" [errorStateMatcher]="matcher" formControlName="countEcoSlots">
         <mat-error *ngIf="modelFormGroup.controls.countEcoSlots.hasError('required')">
-          Le nombre de places eco est requis
+            {{ messages.get('field_is_required') }}
         </mat-error>
       </mat-form-field>
       <mat-form-field class="field">
         <input matInput type="number" #countBusinessSlots [placeholder]="messages.get('countBusinessSlots')" autocomplete="off" [errorStateMatcher]="matcher" formControlName="countBusinessSlots">
         <mat-error *ngIf="modelFormGroup.controls.countBusinessSlots.hasError('required')">
-          Le nombre de places affaires est requis
+          {{ messages.get('field_is_required') }}
         </mat-error>
       </mat-form-field>
     </form>
@@ -58,15 +55,7 @@
   <mat-spinner *ngIf="isLoading"></mat-spinner>
 </mat-card>
 <div class="actions" *ngIf="currentModel">
-  <span class="delete_label" *ngIf="validateDeletion">Supprimer ?</span>
-  <button mat-fab color="warn" *ngIf="!hasChanged() && currentModel.id" [disabled]="isLoading" (click)="delete()">
-    <mat-icon class="button-icon" *ngIf="!validateDeletion">delete</mat-icon>
-    <mat-icon class="button-icon" *ngIf="validateDeletion">check</mat-icon>
-  </button>
-  <button mat-mini-fab color="warn" class="smallDelete" *ngIf="hasChanged() && currentModel.id" [disabled]="isLoading" (click)="delete()">
-      <mat-icon class="button-icon" *ngIf="!validateDeletion">delete</mat-icon>
-      <mat-icon class="button-icon" *ngIf="validateDeletion">check</mat-icon>
-  </button>
+  <app-delete-button [displayed]="currentModel.id" [smallButton]="hasChanged()" (validated)="delete()"></app-delete-button>
   <br />
   <button mat-fab [disabled]="!modelFormGroup.valid" color="primary" *ngIf="hasChanged()" (click)="save()">
     <mat-icon class="button-icon">save</mat-icon>

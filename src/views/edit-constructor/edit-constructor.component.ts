@@ -46,13 +46,18 @@ export class EditConstructorComponent implements OnInit, OnDestroy {
         this.messages.set('crud_read', messages.get('crud_read'));
         this.messages.set('crud_edition', messages.get('crud_edition'));
         this.messages.set('name', messages.get('name'));
+        this.messages.set('field_is_required', messages.get('field_is_required'));
+        this.messages.set('field_cannot_contain_less_than_2_characters', messages.get('field_cannot_contain_less_than_2_characters'));
+        this.messages.set('constructor_has_been_created', messages.get('constructor_has_been_created'));
+        this.messages.set('constructor_has_been_edited', messages.get('constructor_has_been_edited'));
+        this.messages.set('constructor_has_been_deleted', messages.get('constructor_has_been_deleted'));
       }
     );
     this.messageService.sendMessages();
 
-    if (this.router.url !== "/constructor/new") {
+    if (this.router.url !== '/constructor/new') {
       // Récupération du constructeur
-      this.id = this.route.snapshot.params['id'];
+      this.id = this.route.snapshot.params.id;
       this.constructorService.getConstructorById(this.id)
         .then((constructor: Constructor) => {
           this.currentConstructor = constructor;
@@ -93,43 +98,35 @@ export class EditConstructorComponent implements OnInit, OnDestroy {
 
     // Récupération des valeurs
     this.currentConstructor.name = this.constructorFormControl.value;
-    let message = (this.currentConstructor.id) ? 'Le constructeur à bien été modifié' : 'Le constructeur à bien été créé';
+    const message = (this.currentConstructor.id) ? this.messages.get('constructor_has_been_edited') :
+    this.messages.get('constructor_has_been_created');
 
     // Appel du web service
     this.constructorService.saveConstructor(this.currentConstructor)
       .then(() => {
-        this.router.navigate(['/constructors', { message: message }]);
+        this.router.navigate(['/constructors', { message }]);
         this.isLoading = false;
       })
       .catch(err => {
-        this.snackBar.open('Erreur lors la sauvegarde du constructeur. ' + err, 'Fermer', { duration: 5000 });
+        this.snackBar.open(err, 'Fermer', { duration: 5000 });
         this.isLoading = false;
       });
   }
 
   delete() {
-    if (this.validateDeletion) {
-      this.isLoading = true;
-
-      // Récupération des valeurs
-      this.currentConstructor.name = this.constructorFormControl.value;
-      this.constructorService.deleteConstructor(this.currentConstructor)
-        .then(() => {
-          this.router.navigate(['/constructors', { message: 'Le constructeur à bien été supprimé' }]);
-          this.isLoading = false;
-          this.validateDeletion = false;
-        })
-        .catch(err => {
-          this.snackBar.open('Erreur lors la suppression du constructeur. ' + err, 'Fermer', { duration: 5000 });
-          this.isLoading = false;
-          this.validateDeletion = false;
-        });
-    } else {
-      this.validateDeletion = true;
-      // Annulation de la suppression au bout de 5 secondes sans valider
-      setTimeout(() => {
+    this.isLoading = true;
+    // Récupération des valeurs
+    this.currentConstructor.name = this.constructorFormControl.value;
+    this.constructorService.deleteConstructor(this.currentConstructor)
+      .then(() => {
+        this.router.navigate(['/constructors', { message: this.messages.get('constructor_has_been_deleted') }]);
+        this.isLoading = false;
         this.validateDeletion = false;
-      }, 5000);
-    }
+      })
+      .catch(err => {
+        this.snackBar.open(err, 'Fermer', { duration: 5000 });
+        this.isLoading = false;
+        this.validateDeletion = false;
+      });
   }
 }

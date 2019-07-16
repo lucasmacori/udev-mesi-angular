@@ -1,0 +1,9 @@
+<span class="delete_label" *ngIf="validateDeletion">{{ messages.get('delete') }} ?</span>
+<button mat-fab color="warn" *ngIf="displayed && !smallButton" [disabled]="isLoading" (click)="delete()">
+  <mat-icon class="button-icon" *ngIf="!validateDeletion">delete</mat-icon>
+  <mat-icon class="button-icon" *ngIf="validateDeletion">check</mat-icon>
+</button>
+<button mat-mini-fab color="warn" *ngIf="displayed && smallButton" class="smallDelete" [disabled]="isLoading" (click)="delete()">
+    <mat-icon class="button-icon" *ngIf="!validateDeletion">delete</mat-icon>
+    <mat-icon class="button-icon" *ngIf="validateDeletion">check</mat-icon>
+</button>

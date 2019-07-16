@@ -34,8 +34,10 @@ export class ModelComponent implements OnInit, OnDestroy {
     // Affichage d'un message si demandé
     this.activatedRoute.params
       .subscribe(params => {
-        const message = params['message']
-        if (message) this.snackBar.open(message, 'Fermer', { duration: 5000 });
+        const message = params.message;
+        if (message) {
+          this.snackBar.open(message, 'Fermer', { duration: 5000 });
+        }
       });
 
     this.messagesSub = this.messageService.messagesSub.subscribe((messages: Map<string, string>) => {
@@ -53,6 +55,7 @@ export class ModelComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.modelSub.unsubscribe();
     this.messagesSub.unsubscribe();
   }
 }

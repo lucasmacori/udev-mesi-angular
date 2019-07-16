@@ -7,7 +7,7 @@ import { ConfigService } from './config.service';
 @Injectable()
 export class ModelService {
 
-  private endpoint: string = "model";
+  private endpoint = 'model';
 
   private _modelSub: Subject<Array<Model>>;
   private _models: Array<Model>;
@@ -44,10 +44,9 @@ export class ModelService {
       { headers: this.configService.HEADERS })
         .subscribe(res => {
           resolve(res['model']);
-        }), err => {
-          //TODO: Gérer les erreurs;
+        }, err => {
           reject(err);
-        }
+        });
     });
   }
 
