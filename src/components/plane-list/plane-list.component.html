@@ -10,7 +10,7 @@
       <ng-container matColumnDef="ARN">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>ARN</th>
         <td mat-cell *matCellDef="let plane">
-          <a class="no-link" [routerLink]="'/plane/' + plane.id">
+          <a class="no-link" [routerLink]="'/plane/' + plane.ARN">
             {{ plane.ARN }}
           </a>
           </td>

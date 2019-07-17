@@ -42,7 +42,9 @@ export class PlaneService {
       this.httpClient.get(this.configService.URL + this.endpoint + `/${ARN}`,
       { headers: this.configService.HEADERS })
         .subscribe(res => {
-          resolve(res['plane']);
+          let plane: Plane = res['plane'];
+          plane.isUnderMaintenance = res['plane'].isUnderMaintenance === 'true';
+          resolve(plane);
         }, err => {
           reject(err);
         });

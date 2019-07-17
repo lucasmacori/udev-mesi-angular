@@ -110,6 +110,9 @@ export class MessageService {
       new Message('it', 'cannot_communicate_with_api', 'Si è verificato un errore durante la comunicazione con l\'API'),
 
       // Validators
+      new Message('fr', 'field_cannot_be_edited', 'Ce champ ne peut pas être modifié'),
+      new Message('en', 'field_cannot_be_edited', 'This field cannot be edited'),
+      new Message('it', 'field_cannot_be_edited', 'Questo campo non può essere cambiato'),
       new Message('fr', 'field_is_required', 'Ce champ est requis'),
       new Message('en', 'field_is_required', 'This field is required'),
       new Message('it', 'field_is_required', 'Questo campo è richiesto'),
@@ -136,6 +139,15 @@ export class MessageService {
       new Message('fr', 'model_has_been_deleted', 'Le modèle a bien été supprimé'),
       new Message('en', 'model_has_been_deleted', 'The model has succesfully been deleted'),
       new Message('it', 'model_has_been_deleted', 'Il modello è stato cancellato'),
+      new Message('fr', 'plane_has_been_created', 'L\'avion a bien été créé'),
+      new Message('en', 'plane_has_been_created', 'The plane has succesfully been created'),
+      new Message('it', 'plane_has_been_created', 'Il aeroplano è stato creato'),
+      new Message('fr', 'plane_has_been_edited', 'L\'avion a bien été modifié'),
+      new Message('en', 'plane_has_been_edited', 'The plane has succesfully been edited'),
+      new Message('it', 'plane_has_been_edited', 'Il aeroplano è stato modificato'),
+      new Message('fr', 'plane_has_been_deleted', 'L\'avion a bien été supprimé'),
+      new Message('en', 'plane_has_been_deleted', 'The plane has succesfully been deleted'),
+      new Message('it', 'plane_has_been_deleted', 'Il aeroplano è stato cancellato'),
     ];
 
     // Initialisation du subscribable
