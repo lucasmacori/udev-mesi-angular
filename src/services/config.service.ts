@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import config from './../assets/config.json';
 import { HttpHeaders } from '@angular/common/http';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ConfigService {
 
   private _URL: string;

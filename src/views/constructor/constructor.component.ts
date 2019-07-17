@@ -44,6 +44,7 @@ export class ConstructorComponent implements OnInit, OnDestroy {
     this.messagesSub = this.messageService.messagesSub.subscribe((messages: Map<string, string>) => {
       this.messages = new Map<string, string>();
       this.messages.set('menu_constructors', messages.get('menu_constructors'));
+      this.messages.set('cannot_communicate_with_api', messages.get('cannot_communicate_with_api'));
     });
     this.messageService.sendMessages();
 
@@ -52,7 +53,10 @@ export class ConstructorComponent implements OnInit, OnDestroy {
       this.constructors = constructors;
       this.isLoading = false;
     });
-    this.constructorService.fetchConstructors();
+    this.constructorService.fetchConstructors()
+      .catch(err => {
+        this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ` + err.message, 'Fermer', { duration: 5000 });
+      });
   }
 
   ngOnDestroy() {

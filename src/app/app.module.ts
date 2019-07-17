@@ -25,6 +25,9 @@ import { DeleteButtonComponent } from '../components/delete-button/delete-button
 import { PlaneComponent } from '../views/plane/plane.component';
 import { EditPlaneComponent } from '../views/edit-plane/edit-plane.component';
 import { PlaneListComponent } from '../components/plane-list/plane-list.component';
+import { PlaneService } from '../services/plane.service';
+import { ConfigService } from '../services/config.service';
+import { MessageService } from '../services/message.service';
 
 @NgModule({
   declarations: [
@@ -69,8 +72,11 @@ import { PlaneListComponent } from '../components/plane-list/plane-list.componen
     HttpClientModule
   ],
   providers: [
+    ConfigService,
+    MessageService,
     ConstructorService,
-    ModelService
+    ModelService,
+    PlaneService
   ],
   bootstrap: [AppComponent]
 })

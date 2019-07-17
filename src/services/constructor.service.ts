@@ -34,8 +34,7 @@ export class ConstructorService {
           this._constructorSub.next(this._constructors);
           resolve();
         }, err => {
-          // TODO: Gérer les erreurs
-          reject();
+          reject(err);
         });
     });
   }

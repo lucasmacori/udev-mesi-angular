@@ -5,9 +5,7 @@ import { Subject } from 'rxjs';
 import { ConfigService } from './config.service';
 import { HttpHeaders } from '@angular/common/http';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class MessageService {
 
   private _selectedLanguage: Language;
@@ -53,9 +51,9 @@ export class MessageService {
       new Message('fr', 'crud_creation', 'Création'),
       new Message('en', 'crud_creation', 'Creation'),
       new Message('it', 'crud_creation', 'Creazione'),
-      new Message('fr', 'crud_read', 'Visionnage'),
+      new Message('fr', 'crud_read', 'Consultation'),
       new Message('en', 'crud_read', 'View'),
-      new Message('it', 'crud_read', 'Vista'),
+      new Message('it', 'crud_read', 'Consultazione'),
       new Message('fr', 'crud_edition', 'Édition'),
       new Message('en', 'crud_edition', 'Edition'),
       new Message('it', 'crud_edition', 'Divulgazione'),
@@ -102,6 +100,11 @@ export class MessageService {
       new Message('fr', 'filter', 'Filtrer'),
       new Message('en', 'filter', 'Filter'),
       new Message('it', 'filter', 'Filtro'),
+
+      // Errors
+      new Message('fr', 'cannot_communicate_with_api', 'Une erreur s\'est produite lors de la communication avec l\'API'),
+      new Message('en', 'cannot_communicate_with_api', 'An error occured when trying to communicate with the API'),
+      new Message('it', 'cannot_communicate_with_api', 'Si è verificato un errore durante la comunicazione con l\'API'),
 
       // Validators
       new Message('fr', 'field_is_required', 'Ce champ est requis'),

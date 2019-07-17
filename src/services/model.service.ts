@@ -32,8 +32,7 @@ export class ModelService {
           this._modelSub.next(this._models);
           resolve();
         }, err => {
-          // TODO: Gérer les erreurs
-          reject();
+          reject(err);
         });
     });
   }

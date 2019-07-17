@@ -43,6 +43,7 @@ export class ModelComponent implements OnInit, OnDestroy {
     this.messagesSub = this.messageService.messagesSub.subscribe((messages: Map<string, string>) => {
       this.messages = new Map<string, string>();
       this.messages.set('menu_models', messages.get('menu_models'));
+      this.messages.set('cannot_communicate_with_api', messages.get('cannot_communicate_with_api'));
     });
     this.messageService.sendMessages();
 
@@ -51,7 +52,10 @@ export class ModelComponent implements OnInit, OnDestroy {
       this.models = models;
       this.isLoading = false;
     });
-    this.modelService.fetchModels();
+    this.modelService.fetchModels()
+      .catch(err => {
+        this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ` + err.message, 'Fermer', { duration: 5000 });
+      });
   }
 
   ngOnDestroy() {
