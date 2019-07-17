@@ -84,12 +84,9 @@ export class ConstructorService {
   public deleteConstructor(constructor: Constructor): Promise<null> {
     return new Promise((resolve, reject) => {
 
-      const body = new URLSearchParams();
-
       // Appel du web service
       let response: Observable<any>;
       if (constructor.id) {
-        body.set('id', constructor.id.toString())
         response = this.httpClient.delete(this.configService.URL + this.endpoint + `/${constructor.id}`,
         { headers: this.configService.HEADERS });
       }

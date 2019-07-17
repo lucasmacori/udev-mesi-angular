@@ -85,12 +85,9 @@ export class ModelService {
   public deleteModel(model: Model): Promise<null> {
     return new Promise((resolve, reject) => {
 
-      const body = new URLSearchParams();
-
       // Appel du web service
       let response: Observable<any>;
       if (model.id) {
-        body.set('id', model.id.toString())
         response = this.httpClient.delete(this.configService.URL + this.endpoint + `/${model.id}`,
         { headers: this.configService.HEADERS });
       }
