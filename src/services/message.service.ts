@@ -100,6 +100,9 @@ export class MessageService {
       new Message('fr', 'filter', 'Filtrer'),
       new Message('en', 'filter', 'Filter'),
       new Message('it', 'filter', 'Filtro'),
+      new Message('fr', 'under_maintenance', 'En maintenance'),
+      new Message('en', 'under_maintenance', 'Under maintenance'),
+      new Message('it', 'under_maintenance', 'In manutenzione'),
 
       // Errors
       new Message('fr', 'cannot_communicate_with_api', 'Une erreur s\'est produite lors de la communication avec l\'API'),

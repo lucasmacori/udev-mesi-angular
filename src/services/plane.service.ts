@@ -37,12 +37,12 @@ export class PlaneService {
     });
   }
 
-  public getPlaneById(id: number): Promise<Plane> {
+  public getPlaneByARN(ARN: string): Promise<Plane> {
     return new Promise((resolve, reject) => {
-      this.httpClient.get(this.configService.URL + this.endpoint + `/${id}`,
+      this.httpClient.get(this.configService.URL + this.endpoint + `/${ARN}`,
       { headers: this.configService.HEADERS })
         .subscribe(res => {
-          resolve(res['planes']);
+          resolve(res['plane']);
         }, err => {
           reject(err);
         });
