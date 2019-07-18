@@ -57,7 +57,5 @@
 <div class="actions" *ngIf="currentModel">
   <app-delete-button [displayed]="currentModel.id" [smallButton]="hasChanged()" (validated)="delete()"></app-delete-button>
   <br />
-  <button mat-fab [disabled]="!modelFormGroup.valid" color="primary" *ngIf="hasChanged()" (click)="save()">
-    <mat-icon class="button-icon">save</mat-icon>
-  </button>
+  <app-save-button [displayed]="hasChanged()" [disabled]="!modelFormGroup.valid" (validated)="save()"></app-save-button>
 </div>

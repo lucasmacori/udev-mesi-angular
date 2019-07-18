@@ -36,7 +36,5 @@
 <div class="actions" *ngIf="currentConstructor">
   <app-delete-button [displayed]="currentConstructor.id" [smallButton]="hasChanged()" (validated)="delete()"></app-delete-button>
   <br />
-  <button mat-fab [disabled]="!constructorFormControl.valid" color="primary" *ngIf="hasChanged()" (click)="save()">
-    <mat-icon class="button-icon">save</mat-icon>
-  </button>
+  <app-save-button [displayed]="hasChanged()" [disabled]="!constructorFormControl.valid" (validated)="save()"></app-save-button>
 </div>

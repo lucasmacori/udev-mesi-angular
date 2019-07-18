@@ -28,6 +28,7 @@ import { PlaneListComponent } from '../components/plane-list/plane-list.componen
 import { PlaneService } from '../services/plane.service';
 import { ConfigService } from '../services/config.service';
 import { MessageService } from '../services/message.service';
+import { SaveButtonComponent } from '../components/save-button/save-button.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { MessageService } from '../services/message.service';
     DeleteButtonComponent,
     PlaneComponent,
     EditPlaneComponent,
-    PlaneListComponent
+    PlaneListComponent,
+    SaveButtonComponent
   ],
   imports: [
     BrowserModule,
