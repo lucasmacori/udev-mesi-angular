@@ -36,12 +36,13 @@ export class PlaneComponent implements OnInit, OnDestroy {
       .subscribe(params => {
         const message = params.message;
         if (message) {
-          this.snackBar.open(message, 'Fermer', { duration: 5000 });
+          this.snackBar.open(message, this.messages.get('close'), { duration: 5000 });
         }
       });
 
     this.messagesSub = this.messageService.messagesSub.subscribe((messages: Map<string, string>) => {
       this.messages = new Map<string, string>();
+      this.messages.set('close', messages.get('close'));
       this.messages.set('menu_planes', messages.get('menu_planes'));
       this.messages.set('cannot_communicate_with_api', messages.get('cannot_communicate_with_api'));
     });
@@ -54,7 +55,8 @@ export class PlaneComponent implements OnInit, OnDestroy {
     });
     this.planeService.fetchPlanes()
       .catch(err => {
-        this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ` + err.message, 'Fermer', { duration: 5000 });
+        this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ` + err.message,
+          this.messages.get('close'), { duration: 5000 });
       });
   }
 

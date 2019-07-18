@@ -82,6 +82,9 @@ export class MessageService {
       new Message('it', 'entity_reservation', 'Prenotazione'),
 
       // General
+      new Message('fr', 'close', 'Fermer'),
+      new Message('en', 'close', 'Close'),
+      new Message('it', 'close', 'chiudere'),
       new Message('fr', 'name', 'Nom'),
       new Message('en', 'name', 'Name'),
       new Message('it', 'name', 'Nominativo'),
@@ -154,7 +157,7 @@ export class MessageService {
     this._messagesSub = new Subject<Map<string, string>>();
 
     // Chargement du langage depuis le local storage
-    this._selectedLanguage = this.getLanguageFromLocalStorage();
+    this.selectedLanguage = this.getLanguageFromLocalStorage();
   }
 
   public get languages(): Array<Language> {

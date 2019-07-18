@@ -32,21 +32,22 @@ export class ConstructorComponent implements OnInit, OnDestroy {
 
     this.isLoading = true;
 
+    this.messagesSub = this.messageService.messagesSub.subscribe((messages: Map<string, string>) => {
+      this.messages = new Map<string, string>();
+      this.messages.set('close', messages.get('close'));
+      this.messages.set('menu_constructors', messages.get('menu_constructors'));
+      this.messages.set('cannot_communicate_with_api', messages.get('cannot_communicate_with_api'));
+    });
+    this.messageService.sendMessages();
+
     // Affichage d'un message si demandé
     this.activatedRoute.params
       .subscribe(params => {
         const message = params.message;
         if (message) {
-          this.snackBar.open(message, 'Fermer', { duration: 5000 });
+          this.snackBar.open(message, this.messages.get('close'), { duration: 5000 });
         }
       });
-
-    this.messagesSub = this.messageService.messagesSub.subscribe((messages: Map<string, string>) => {
-      this.messages = new Map<string, string>();
-      this.messages.set('menu_constructors', messages.get('menu_constructors'));
-      this.messages.set('cannot_communicate_with_api', messages.get('cannot_communicate_with_api'));
-    });
-    this.messageService.sendMessages();
 
     // Récupération des constructeurs
     this.constructorSub = this.constructorService.constructorSub.subscribe((constructors: Array<Constructor>) => {

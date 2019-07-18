@@ -45,6 +45,7 @@ export class EditConstructorComponent implements OnInit, OnDestroy {
         this.messages.set('crud_creation', messages.get('crud_creation'));
         this.messages.set('crud_read', messages.get('crud_read'));
         this.messages.set('crud_edition', messages.get('crud_edition'));
+        this.messages.set('close', messages.get('close'));
         this.messages.set('name', messages.get('name'));
         this.messages.set('field_is_required', messages.get('field_is_required'));
         this.messages.set('field_cannot_contain_less_than_2_characters', messages.get('field_cannot_contain_less_than_2_characters'));
@@ -67,6 +68,9 @@ export class EditConstructorComponent implements OnInit, OnDestroy {
           this.initForm();
 
           this.isLoading = false;
+        })
+        .catch(err => {
+          this.snackBar.open((err.error) ? err.error.message : err.message, this.messages.get('close'), { duration: 5000 });
         });
     } else {
       this.currentConstructor = new Constructor();
@@ -108,7 +112,7 @@ export class EditConstructorComponent implements OnInit, OnDestroy {
         this.isLoading = false;
       })
       .catch(err => {
-        this.snackBar.open(err, 'Fermer', { duration: 5000 });
+        this.snackBar.open(err, this.messages.get('close'), { duration: 5000 });
         this.isLoading = false;
       });
   }
@@ -124,7 +128,7 @@ export class EditConstructorComponent implements OnInit, OnDestroy {
         this.validateDeletion = false;
       })
       .catch(err => {
-        this.snackBar.open(err, 'Fermer', { duration: 5000 });
+        this.snackBar.open(err, this.messages.get('close'), { duration: 5000 });
         this.isLoading = false;
         this.validateDeletion = false;
       });
