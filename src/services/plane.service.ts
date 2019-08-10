@@ -121,7 +121,7 @@ export class PlaneService {
         }
       }, err => {
         reject(err['message']);
-      })
+      });
     });
   }
 }

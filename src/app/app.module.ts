@@ -29,6 +29,10 @@ import { PlaneService } from '../services/plane.service';
 import { ConfigService } from '../services/config.service';
 import { MessageService } from '../services/message.service';
 import { SaveButtonComponent } from '../components/save-button/save-button.component';
+import { FlightService } from '../services/flight.service';
+import { FlightComponent } from '../views/flight/flight.component';
+import { FlightListComponent } from '../components/flight-list/flight-list.component';
+import { EditFlightComponent } from '../views/edit-flight/edit-flight.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +51,10 @@ import { SaveButtonComponent } from '../components/save-button/save-button.compo
     PlaneComponent,
     EditPlaneComponent,
     PlaneListComponent,
-    SaveButtonComponent
+    SaveButtonComponent,
+    FlightComponent,
+    FlightListComponent,
+    EditFlightComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +86,8 @@ import { SaveButtonComponent } from '../components/save-button/save-button.compo
     MessageService,
     ConstructorService,
     ModelService,
-    PlaneService
+    PlaneService,
+    FlightService
   ],
   bootstrap: [AppComponent]
 })

@@ -100,7 +100,7 @@ export class ConstructorService {
         }
       }, err => {
         reject(err['message']);
-      })
+      });
     });
   }
 }

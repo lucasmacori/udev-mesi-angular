@@ -1,0 +1,43 @@
+<div *ngIf="flights && flights.length !== 0">
+  <mat-form-field class="filterbar">
+    <input matInput (keyup)="applyFilter($event.target.value)" [placeholder]="messages.get('filter')" autocomplete="off" />
+  </mat-form-field>
+
+  <div class="mat-elevation-z8 tableContainer">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+      <!-- DepartureCity -->
+      <ng-container matColumnDef="DepartureCity">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ messages.get('departure_city') }}</th>
+        <td mat-cell *matCellDef="let flight">
+          {{ flight.departureCity }}
+        </td>
+      </ng-container>
+
+      <!-- DepartureCity -->
+      <ng-container matColumnDef="ArrivalCity">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ messages.get('arrival_city') }}</th>
+        <td mat-cell *matCellDef="let flight">
+          {{ flight.arrivalCity }}
+        </td>
+      </ng-container>
+
+      <!-- Actions -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let flight">
+          <a class="no-link" [routerLink]="'/flight/' + flight.id">
+            <mat-icon class="icon-button">create</mat-icon>
+          </a>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[20, 50, 100, 1000]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>
+
+<app-nothing-to-do-here *ngIf="!flights || flights.length === 0" class="centered"></app-nothing-to-do-here>

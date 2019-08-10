@@ -1,0 +1,50 @@
+<button mat-fab class="back_button" color="warn" routerLink="/flights">
+  <mat-icon>arrow_back</mat-icon>
+</button>
+<mat-chip-list class="mode_badges" *ngIf="currentFlight">
+  <mat-chip color="primary" *ngIf="currentFlight.id && !hasChanged()">
+    <mat-icon>remove_red_eye</mat-icon>
+    {{ messages.get('crud_read') }}
+  </mat-chip>
+  <mat-chip color="primary" *ngIf="currentFlight.id && hasChanged()">
+    <mat-icon>create</mat-icon>
+    {{ messages.get('crud_edition') }}
+  </mat-chip>
+  <mat-chip *ngIf="!currentFlight.id">
+    <mat-icon>create</mat-icon>
+    {{ messages.get('crud_creation') }}
+  </mat-chip>
+</mat-chip-list>
+<mat-card class="content">
+  <div *ngIf="currentFlight && !isLoading">
+    <h2>{{ title }}</h2>
+    <form [formGroup]="flightFormGroup">
+      <mat-form-field class="field">
+        <input matInput #departureCity [placeholder]="messages.get('departure_city')" maxlength="75" autocomplete="off" [errorStateMatcher]="matcher" formControlName="departureCity">
+        <mat-hint align="end">{{ departureCity.value.length }} / 75</mat-hint>
+        <mat-error *ngIf="flightFormGroup.controls.departureCity.hasError('minlength') && !flightFormGroup.controls.departureCity.hasError('required')">
+          {{ messages.get('field_cannot_contain_less_than_2_characters') }}
+        </mat-error>
+        <mat-error *ngIf="flightFormGroup.controls.departureCity.hasError('required')">
+          {{ messages.get('field_is_required') }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="field">
+        <input matInput #arrivalCity [placeholder]="messages.get('arrival_city')" maxlength="75" autocomplete="off" [errorStateMatcher]="matcher" formControlName="arrivalCity">
+        <mat-hint align="end">{{ arrivalCity.value.length }} / 75</mat-hint>
+        <mat-error *ngIf="flightFormGroup.controls.arrivalCity.hasError('minlength') && !flightFormGroup.controls.arrivalCity.hasError('required')">
+          {{ messages.get('field_cannot_contain_less_than_2_characters') }}
+        </mat-error>
+        <mat-error *ngIf="flightFormGroup.controls.arrivalCity.hasError('required')">
+          {{ messages.get('field_is_required') }}
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+</mat-card>
+<div class="actions" *ngIf="currentFlight">
+  <app-delete-button [displayed]="currentFlight.id" [smallButton]="hasChanged()" (validated)="delete()"></app-delete-button>
+  <br />
+  <app-save-button [displayed]="hasChanged()" [disabled]="!flightFormGroup.valid" (validated)="save()"></app-save-button>
+</div>

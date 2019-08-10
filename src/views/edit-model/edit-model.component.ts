@@ -100,6 +100,7 @@ export class EditModelComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.messagesSub.unsubscribe();
+    this.manufacturersSub.unsubscribe();
   }
 
   initForm() {

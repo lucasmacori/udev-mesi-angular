@@ -106,6 +106,12 @@ export class MessageService {
       new Message('fr', 'under_maintenance', 'En maintenance'),
       new Message('en', 'under_maintenance', 'Under maintenance'),
       new Message('it', 'under_maintenance', 'In manutenzione'),
+      new Message('fr', 'departure_city', 'Ville de départ'),
+      new Message('en', 'departure_city', 'Departure city'),
+      new Message('it', 'departure_city', 'Città di partenza'),
+      new Message('fr', 'arrival_city', 'Ville d\'arrivée'),
+      new Message('en', 'arrival_city', 'Arrival city'),
+      new Message('it', 'arrival_city', 'Città di arrivo'),
 
       // Errors
       new Message('fr', 'cannot_communicate_with_api', 'Une erreur s\'est produite lors de la communication avec l\'API'),
@@ -151,6 +157,15 @@ export class MessageService {
       new Message('fr', 'plane_has_been_deleted', 'L\'avion a bien été supprimé'),
       new Message('en', 'plane_has_been_deleted', 'The plane has succesfully been deleted'),
       new Message('it', 'plane_has_been_deleted', 'Il aeroplano è stato cancellato'),
+      new Message('fr', 'flight_has_been_created', 'Le vol a bien été créé'),
+      new Message('en', 'flight_has_been_created', 'The flight has succesfully been created'),
+      new Message('it', 'flight_has_been_created', 'Il volo è stato creato'),
+      new Message('fr', 'flight_has_been_edited', 'Le vol a bien été modifié'),
+      new Message('en', 'flight_has_been_edited', 'The flight has succesfully been edited'),
+      new Message('it', 'flight_has_been_edited', 'Il volo è stato modificato'),
+      new Message('fr', 'flight_has_been_deleted', 'Le vol a bien été supprimé'),
+      new Message('en', 'flight_has_been_deleted', 'The flight has succesfully been deleted'),
+      new Message('it', 'flight_has_been_deleted', 'Il volo è stato cancellato'),
     ];
 
     // Initialisation du subscribable

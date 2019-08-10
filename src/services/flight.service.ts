@@ -1,35 +1,36 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
-import { Model } from 'src/models/model.model';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from './config.service';
+import { Flight } from '../models/flight.model';
+
 
 @Injectable()
-export class ModelService {
+export class FlightService {
 
-  private endpoint = 'model';
+  private endpoint = 'flight';
 
-  private _modelSub: Subject<Array<Model>>;
-  private _models: Array<Model>;
+  private _flightsub: Subject<Array<Flight>>;
+  private _flights: Array<Flight>;
 
   constructor(
     private httpClient: HttpClient,
     private configService: ConfigService
   ) {
-    this._modelSub = new Subject<Array<Model>>();
+    this._flightsub = new Subject<Array<Flight>>();
   }
 
-  public get modelSub(): Subject<Array<Model>> {
-    return this._modelSub;
+  public get flightSub(): Subject<Array<Flight>> {
+    return this._flightsub;
   }
 
-  public fetchModels(): Promise<null> {
+  public fetchFlights(): Promise<null> {
     return new Promise((resolve, reject) => {
       this.httpClient.get(this.configService.URL + this.endpoint,
         { headers: this.configService.HEADERS })
         .subscribe(res => {
-          this._models = res['models'];
-          this._modelSub.next(this._models);
+          this._flights = res['flights'];
+          this._flightsub.next(this._flights);
           resolve();
         }, err => {
           reject(err);
@@ -37,31 +38,30 @@ export class ModelService {
     });
   }
 
-  public getModelById(id: number): Promise<Model> {
+  public getFlightById(id: number): Promise<Flight> {
     return new Promise((resolve, reject) => {
       this.httpClient.get(this.configService.URL + this.endpoint + `/${id}`,
       { headers: this.configService.HEADERS })
         .subscribe(res => {
-          resolve(res['model']);
+          let flight: Flight = res['flight'];
+          resolve(flight);
         }, err => {
           reject(err);
         });
     });
   }
 
-  public saveModel(model: Model): Promise<null> {
+  public saveFlight(flight: Flight): Promise<null> {
     return new Promise((resolve, reject) => {
 
       const body = new URLSearchParams();
-      body.set('name', model.name);
-      body.set('manufacturer', model.manufacturer.id.toString());
-      body.set('countEcoSlots', model.countEcoSlots.toString());
-      body.set('countBusinessSlots', model.countBusinessSlots.toString());
+      body.set('departureCity', flight.departureCity);
+      body.set('arrivalCity', flight.arrivalCity);
 
       // Appel du web service
       let response: Observable<any>;
-      if (model.id) {
-        body.set('id', model.id.toString());
+      if (flight.id) {
+        body.set('id', flight.id.toString());
         response = this.httpClient.put(this.configService.URL + this.endpoint, body.toString(),
         { headers: this.configService.HEADERS });
       } else {
@@ -82,13 +82,13 @@ export class ModelService {
     });
   }
 
-  public deleteModel(model: Model): Promise<null> {
+  public deleteFlight(flight: Flight): Promise<null> {
     return new Promise((resolve, reject) => {
 
       // Appel du web service
       let response: Observable<any>;
-      if (model.id) {
-        response = this.httpClient.delete(this.configService.URL + this.endpoint + `/${model.id}`,
+      if (flight.id) {
+        response = this.httpClient.delete(this.configService.URL + this.endpoint + `/${flight.id}`,
         { headers: this.configService.HEADERS });
       }
 
