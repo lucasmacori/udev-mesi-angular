@@ -31,6 +31,14 @@ export class ModelComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isLoading = true;
 
+    this.messagesSub = this.messageService.messagesSub.subscribe((messages: Map<string, string>) => {
+      this.messages = new Map<string, string>();
+      this.messages.set('close', messages.get('close'));
+      this.messages.set('menu_models', messages.get('menu_models'));
+      this.messages.set('cannot_communicate_with_api', messages.get('cannot_communicate_with_api'));
+    });
+    this.messageService.sendMessages();
+
     // Affichage d'un message si demandé
     this.activatedRoute.params
       .subscribe(params => {
@@ -39,14 +47,6 @@ export class ModelComponent implements OnInit, OnDestroy {
           this.snackBar.open(message, this.messages.get('close'), { duration: 5000 });
         }
       });
-
-    this.messagesSub = this.messageService.messagesSub.subscribe((messages: Map<string, string>) => {
-      this.messages = new Map<string, string>();
-      this.messages.set('close', messages.get('close'));
-      this.messages.set('menu_models', messages.get('menu_models'));
-      this.messages.set('cannot_communicate_with_api', messages.get('cannot_communicate_with_api'));
-    });
-    this.messageService.sendMessages();
 
     // Récupération des modèles
     this.modelSub = this.modelService.modelSub.subscribe((models: Array<Model>) => {
