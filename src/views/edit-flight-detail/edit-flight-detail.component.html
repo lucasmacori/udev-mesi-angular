@@ -1,0 +1,31 @@
+<button mat-fab class="back_button" color="warn" routerLink="/plannings">
+  <mat-icon>arrow_back</mat-icon>
+</button>
+<mat-chip-list class="mode_badges" *ngIf="currentFlightDetail">
+  <mat-chip color="primary" *ngIf="currentFlightDetail.id && !hasChanged()">
+    <mat-icon>remove_red_eye</mat-icon>
+    {{ messages.get('crud_read') }}
+  </mat-chip>
+  <mat-chip color="primary" *ngIf="currentFlightDetail.id && hasChanged()">
+    <mat-icon>create</mat-icon>
+    {{ messages.get('crud_edition') }}
+  </mat-chip>
+  <mat-chip *ngIf="!currentFlightDetail.id">
+    <mat-icon>create</mat-icon>
+    {{ messages.get('crud_creation') }}
+  </mat-chip>
+</mat-chip-list>
+<mat-card class="content">
+  <div *ngIf="currentFlightDetail && !isLoading">
+    <h2>{{ title }}</h2>
+    <form [formGroup]="flightDetailFormGroup">
+
+    </form>
+  </div>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+</mat-card>
+<div class="actions" *ngIf="currentFlightDetail">
+  <app-delete-button [displayed]="currentFlightDetail.id" [smallButton]="hasChanged()" (validated)="delete()"></app-delete-button>
+  <br />
+  <app-save-button [displayed]="hasChanged()" [disabled]="!flightDetailFormGroup.valid" (validated)="save()"></app-save-button>
+</div>

@@ -112,6 +112,12 @@ export class MessageService {
       new Message('fr', 'arrival_city', 'Ville d\'arrivée'),
       new Message('en', 'arrival_city', 'Arrival city'),
       new Message('it', 'arrival_city', 'Città di arrivo'),
+      new Message('fr', 'departure_date_time', 'Date et heure de départ'),
+      new Message('en', 'departure_date_time', 'Departure date and time'),
+      new Message('it', 'departure_date_time', 'Data e ora di partenza'),
+      new Message('fr', 'arrival_date_time', 'Date et heure d\'arrivée'),
+      new Message('en', 'arrival_date_time', 'Arrival date and time'),
+      new Message('it', 'arrival_date_time', 'Data e ora di arrivo'),
 
       // Errors
       new Message('fr', 'cannot_communicate_with_api', 'Une erreur s\'est produite lors de la communication avec l\'API'),

@@ -29,8 +29,8 @@
           <a matLine>{{ messages.get('menu_flights') }}</a>
         </button>
       </mat-list-item>
-      <mat-list-item routerLink="/flightDetails" (click)="toggleSidebar()">
-        <button mat-button [ngClass]="{'active': this.router.url.startsWith('/flightDetail')}">
+      <mat-list-item routerLink="/plannings" (click)="toggleSidebar()">
+        <button mat-button [ngClass]="{'active': this.router.url.startsWith('/planning')}">
           <mat-icon class="button-icon">calendar_today</mat-icon>
           <a matLine>{{ messages.get('menu_planning') }}</a>
         </button>

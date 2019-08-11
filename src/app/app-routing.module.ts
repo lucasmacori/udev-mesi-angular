@@ -8,6 +8,8 @@ import { PlaneComponent } from 'src/views/plane/plane.component';
 import { EditPlaneComponent } from 'src/views/edit-plane/edit-plane.component';
 import { FlightComponent } from '../views/flight/flight.component';
 import { EditFlightComponent } from '../views/edit-flight/edit-flight.component';
+import { EditFlightDetailComponent } from 'src/views/edit-flight-detail/edit-flight-detail.component';
+import { FlightDetailComponent } from '../views/flight-detail/flight-detail.component';
 
 
 const routes: Routes = [
@@ -24,6 +26,9 @@ const routes: Routes = [
   { path: 'flights', component: FlightComponent },
   { path: 'flight/:id', component: EditFlightComponent },
   { path: 'flight/new', component: EditFlightComponent },
+  { path: 'plannings', component: FlightDetailComponent },
+  { path: 'planning/:id', component: EditFlightDetailComponent },
+  { path: 'planning/new', component: EditFlightDetailComponent },
 ];
 
 @NgModule({

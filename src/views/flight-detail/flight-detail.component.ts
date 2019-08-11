@@ -3,28 +3,28 @@ import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material';
 import { MessageService } from 'src/services/message.service';
 import { ActivatedRoute } from '@angular/router';
-import { FlightService } from '../../services/flight.service';
-import { Flight } from '../../models/flight.model';
+import { FlightDetail } from '../../models/flightDetail.model';
+import { FlightDetailService } from '../../services/flight-detail.service';
 
 @Component({
-  selector: 'app-flight',
-  templateUrl: './flight.component.html',
-  styleUrls: ['./flight.component.scss']
+  selector: 'app-flight-detail',
+  templateUrl: './flight-detail.component.html',
+  styleUrls: ['./flight-detail.component.scss']
 })
-export class FlightComponent implements OnInit, OnDestroy {
+export class FlightDetailComponent implements OnInit, OnDestroy {
 
   public isLoading: boolean;
 
   private messagesSub: Subscription;
   public messages: Map<string, string>;
 
-  private flightSub: Subscription;
-  public flights: Array<Flight>;
+  private flightDetailSub: Subscription;
+  public flightDetails: Array<FlightDetail>;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private messageService: MessageService,
-    private flightService: FlightService,
+    private flightDetailService: FlightDetailService,
     private snackBar: MatSnackBar
   ) { }
 
@@ -34,7 +34,7 @@ export class FlightComponent implements OnInit, OnDestroy {
     this.messagesSub = this.messageService.messagesSub.subscribe((messages: Map<string, string>) => {
       this.messages = new Map<string, string>();
       this.messages.set('close', messages.get('close'));
-      this.messages.set('menu_flights', messages.get('menu_flights'));
+      this.messages.set('menu_planning', messages.get('menu_planning'));
       this.messages.set('cannot_communicate_with_api', messages.get('cannot_communicate_with_api'));
     });
     this.messageService.sendMessages();
@@ -48,12 +48,12 @@ export class FlightComponent implements OnInit, OnDestroy {
         }
       });
 
-    // Récupération des vols
-    this.flightSub = this.flightService.flightSub.subscribe((flights: Array<Flight>) => {
-      this.flights = flights;
+    // Récupération des détails de vols
+    this.flightDetailSub = this.flightDetailService.flightDetailSub.subscribe((flightDetails: Array<FlightDetail>) => {
+      this.flightDetails = flightDetails;
       this.isLoading = false;
     });
-    this.flightService.fetchFlights()
+    this.flightDetailService.fetchFlightDetails()
       .catch(err => {
         this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ` + err.message,
           this.messages.get('close'), { duration: 5000 });
@@ -61,7 +61,7 @@ export class FlightComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.flightSub.unsubscribe();
+    this.flightDetailSub.unsubscribe();
     this.messagesSub.unsubscribe();
   }
 }

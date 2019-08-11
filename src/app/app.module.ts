@@ -33,6 +33,11 @@ import { FlightService } from '../services/flight.service';
 import { FlightComponent } from '../views/flight/flight.component';
 import { FlightListComponent } from '../components/flight-list/flight-list.component';
 import { EditFlightComponent } from '../views/edit-flight/edit-flight.component';
+import { FlightDetailService } from '../services/flight-detail.service';
+import { FormatService } from '../services/format.service';
+import { FlightDetailComponent } from '../views/flight-detail/flight-detail.component';
+import { EditFlightDetailComponent } from '../views/edit-flight-detail/edit-flight-detail.component';
+import { FlightDetailListComponent } from '../components/flight-detail-list/flight-detail-list.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +59,10 @@ import { EditFlightComponent } from '../views/edit-flight/edit-flight.component'
     SaveButtonComponent,
     FlightComponent,
     FlightListComponent,
-    EditFlightComponent
+    EditFlightComponent,
+    FlightDetailComponent,
+    EditFlightDetailComponent,
+    FlightDetailListComponent
   ],
   imports: [
     BrowserModule,
@@ -83,11 +91,13 @@ import { EditFlightComponent } from '../views/edit-flight/edit-flight.component'
   ],
   providers: [
     ConfigService,
+    FormatService,
     MessageService,
     ConstructorService,
     ModelService,
     PlaneService,
-    FlightService
+    FlightService,
+    FlightDetailService
   ],
   bootstrap: [AppComponent]
 })

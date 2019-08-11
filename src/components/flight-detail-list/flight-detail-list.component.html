@@ -1,0 +1,63 @@
+<div *ngIf="flightDetails && flightDetails.length !== 0">
+  <mat-form-field class="filterbar">
+    <input matInput (keyup)="applyFilter($event.target.value)" [placeholder]="messages.get('filter')" autocomplete="off" />
+  </mat-form-field>
+
+  <div class="mat-elevation-z8 tableContainer">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+      <!-- DepartureDateTime -->
+      <ng-container matColumnDef="DepartureDateTime">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ messages.get('departure_date_time') }}</th>
+        <td mat-cell *matCellDef="let flightDetail">
+          {{ flightDetail.departureDateTime }}
+        </td>
+      </ng-container>
+
+      <!-- ArrivalDateTime -->
+      <ng-container matColumnDef="ArrivalDateTime">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ messages.get('arrival_date_time') }}</th>
+        <td mat-cell *matCellDef="let flightDetail">
+          {{ flightDetail.arrivalDateTime }}
+        </td>
+      </ng-container>
+
+      <!-- Flight -->
+      <ng-container matColumnDef="Flight">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ messages.get('entity_flight') }}</th>
+        <td mat-cell *matCellDef="let flightDetail">
+          <a class="no-link" [routerLink]="'/flight/' + flightDetail.flight.id">
+            {{ flightDetail.flight.departureCity }} - {{ flightDetail.flight.arrivalCity }}
+          </a>
+        </td>
+      </ng-container>
+
+      <!-- Plane -->
+      <ng-container matColumnDef="Plane">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ messages.get('entity_plane') }}</th>
+        <td mat-cell *matCellDef="let flightDetail">
+          <a class="no-link" [routerLink]="'/plane/' + flightDetail.plane.ARN">
+            {{ flightDetail.plane.ARN }}
+          </a>
+        </td>
+      </ng-container>
+
+      <!-- Actions -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let flight">
+          <a class="no-link" [routerLink]="'/flight/' + flight.id">
+            <mat-icon class="icon-button">create</mat-icon>
+          </a>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[20, 50, 100, 1000]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>
+
+<app-nothing-to-do-here *ngIf="!flightDetails || flightDetails.length === 0" class="centered"></app-nothing-to-do-here>
