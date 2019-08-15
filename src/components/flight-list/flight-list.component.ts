@@ -1,13 +1,19 @@
 import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
-import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
+import { MatPaginator, MatTableDataSource, MatSort, MatSnackBar } from '@angular/material';
 import { MessageService } from '../../services/message.service';
 import { Subscription } from 'rxjs';
 import { Flight } from '../../models/flight.model';
+import { DetailExpandAnimation } from '../../animations/detailExpand.animation';
+import { FlightService } from '../../services/flight.service';
+import { FlightDetail } from '../../models/flightDetail.model';
 
 @Component({
   selector: 'app-flight-list',
   templateUrl: './flight-list.component.html',
-  styleUrls: ['./flight-list.component.scss']
+  styleUrls: ['./flight-list.component.scss'],
+  animations: [
+    DetailExpandAnimation
+  ]
 })
 export class FlightListComponent implements OnInit, OnDestroy {
 
@@ -18,10 +24,14 @@ export class FlightListComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   public dataSource;
-  public displayedColumns: string[] = ['DepartureCity', 'ArrivalCity', 'actions'];
+  public displayedColumns: string[] = ['departureCity', 'arrivalCity', 'actions'];
+  public expandedElement: Flight | null;
+  public detailLoading = false;
 
   constructor(
-    private messageService: MessageService
+    private messageService: MessageService,
+    private flightService: FlightService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -31,8 +41,8 @@ export class FlightListComponent implements OnInit, OnDestroy {
       (messages: Map<string, string>) => {
         this.messages = new Map<string, string>();
         this.messages.set('filter', messages.get('filter'));
-        this.messages.set('departure_city', messages.get('departure_city'));
-        this.messages.set('arrival_city', messages.get('arrival_city'));
+        this.messages.set('departureCity', messages.get('departure_city'));
+        this.messages.set('arrivalCity', messages.get('arrival_city'));
       }
     );
     this.messageService.sendMessages();
@@ -51,6 +61,25 @@ export class FlightListComponent implements OnInit, OnDestroy {
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
+    }
+  }
+
+  fetchDetail(flight: Flight) {
+    const editedFlight = this.flights.find((currentFlight: Flight) => {
+      return currentFlight.id === flight.id;
+    });
+
+    if (!editedFlight.flightDetails) {
+      this.detailLoading = true;
+      this.flightService.getFlightDetailOfFlight(flight.id)
+        .then((flightDetails: Array<FlightDetail>) => {
+          // Mise à jour du vol, ajout des des détails de vol
+          editedFlight.flightDetails = flightDetails;
+          this.detailLoading = false;
+        })
+        .catch((err) => {
+          this.snackBar.open(err, this.messages.get('close'), { duration: 5000 });
+        });
     }
   }
 }

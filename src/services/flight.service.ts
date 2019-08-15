@@ -3,6 +3,7 @@ import { Subject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from './config.service';
 import { Flight } from '../models/flight.model';
+import { FlightDetail } from '../models/flightDetail.model';
 
 
 @Injectable()
@@ -43,8 +44,21 @@ export class FlightService {
       this.httpClient.get(this.configService.URL + this.endpoint + `/${id}`,
       { headers: this.configService.HEADERS })
         .subscribe(res => {
-          let flight: Flight = res['flight'];
+          const flight: Flight = res['flight'];
           resolve(flight);
+        }, err => {
+          reject(err);
+        });
+    });
+  }
+
+  public getFlightDetailOfFlight(id: number): Promise<Array<FlightDetail>> {
+    return new Promise((resolve, reject) => {
+      this.httpClient.get(this.configService.URL + this.endpoint + `/${id}` + '/flightDetails',
+      { headers: this.configService.HEADERS })
+        .subscribe(res => {
+          const flightDetails: Array<FlightDetail> = res['flightDetails'];
+          resolve(flightDetails);
         }, err => {
           reject(err);
         });

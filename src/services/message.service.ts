@@ -57,6 +57,9 @@ export class MessageService {
       new Message('fr', 'crud_edition', 'Édition'),
       new Message('en', 'crud_edition', 'Edition'),
       new Message('it', 'crud_edition', 'Divulgazione'),
+      new Message('fr', 'crud_edit', 'Modifier'),
+      new Message('en', 'crud_edit', 'Edit'),
+      new Message('it', 'crud_edit', 'Modifica'),
 
       // Entities
       new Message('fr', 'entity_constructor', 'Constructeur'),
@@ -172,6 +175,9 @@ export class MessageService {
       new Message('fr', 'flight_has_been_deleted', 'Le vol a bien été supprimé'),
       new Message('en', 'flight_has_been_deleted', 'The flight has succesfully been deleted'),
       new Message('it', 'flight_has_been_deleted', 'Il volo è stato cancellato'),
+      new Message('fr', 'choose_a_date_time', 'Choisissez une date et une heure'),
+      new Message('en', 'choose_a_date_time', 'Choose a date and time'),
+      new Message('it', 'choose_a_date_time', 'Scegli una data e un\'ora')
     ];
 
     // Initialisation du subscribable

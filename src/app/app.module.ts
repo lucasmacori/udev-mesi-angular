@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 
 // Material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCardModule, MatSidenavModule, MatIconModule, MatListModule, MatSelectModule, MatProgressSpinnerModule, MatSlideToggleModule, MatInputModule, MatFormFieldModule, MatSnackBarModule, MatChipsModule, MatTableModule, MatPaginatorModule, MatSortModule, MatToolbarModule, MatCheckboxModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatSidenavModule, MatIconModule, MatListModule, MatSelectModule, MatProgressSpinnerModule, MatSlideToggleModule, MatInputModule, MatFormFieldModule, MatSnackBarModule, MatChipsModule, MatTableModule, MatPaginatorModule, MatSortModule, MatToolbarModule, MatCheckboxModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import { ConstructorComponent } from './../views/constructor/constructor.component';
 import { LanguageSelectorComponent } from '../components/language-selector/language-selector.component';
 import { ConstructorListComponent } from './../components/constructor-list/constructor-list.component';
@@ -38,6 +38,9 @@ import { FormatService } from '../services/format.service';
 import { FlightDetailComponent } from '../views/flight-detail/flight-detail.component';
 import { EditFlightDetailComponent } from '../views/edit-flight-detail/edit-flight-detail.component';
 import { FlightDetailListComponent } from '../components/flight-detail-list/flight-detail-list.component';
+import { DateTimePickerComponent } from '../components/date-time-picker/date-time-picker.component';
+import { FirstUpperCaseLetterPipe } from '../pipes/first-upper-case-letter.pipe';
+import { EditButtonComponent } from '../components/edit-button/edit-button.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +65,10 @@ import { FlightDetailListComponent } from '../components/flight-detail-list/flig
     EditFlightComponent,
     FlightDetailComponent,
     EditFlightDetailComponent,
-    FlightDetailListComponent
+    FlightDetailListComponent,
+    DateTimePickerComponent,
+    FirstUpperCaseLetterPipe,
+    EditButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -84,9 +90,12 @@ import { FlightDetailListComponent } from '../components/flight-detail-list/flig
     MatChipsModule,
     MatFormFieldModule,
     MatPaginatorModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatSortModule,
     MatToolbarModule,
     MatCheckboxModule,
+    BrowserAnimationsModule,
     HttpClientModule
   ],
   providers: [

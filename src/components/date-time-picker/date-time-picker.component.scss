@@ -1,0 +1,20 @@
+.inline {
+  display: inline-block;
+  position: relative;
+}
+.datePicker {
+  @extend .inline;
+}
+.timePicker {
+  @extend .inline;
+  left: 10px;
+}
+.timeInput {
+  width: 40px;
+}
+.timeIcon {
+  color: #6e6e6e;
+  font-size: 20px;
+  position: relative;
+  top: 6px;
+}
