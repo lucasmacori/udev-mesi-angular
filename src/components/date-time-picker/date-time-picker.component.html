@@ -1,21 +1,20 @@
-<p>{{ date.value | date }} <span *ngIf="hour.value && minutes.value">{{ hour.value }}:{{ minutes.value }}</span></p>
 <form>
   <!-- Date picker -->
   <mat-form-field class="datePicker">
-    <input matInput [matDatepicker]="picker" [placeholder]="messages.get('choose_a_date_time')" readonly="true" [formControl]="date" autocomplete="off">
+    <input matInput [matDatepicker]="picker" [placeholder]="messages.get('choose_a_date_time')" [min]="min" [max]="max" readonly="true" [formControl]="date" autocomplete="off" (dateChange)="registerChanges()">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker ></mat-datepicker>
+    <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 
   <!-- Time picker -->
   <div class="timePicker">
     <mat-form-field class="timeInput">
-      <input matInput type="number" min="0" max="23" [formControl]="hour" autocomplete="off" value="12" />
+      <input matInput type="number" min="0" max="23" [formControl]="hour" autocomplete="off" (change)="registerChanges()" />
       <!--<mat-hint *ngIf="hour.hasError('required')">{{ messages.get('field_is_required') }}</mat-hint>-->
     </mat-form-field>
     <span> : </span>
     <mat-form-field class="timeInput">
-      <input matInput type="number" min="0" max="59" [formControl]="minutes" autocomplete="off" value="00" />
+      <input matInput type="number" min="0" max="59" [formControl]="minutes" autocomplete="off" (change)="registerChanges()" />
     </mat-form-field>
     <mat-icon class="timeIcon">alarm</mat-icon>
   </div>

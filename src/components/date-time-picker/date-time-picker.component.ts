@@ -1,16 +1,23 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, forwardRef } from '@angular/core';
 import { MessageService } from '../../services/message.service';
 import { Subscription } from 'rxjs';
-import { FormControl, ControlValueAccessor, Validators } from '@angular/forms';
+import { FormControl, ControlValueAccessor, Validators, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormatService } from '../../services/format.service';
+import { DateAdapter } from '@angular/material';
 
 @Component({
   selector: 'app-date-time-picker',
   templateUrl: './date-time-picker.component.html',
-  styleUrls: ['./date-time-picker.component.scss']
+  styleUrls: ['./date-time-picker.component.scss'],
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => DateTimePickerComponent), multi: true }
+  ]
 })
 export class DateTimePickerComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
   @Input() disabled = false;
+  @Input() min: Date;
+  @Input() max: Date;
 
   private messageSub: Subscription;
   public messages: Map<string, string>;
@@ -19,14 +26,17 @@ export class DateTimePickerComponent implements OnInit, OnDestroy, ControlValueA
   public hour: FormControl;
   public minutes: FormControl;
 
-  public registeredOnChange = (date: Date) => {};
+  private onChange: (dateTime: string) => void;
 
   constructor(
-    private messageService: MessageService
+    private messageService: MessageService,
+    private formatService: FormatService,
+    private adapter: DateAdapter<any>
   ) { }
 
   ngOnInit() {
 
+    this.adapter.setLocale('fr');
     this.initForm();
 
     // Chargement des messages
@@ -45,46 +55,44 @@ export class DateTimePickerComponent implements OnInit, OnDestroy, ControlValueA
 
   initForm(): void {
     const currentDate = new Date();
-    this.date = new FormControl({ value: currentDate, disabled: this.disabled });
-    this.hour = new FormControl({ value: 12, disabled: this.disabled, Validators: [
+    this.date = new FormControl(currentDate);
+    this.hour = new FormControl(currentDate.getHours(), [
       Validators.required,
       Validators.min(0),
       Validators.max(23)
-    ] });
-    this.minutes = new FormControl({ value: 0, disabled: this.disabled, Validators: [
+    ] );
+    this.minutes = new FormControl(currentDate.getMinutes(), [
       Validators.required,
       Validators.min(0),
       Validators.max(59)
-    ] });
-
-    this.date.valueChanges.subscribe(this.onChange);
-    this.hour.valueChanges.subscribe(this.onChange);
-    this.minutes.valueChanges.subscribe(this.onChange);
+    ]);
   }
 
-  get value(): Date {
+  registerChanges() {
     const date: Date = this.date.value;
-    // date.setHours(this.hour.value);
-    // date.setMinutes(this.minutes.value);
-    return date;
+    date.setHours(this.hour.value);
+    date.setMinutes(this.minutes.value);
+    date.setSeconds(0);
+    this.onChange(this.formatService.dateStringFormat(date));
   }
 
-  onChange(): void {
-    //this.registeredOnChange(this.value);
-    this.writeValue(this.value);
+  writeValue(dateTime: Date): void {
+    if (dateTime) {
+      dateTime.setSeconds(0);
+      this.date.setValue(dateTime);
+      this.hour.setValue(dateTime.getHours());
+      this.minutes.setValue(dateTime.getMinutes());
+      setTimeout(() => {
+        this.registerChanges();
+      }, 100)
+    }
   }
 
-  writeValue(date: Date): void {
-    this.date.setValue(date);
-    this.hour.setValue(date.getHours());
-    this.minutes.setValue(date.getMinutes());
+  registerOnChange(onChange: (dateTime: string) => void): void {
+    this.onChange = onChange;
   }
 
-  registerOnChange(fn: any): void {
-    this.registeredOnChange = fn;
-  }
-
-  registerOnTouched(fn: any): void {}
+  registerOnTouched() {}
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;

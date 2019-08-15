@@ -19,7 +19,32 @@
   <div *ngIf="currentFlightDetail && !isLoading">
     <h2>{{ title }}</h2>
     <form [formGroup]="flightDetailFormGroup">
-
+      <div class="field">
+        <label>Date et heure de départ</label>
+        <app-date-time-picker formControlName="departureDateTime"></app-date-time-picker>
+      </div>
+      <div class="field">
+        <label>Date et heure d'arrivée</label>
+        <app-date-time-picker formControlName="arrivalDateTime" [min]="formatService.stringDateFormat(flightDetailFormGroup.controls['departureDateTime'].value)"></app-date-time-picker>
+      </div>
+      <mat-form-field class="field">
+        <mat-label>{{ messages.get('entity_plane') }}</mat-label>
+        <mat-select formControlName="plane">
+          <mat-option [value]="currentFlightDetail.plane.ARN">{{ currentFlightDetail.plane.ARN }}</mat-option>
+          <mat-option *ngFor="let plane of planes" [value]="plane.ARN">
+            {{ plane.ARN }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="field">
+        <mat-label>{{ messages.get('entity_flight') }}</mat-label>
+        <mat-select formControlName="flight">
+          <mat-option [value]="currentFlightDetail.flight.id">{{ currentFlightDetail.flight.departureCity }} - {{ currentFlightDetail.flight.arrivalCity }}</mat-option>
+          <mat-option *ngFor="let flight of flights" [value]="flight.id">
+              {{ flight.departureCity }} - {{ flight.arrivalCity }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </form>
   </div>
   <mat-spinner *ngIf="isLoading"></mat-spinner>

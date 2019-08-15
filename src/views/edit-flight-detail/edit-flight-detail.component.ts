@@ -10,6 +10,9 @@ import { Plane } from 'src/models/plane.model';
 import { Model } from '../../models/model.model';
 import { Constructor } from '../../models/constructor.model';
 import { Flight } from '../../models/flight.model';
+import { FormatService } from '../../services/format.service';
+import { FlightService } from '../../services/flight.service';
+import { PlaneService } from '../../services/plane.service';
 
 @Component({
   selector: 'app-edit-flight-detail',
@@ -26,14 +29,23 @@ export class EditFlightDetailComponent implements OnInit, OnDestroy {
   private id: number;
   public currentFlightDetail: FlightDetail;
 
+  private flightSub: Subscription;
+  public flights: Array<Flight>;
+
+  private planeSub: Subscription;
+  public planes: Array<Plane>;
+
   public flightDetailFormGroup: FormGroup;
   public validateDeletion: boolean;
 
   constructor(
     private messageService: MessageService,
+    public formatService: FormatService,
     private route: ActivatedRoute,
     private router: Router,
     private flightDetailService: FlightDetailService,
+    private flightService: FlightService,
+    private planeService: PlaneService,
     private snackBar: MatSnackBar
   ) { }
 
@@ -52,6 +64,8 @@ export class EditFlightDetailComponent implements OnInit, OnDestroy {
         this.messages.set('close', messages.get('close'));
         this.messages.set('departure_city', messages.get('departure_city'));
         this.messages.set('arrival_city', messages.get('arrival_city'));
+        this.messages.set('entity_plane', messages.get('entity_plane'));
+        this.messages.set('entity_flight', messages.get('entity_flight'));
         this.messages.set('field_is_required', messages.get('field_is_required'));
         this.messages.set('field_cannot_contain_less_than_2_characters', messages.get('field_cannot_contain_less_than_2_characters'));
         this.messages.set('flight_has_been_created', messages.get('flight_has_been_created'));
@@ -61,40 +75,65 @@ export class EditFlightDetailComponent implements OnInit, OnDestroy {
     );
     this.messageService.sendMessages();
 
-    if (this.router.url !== '/planning/new') {
-      // Récupération du détail du vol
-      this.id = this.route.snapshot.params.id;
-      this.flightDetailService.getFlightDetailById(this.id)
-        .then((flightDetail: FlightDetail) => {
-          this.currentFlightDetail = flightDetail;
-          this.title = this.currentFlightDetail.flight.departureCity + ' - ' + this.currentFlightDetail.flight.arrivalCity
-            + ' -> ' + this.currentFlightDetail.departureDateTime + ' - ' + this.currentFlightDetail.arrivalDateTime;
+    // Récupération des vols
+    this.flightSub = this.flightService.flightSub
+      .subscribe((flights: Array<Flight>) => {
+        this.flights = flights;
+      });
+    this.flightService.fetchFlights()
+      .then(() => {
+        this.planeSub = this.planeService.planeSub
+          .subscribe((planes: Array<Plane>) => {
+            this.planes = planes;
+          });
+        this.planeService.fetchPlanes()
+          .then(() => {
+            if (this.router.url !== '/planning/new') {
+              // Récupération du détail du vol
+              this.id = this.route.snapshot.params.id;
+              this.flightDetailService.getFlightDetailById(this.id)
+                .then((flightDetail: FlightDetail) => {
+                  this.currentFlightDetail = flightDetail;
+                  this.title = this.currentFlightDetail.flight.departureCity + ' - ' + this.currentFlightDetail.flight.arrivalCity
+                    + ' -> ' + this.currentFlightDetail.departureDateTime + ' - ' + this.currentFlightDetail.arrivalDateTime;
 
-          // Création du formulaire
-          this.initForm();
+                  // Création du formulaire
+                  this.initForm();
 
-          this.isLoading = false;
-        })
-        .catch(err => {
-          this.snackBar.open((err.error) ? err.error.message : err.message, this.messages.get('close'), { duration: 5000 });
-        });
-    } else {
-      this.currentFlightDetail = new FlightDetail(undefined, undefined, undefined,
-        new Flight(undefined, '', ''),
-        new Plane(undefined,
-          new Model(undefined, '',
-          new Constructor(undefined, ''), 0, 0)
-        )
-      );
-      // Création du formulaire
-      this.initForm();
+                  this.isLoading = false;
+                })
+                .catch(err => {
+                  this.snackBar.open((err.error) ? err.error.message : err.message, this.messages.get('close'), { duration: 5000 });
+                });
+            } else {
+              const date = new Date();
+              this.currentFlightDetail = new FlightDetail(undefined, date, date,
+                new Flight(null, '', ''),
+                new Plane(null,
+                  new Model(undefined, '',
+                  new Constructor(undefined, ''), 0, 0)
+                )
+              );
+              // Création du formulaire
+              this.initForm();
 
-      this.isLoading = false;
-    }
+              this.isLoading = false;
+            }
+          })
+          .catch(err => {
+            this.snackBar.open((err.error) ? err.error.message : err.message, this.messages.get('close'), { duration: 5000 });
+            this.isLoading = false;
+          });
+      })
+      .catch(err => {
+        this.snackBar.open((err.error) ? err.error.message : err.message, this.messages.get('close'), { duration: 5000 });
+        this.isLoading = false;
+      });
   }
 
   ngOnDestroy() {
     this.messagesSub.unsubscribe();
+    this.flightSub.unsubscribe();
   }
 
   initForm() {
@@ -104,7 +143,7 @@ export class EditFlightDetailComponent implements OnInit, OnDestroy {
           Validators.required
         ]
       ),
-      arrivalCity: new FormControl(
+      arrivalDateTime: new FormControl(
         this.currentFlightDetail.arrivalDateTime, [
           Validators.required
         ]
@@ -123,8 +162,8 @@ export class EditFlightDetailComponent implements OnInit, OnDestroy {
   }
 
   hasChanged() {
-    return (this.flightDetailFormGroup.controls.departureDateTime.value !== this.currentFlightDetail.departureDateTime ||
-      this.flightDetailFormGroup.controls.arrivalDateTime.value !== this.currentFlightDetail.arrivalDateTime ||
+    return (this.flightDetailFormGroup.controls.departureDateTime.value !== this.formatService.dateStringFormat(this.currentFlightDetail.departureDateTime) ||
+      this.flightDetailFormGroup.controls.arrivalDateTime.value !== this.formatService.dateStringFormat(this.currentFlightDetail.arrivalDateTime) ||
       this.flightDetailFormGroup.controls.flight.value !== this.currentFlightDetail.flight.id ||
       this.flightDetailFormGroup.controls.plane.value !== this.currentFlightDetail.plane.ARN);
   }
@@ -133,8 +172,8 @@ export class EditFlightDetailComponent implements OnInit, OnDestroy {
     this.isLoading = true;
 
     // Récupération des valeurs
-    this.currentFlightDetail.departureDateTime = this.flightDetailFormGroup.controls.departureDateTime.value;
-    this.currentFlightDetail.arrivalDateTime = this.flightDetailFormGroup.controls.arrivalDateTime.value;
+    this.currentFlightDetail.departureDateTime = this.formatService.stringDateFormat(this.flightDetailFormGroup.controls.departureDateTime.value);
+    this.currentFlightDetail.arrivalDateTime = this.formatService.stringDateFormat(this.flightDetailFormGroup.controls.arrivalDateTime.value);
     this.currentFlightDetail.flight.id = this.flightDetailFormGroup.controls.flight.value;
     this.currentFlightDetail.plane.ARN = this.flightDetailFormGroup.controls.plane.value;
     const message = (this.currentFlightDetail.id) ? this.messages.get('planning_has_been_edited')
