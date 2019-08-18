@@ -30,7 +30,7 @@ export class ConstructorService {
       this.httpClient.get(this.configService.URL + this.endpoint,
         { headers: this.configService.HEADERS })
         .subscribe(res => {
-          this._constructors = res['manufacturers'];
+          this._constructors = (res['manufacturers']) ? res['manufacturers'] : [];
           this._constructorSub.next(this._constructors);
           resolve();
         }, err => {

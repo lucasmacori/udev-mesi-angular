@@ -28,7 +28,7 @@ export class ModelService {
       this.httpClient.get(this.configService.URL + this.endpoint,
         { headers: this.configService.HEADERS })
         .subscribe(res => {
-          this._models = res['models'];
+          this._models = (res['models']) ? res['models'] : [];
           this._modelSub.next(this._models);
           resolve();
         }, err => {
@@ -42,7 +42,7 @@ export class ModelService {
       this.httpClient.get(this.configService.URL + this.endpoint + `/${id}`,
       { headers: this.configService.HEADERS })
         .subscribe(res => {
-          resolve(res['model']);
+          resolve((res['model']) ? res['model'] : []);
         }, err => {
           reject(err);
         });

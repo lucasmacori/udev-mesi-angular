@@ -29,7 +29,7 @@ export class PlaneService {
       this.httpClient.get(this.configService.URL + this.endpoint,
         { headers: this.configService.HEADERS })
         .subscribe(res => {
-          this._planes = res['planes'];
+          this._planes = (res['planes']) ? res['planes'] : [];
           this._planes = this.fillModelName(this._planes);
           this._planeSub.next(this._planes);
           resolve();
@@ -44,7 +44,7 @@ export class PlaneService {
       this.httpClient.get(this.configService.URL + this.endpoint + `/${ARN}`,
       { headers: this.configService.HEADERS })
         .subscribe(res => {
-          let plane: Plane = res['plane'];
+          let plane: Plane = (res['plane']) ? res['plane'] : [];
           plane = this.fillModelName(new Array<Plane>(plane))[0];
           plane.isUnderMaintenance = res['plane'].isUnderMaintenance === 'true';
           resolve(plane);
@@ -60,7 +60,7 @@ export class PlaneService {
       this.httpClient.get(this.configService.URL + this.endpoint + `/${ARN}` + '/flightDetails',
       { headers: this.configService.HEADERS })
         .subscribe(res => {
-          const flightDetails: Array<FlightDetail> = res['flightDetails'];
+          const flightDetails: Array<FlightDetail> = (res['flightDetails']) ? res['flightDetails'] : [];
           resolve(flightDetails);
         }, err => {
           reject(err);

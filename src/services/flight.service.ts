@@ -30,7 +30,7 @@ export class FlightService {
       this.httpClient.get(this.configService.URL + this.endpoint,
         { headers: this.configService.HEADERS })
         .subscribe(res => {
-          this._flights = res['flights'];
+          this._flights = (res['flights']) ? res['flights'] : [];
           this._flightsub.next(this._flights);
           resolve();
         }, err => {
@@ -44,7 +44,7 @@ export class FlightService {
       this.httpClient.get(this.configService.URL + this.endpoint + `/${id}`,
       { headers: this.configService.HEADERS })
         .subscribe(res => {
-          const flight: Flight = res['flight'];
+          const flight: Flight = (res['flight']) ? res['flight'] : [];
           resolve(flight);
         }, err => {
           reject(err);
