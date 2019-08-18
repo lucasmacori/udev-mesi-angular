@@ -121,6 +121,9 @@ export class MessageService {
       new Message('fr', 'arrival_date_time', 'Date et heure d\'arrivée'),
       new Message('en', 'arrival_date_time', 'Arrival date and time'),
       new Message('it', 'arrival_date_time', 'Data e ora di arrivo'),
+      new Message('fr', 'ARN', 'ARN'),
+      new Message('en', 'ARN', 'ARN'),
+      new Message('it', 'ARN', 'ARN'),
 
       // Errors
       new Message('fr', 'cannot_communicate_with_api', 'Une erreur s\'est produite lors de la communication avec l\'API'),
