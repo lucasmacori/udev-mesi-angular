@@ -13,6 +13,7 @@ import { Flight } from '../../models/flight.model';
 import { FormatService } from '../../services/format.service';
 import { FlightService } from '../../services/flight.service';
 import { PlaneService } from '../../services/plane.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-edit-flight-detail',
@@ -95,17 +96,19 @@ export class EditFlightDetailComponent implements OnInit, OnDestroy {
                 .then((flightDetail: FlightDetail) => {
                   this.currentFlightDetail = flightDetail;
                   this.title = this.currentFlightDetail.flight.departureCity + ' - ' + this.currentFlightDetail.flight.arrivalCity
-                    + ' -> ' + this.currentFlightDetail.departureDateTime + ' - ' + this.currentFlightDetail.arrivalDateTime;
+                    + ' : ' + this.formatService.dateStringFormat(this.currentFlightDetail.departureDateTime) + ' - ' +
+                    this.formatService.dateStringFormat(this.currentFlightDetail.arrivalDateTime);
 
-                  // Création du formulaire
-                  this.initForm();
+                // Création du formulaire
+                this.initForm();
 
-                  this.isLoading = false;
+                this.isLoading = false;
                 })
                 .catch(err => {
                   this.snackBar.open((err.error) ? err.error.message : err.message, this.messages.get('close'), { duration: 5000 });
                 });
             } else {
+              this.title = 'Planifier un vol';
               const date = new Date();
               this.currentFlightDetail = new FlightDetail(undefined, date, date,
                 new Flight(null, '', ''),
