@@ -43,6 +43,8 @@ export class FlightListComponent implements OnInit, OnDestroy {
         this.messages.set('filter', messages.get('filter'));
         this.messages.set('departureCity', messages.get('departure_city'));
         this.messages.set('arrivalCity', messages.get('arrival_city'));
+        this.messages.set('menu_planning', messages.get('menu_planning'));
+        this.messages.set('no_planning', messages.get('no_planning'));
       }
     );
     this.messageService.sendMessages();

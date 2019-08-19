@@ -45,6 +45,8 @@ export class PlaneListComponent implements OnInit, OnDestroy {
         this.messages.set('name', messages.get('name'));
         this.messages.set('model_name', messages.get('entity_model'));
         this.messages.set('isUnderMaintenance', messages.get('under_maintenance'));
+        this.messages.set('menu_planning', messages.get('menu_planning'));
+        this.messages.set('no_planning', messages.get('no_planning'));
       }
     );
     this.messageService.sendMessages();

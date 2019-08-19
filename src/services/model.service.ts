@@ -3,6 +3,7 @@ import { Subject, Observable } from 'rxjs';
 import { Model } from 'src/models/model.model';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from './config.service';
+import { Plane } from '../models/plane.model';
 
 @Injectable()
 export class ModelService {
@@ -29,6 +30,7 @@ export class ModelService {
         { headers: this.configService.HEADERS })
         .subscribe(res => {
           this._models = (res['models']) ? res['models'] : [];
+          this._models = this.fillManufacturerName(this._models);
           this._modelSub.next(this._models);
           resolve();
         }, err => {
@@ -42,7 +44,22 @@ export class ModelService {
       this.httpClient.get(this.configService.URL + this.endpoint + `/${id}`,
       { headers: this.configService.HEADERS })
         .subscribe(res => {
-          resolve((res['model']) ? res['model'] : []);
+          let model: Model = (res['model']) ? res['model'] : [];
+          model = this.fillManufacturerName(new Array<Model>(model))[0];
+          resolve();
+        }, err => {
+          reject(err);
+        });
+    });
+  }
+
+  public getPlanesOfModel(id: number): Promise<Array<Plane>> {
+    return new Promise((resolve, reject) => {
+      this.httpClient.get(this.configService.URL + this.endpoint + `/${id}` + '/planes',
+      { headers: this.configService.HEADERS })
+        .subscribe(res => {
+          const planes: Array<Plane> = (res['planes']) ? res['planes'] : [];
+          resolve(planes);
         }, err => {
           reject(err);
         });
@@ -103,5 +120,12 @@ export class ModelService {
         reject(err['message']);
       });
     });
+  }
+
+  private fillManufacturerName(models: Array<Model>): Array<Model> {
+    for (const model of models) {
+      model.manufacturer_name = model.manufacturer.name;
+    }
+    return models;
   }
 }

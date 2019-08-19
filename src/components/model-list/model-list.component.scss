@@ -1,10 +1,53 @@
-table {
-  width: 100%;
+@import "./../../styles.scss";
+
+.primaryColored {
+  color: $udev-mesi-angular-title;
+}
+.accentColored {
+  color: rgb(150, 150, 150);
+}
+.warnColored {
+  color: #f44336;
+}
+.link {
+  cursor: pointer;
+}
+.link:hover {
+  text-decoration: underline;
 }
 .no-link {
   color: black;
+  cursor: default;
 }
 .tableContainer {
   max-width: 100%;
   overflow: auto;
+  table {
+    width: 100%;
+
+    // Detail
+    .detail {
+      overflow: hidden;
+      min-height: 45px;
+      .editButton {
+        float: right;
+      }
+      .detailInfo {
+        width: calc(100% - 115px);
+      }
+    }
+    tr.detailRow {
+      height: 0;
+    }
+    tr.row:not(.expandedRow):hover {
+      background: #E3E3E3;
+      cursor: pointer;
+    }
+    tr.row:not(.expandedRow):active {
+      background: #efefef;
+    }
+    .row td {
+      border-bottom-width: 0;
+    }
+  }
 }

@@ -124,6 +124,12 @@ export class MessageService {
       new Message('fr', 'ARN', 'ARN'),
       new Message('en', 'ARN', 'ARN'),
       new Message('it', 'ARN', 'ARN'),
+      new Message('fr', 'no_planning', 'Il n\'y pas de planification'),
+      new Message('en', 'no_planning', 'There is no planning'),
+      new Message('it', 'no_planning', 'Non c\'è pianificazione'),
+      new Message('fr', 'no_plane', 'Il n\'y pas d\'avion'),
+      new Message('en', 'no_plane', 'There is no plane'),
+      new Message('it', 'no_plane', 'Non c\'è un aeroplano'),
 
       // Errors
       new Message('fr', 'cannot_communicate_with_api', 'Une erreur s\'est produite lors de la communication avec l\'API'),

@@ -54,7 +54,6 @@ export class PlaneService {
     });
   }
 
-
   public getFlightDetailOfPlane(ARN: string): Promise<Array<FlightDetail>> {
     return new Promise((resolve, reject) => {
       this.httpClient.get(this.configService.URL + this.endpoint + `/${ARN}` + '/flightDetails',

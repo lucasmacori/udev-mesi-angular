@@ -1,13 +1,19 @@
 import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
 import { Model } from '../../models/model.model';
-import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
+import { MatPaginator, MatTableDataSource, MatSort, MatSnackBar } from '@angular/material';
 import { MessageService } from '../../services/message.service';
 import { Subscription } from 'rxjs';
+import { DetailExpandAnimation } from '../../animations/detailExpand.animation';
+import { Plane } from '../../models/plane.model';
+import { ModelService } from '../../services/model.service';
 
 @Component({
   selector: 'app-model-list',
   templateUrl: './model-list.component.html',
-  styleUrls: ['./model-list.component.scss']
+  styleUrls: ['./model-list.component.scss'],
+  animations: [
+    DetailExpandAnimation
+  ]
 })
 export class ModelListComponent implements OnInit, OnDestroy {
 
@@ -18,10 +24,14 @@ export class ModelListComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   public dataSource;
-  public displayedColumns: string[] = ['Name', 'Manufacturer', 'CountEcoSlots', 'CountBusinessSlots', 'actions'];
+  public displayedColumns: string[] = ['name', 'manufacturer_name', 'countEcoSlots', 'countBusinessSlots'];
+  public expandedElement: Model | null;
+  public detailLoading = false;
 
   constructor(
-    private messageService: MessageService
+    private messageService: MessageService,
+    private modelService: ModelService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -32,9 +42,11 @@ export class ModelListComponent implements OnInit, OnDestroy {
         this.messages = new Map<string, string>();
         this.messages.set('filter', messages.get('filter'));
         this.messages.set('name', messages.get('name'));
-        this.messages.set('entity_constructor', messages.get('entity_constructor'));
+        this.messages.set('manufacturer_name', messages.get('entity_constructor'));
         this.messages.set('countEcoSlots', messages.get('countEcoSlots'));
         this.messages.set('countBusinessSlots', messages.get('countBusinessSlots'));
+        this.messages.set('menu_planes', messages.get('menu_planes'));
+        this.messages.set('no_plane', messages.get('no_plane'));
       }
     );
     this.messageService.sendMessages();
@@ -53,6 +65,25 @@ export class ModelListComponent implements OnInit, OnDestroy {
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
+    }
+  }
+
+  fetchDetail(model: Model) {
+    const editedModel = this.models.find((currentModel: Model) => {
+      return currentModel.id === model.id;
+    });
+
+    if (!editedModel.planes) {
+      this.detailLoading = true;
+      this.modelService.getPlanesOfModel(model.id)
+        .then((planes: Array<Plane>) => {
+          // Mise à jour du modèle, ajout des avions
+          editedModel.planes = planes;
+          this.detailLoading = false;
+        })
+        .catch((err) => {
+          this.snackBar.open(err, this.messages.get('close'), { duration: 5000 });
+        });
     }
   }
 }

@@ -1,59 +1,3 @@
-<!--<div *ngIf="planes && planes.length !== 0">
-  <mat-form-field class="filterbar">
-    <input matInput (keyup)="applyFilter($event.target.value)" [placeholder]="messages.get('filter')" autocomplete="off" />
-  </mat-form-field>
-
-  <div class="mat-elevation-z8 tableContainer">
-    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-
-      <!-- ARN
-      <ng-container matColumnDef="ARN">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>ARN</th>
-        <td mat-cell *matCellDef="let plane">
-          <a class="no-link" [routerLink]="'/plane/' + plane.ARN">
-            {{ plane.ARN }}
-          </a>
-          </td>
-      </ng-container>
-
-      <!-- Model
-      <ng-container matColumnDef="Model">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ messages.get('entity_model') }}</th>
-        <td mat-cell *matCellDef="let plane">
-          <a class="no-link" [routerLink]="'/model/' + plane.model.id">
-            {{ plane.model.name }}
-          </a>
-        </td>
-      </ng-container>
-
-      <!-- IsUnderMaintenance
-      <ng-container matColumnDef="IsUnderMaintenance">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ messages.get('under_maintenance') }}</th>
-        <td mat-cell *matCellDef="let plane">
-          <mat-icon class="underMaintenance" *ngIf="plane.isUnderMaintenance">check</mat-icon>
-        </td>
-      </ng-container>
-
-      <!-- Actions
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let plane">
-          <a class="no-link" [routerLink]="'/plane/' + plane.ARN">
-            <mat-icon class="icon-button">create</mat-icon>
-          </a>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-
-    <mat-paginator [pageSizeOptions]="[20, 50, 100, 1000]" showFirstLastButtons></mat-paginator>
-  </div>
-</div>
-
-<app-nothing-to-do-here *ngIf="!planes || planes.length === 0" class="centered"></app-nothing-to-do-here>-->
-
 <div *ngIf="planes && planes.length !== 0">
   <mat-form-field class="filterbar">
     <input matInput (keyup)="applyFilter($event.target.value)" [placeholder]="messages.get('filter')" autocomplete="off" />
@@ -76,13 +20,13 @@
             <app-edit-button class="editButton" [routerLink]="'/plane/' + plane.ARN"></app-edit-button>
             <mat-progress-spinner *ngIf="detailLoading"></mat-progress-spinner>
             <div *ngIf="!detailLoading" class="detailInfo">
-                <label class="accentColored">Planifications pour cet avion</label> <!-- TODO: Traduire ce message -->
+                <label class="accentColored">{{ messages.get('menu_planning') }}</label>
                 <mat-nav-list role="list" *ngIf="plane.flightDetails && plane.flightDetails.length > 0">
                   <mat-list-item role="listitem" *ngFor="let flightDetail of plane.flightDetails" [routerLink]="'/planning/' + flightDetail.id">
                     <a [routerLink]="'/flight/' + flightDetail.flight.id" class="link primaryColored">{{ flightDetail.flight.departureCity }} - {{ flightDetail.flight.arrivalCity }} -> </a> {{ flightDetail.departureDateTime }} - {{ flightDetail.arrivalDateTime }}
                   </mat-list-item>
                 </mat-nav-list>
-                <p class="warnColored" *ngIf="!plane.flightDetails || plane.flightDetails.length === 0">Il n'y a pas de planification pour cet avion</p> <!-- TODO: Traduire ce message -->
+                <p class="warnColored" *ngIf="!plane.flightDetails || plane.flightDetails.length === 0">{{ messages.get('no_planning') }}</p>
               </div>
           </div>
         </td>

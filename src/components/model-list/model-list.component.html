@@ -1,4 +1,4 @@
-<div *ngIf="models && models.length !== 0">
+<!--<div *ngIf="models && models.length !== 0">
   <mat-form-field class="filterbar">
     <input matInput (keyup)="applyFilter($event.target.value)" [placeholder]="messages.get('filter')" autocomplete="off" />
   </mat-form-field>
@@ -6,7 +6,7 @@
   <div class="mat-elevation-z8 tableContainer">
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
-      <!-- Name -->
+      <!-- Name
       <ng-container matColumnDef="Name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ messages.get('name') }}</th>
         <td mat-cell *matCellDef="let model">
@@ -16,7 +16,7 @@
           </td>
       </ng-container>
 
-      <!-- Manufacturer -->
+      <!-- Manufacturer
       <ng-container matColumnDef="Manufacturer">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ messages.get('entity_constructor') }}</th>
         <td mat-cell *matCellDef="let model">
@@ -26,7 +26,7 @@
         </td>
       </ng-container>
 
-      <!-- CountEcoSlots -->
+      <!-- CountEcoSlots
       <ng-container matColumnDef="CountEcoSlots">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ messages.get('countEcoSlots') }}</th>
         <td mat-cell *matCellDef="let model">
@@ -34,7 +34,7 @@
         </td>
       </ng-container>
 
-      <!-- CountBusinessSlots -->
+      <!-- CountBusinessSlots
       <ng-container matColumnDef="CountBusinessSlots">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ messages.get('countBusinessSlots') }}</th>
         <td mat-cell *matCellDef="let model">
@@ -42,7 +42,7 @@
         </td>
       </ng-container>
 
-      <!-- Actions -->
+      <!-- Actions
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let model">
@@ -57,6 +57,51 @@
     </table>
 
     <mat-paginator [pageSizeOptions]="[20, 50, 100, 1000]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>-->
+
+<div *ngIf="models && models.length !== 0">
+  <mat-form-field class="filterbar">
+    <input matInput (keyup)="applyFilter($event.target.value)" [placeholder]="messages.get('filter')" autocomplete="off" />
+  </mat-form-field>
+
+  <div class="mat-elevation-z8 tableContainer">
+    <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+
+      <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumns">
+        <th mat-header-cell *matHeaderCellDef> {{ messages.get(column) }} </th>
+        <td mat-cell *matCellDef="let model">
+          <span>{{ model[column] }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let model" [attr.colspan]="displayedColumns.length">
+          <div class="detail" [@detailExpand]="model == expandedElement ? 'expanded' : 'collapsed'">
+            <app-edit-button class="editButton" [routerLink]="'/model/' + model.id"></app-edit-button>
+            <mat-progress-spinner *ngIf="detailLoading"></mat-progress-spinner>
+            <div *ngIf="!detailLoading" class="detailInfo">
+              <label class="accentColored">{{ messages.get('menu_planes') }}</label>
+              <mat-nav-list role="list" *ngIf="model.planes && model.planes.length > 0">
+                <mat-list-item role="listitem" *ngFor="let plane of model.planes" [routerLink]="'/plane/' + plane.ARN">
+                  <span class="primaryColored">{{ plane.ARN }}</span>
+                </mat-list-item>
+              </mat-nav-list>
+              <p class="warnColored" *ngIf="!model.planes || model.planes.length === 0">{{ messages.get('no_plane') }}</p>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+      class="row"
+      [class.expandedRow]="expandedElement === row"
+      (click)="fetchDetail(row); expandedElement = expandedElement === row ? null : row"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detailRow"></tr>
+    </table>
+
+    <!--<mat-paginator [pageSizeOptions]="[20, 50, 100, 1000]" showFirstLastButtons></mat-paginator>-->
   </div>
 </div>
 
