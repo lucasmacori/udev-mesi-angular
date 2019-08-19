@@ -45,10 +45,14 @@ export class FlightDetailService {
       this.httpClient.get(this.configService.URL + this.endpoint + `/${id}`,
       { headers: this.configService.HEADERS })
         .subscribe(res => {
-          let flightDetail: FlightDetail = (res['flightDetails']) ? res['flightDetails'] : [];
-          flightDetail.departureDateTime = this.formatService.stringDateFormat(res['flightDetails'].departureDateTime);
-          flightDetail.arrivalDateTime = this.formatService.stringDateFormat(res['flightDetails'].arrivalDateTime);
-          resolve(flightDetail);
+          let flightDetail: FlightDetail = (res['flightDetails']) ? res['flightDetails'] : undefined;
+          if (flightDetail) {
+            flightDetail.departureDateTime = this.formatService.stringDateFormat(res['flightDetails'].departureDateTime);
+            flightDetail.arrivalDateTime = this.formatService.stringDateFormat(res['flightDetails'].arrivalDateTime);
+            resolve(flightDetail);
+          } else {
+            reject();
+          }
         }, err => {
           reject(err);
         });

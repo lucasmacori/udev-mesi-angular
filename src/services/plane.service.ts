@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ConfigService } from './config.service';
 import { Plane } from '../models/plane.model';
 import { FlightDetail } from '../models/flightDetail.model';
+import { MessageService } from './message.service';
 
 @Injectable()
 export class PlaneService {
@@ -44,10 +45,14 @@ export class PlaneService {
       this.httpClient.get(this.configService.URL + this.endpoint + `/${ARN}`,
       { headers: this.configService.HEADERS })
         .subscribe(res => {
-          let plane: Plane = (res['plane']) ? res['plane'] : [];
-          plane = this.fillModelName(new Array<Plane>(plane))[0];
-          plane.isUnderMaintenance = res['plane'].isUnderMaintenance === 'true';
-          resolve(plane);
+          let plane: Plane = (res['plane']) ? res['plane'] : undefined;
+          if (plane) {
+            plane = this.fillModelName(new Array<Plane>(plane))[0];
+            plane.isUnderMaintenance = res['plane'].isUnderMaintenance === 'true';
+            resolve(plane);
+          } else {
+            reject();
+          }
         }, err => {
           reject(err);
         });

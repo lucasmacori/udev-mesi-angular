@@ -44,7 +44,12 @@ export class ConstructorService {
       this.httpClient.get(this.configService.URL + this.endpoint + `/${id}`,
       { headers: this.configService.HEADERS })
         .subscribe(res => {
-          resolve(res['manufacturer']);
+          let manufacturer = (res['manufacturer']) ? res['manufacturer'] : undefined;
+          if (manufacturer) {
+            resolve(res['manufacturer']);
+          } else {
+            reject();
+          }
         }, err => {
           reject(err);
         });

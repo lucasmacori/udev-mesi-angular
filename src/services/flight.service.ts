@@ -44,8 +44,12 @@ export class FlightService {
       this.httpClient.get(this.configService.URL + this.endpoint + `/${id}`,
       { headers: this.configService.HEADERS })
         .subscribe(res => {
-          const flight: Flight = (res['flight']) ? res['flight'] : [];
-          resolve(flight);
+          const flight: Flight = (res['flight']) ? res['flight'] : undefined;
+          if (flight) {
+            resolve(flight);
+          } else {
+            reject();
+          }
         }, err => {
           reject(err);
         });

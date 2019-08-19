@@ -44,9 +44,13 @@ export class ModelService {
       this.httpClient.get(this.configService.URL + this.endpoint + `/${id}`,
       { headers: this.configService.HEADERS })
         .subscribe(res => {
-          let model: Model = (res['model']) ? res['model'] : [];
-          model = this.fillManufacturerName(new Array<Model>(model))[0];
-          resolve();
+          let model: Model = (res['model']) ? res['model'] : undefined;
+          if (model) {
+            model = this.fillManufacturerName(new Array<Model>(model))[0];
+            resolve(model);
+          } else {
+            reject();
+          }
         }, err => {
           reject(err);
         });
