@@ -69,9 +69,9 @@ export class EditFlightDetailComponent implements OnInit, OnDestroy {
         this.messages.set('entity_flight', messages.get('entity_flight'));
         this.messages.set('field_is_required', messages.get('field_is_required'));
         this.messages.set('field_cannot_contain_less_than_2_characters', messages.get('field_cannot_contain_less_than_2_characters'));
-        this.messages.set('flight_has_been_created', messages.get('flight_has_been_created'));
-        this.messages.set('flight_has_been_edited', messages.get('flight_has_been_edited'));
-        this.messages.set('flight_has_been_deleted', messages.get('flight_has_been_deleted'));
+        this.messages.set('planning_has_been_created', messages.get('planning_has_been_created'));
+        this.messages.set('planning_has_been_edited', messages.get('planning_has_been_edited'));
+        this.messages.set('planning_has_been_deleted', messages.get('planning_has_been_deleted'));
       }
     );
     this.messageService.sendMessages();
