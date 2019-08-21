@@ -55,7 +55,7 @@ export class PlaneComponent implements OnInit, OnDestroy {
     });
     this.planeService.fetchPlanes()
       .catch(err => {
-        this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ` + err.message,
+        this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ${err}`,
           this.messages.get('close'), { duration: 5000 });
       });
   }

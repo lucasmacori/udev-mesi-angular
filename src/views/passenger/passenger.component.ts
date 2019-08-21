@@ -36,6 +36,7 @@ export class PassengerComponent implements OnInit, OnDestroy {
     this.messageSub = this.messageService.messagesSub
       .subscribe((messages: Map<string, string>) => {
         this.messages.set('menu_passengers', messages.get('menu_passengers'));
+        this.messages.set('cannot_communicate_with_api', messages.get('cannot_communicate_with_api'));
       });
 
     // Affichage d'un message si demandé
@@ -53,7 +54,11 @@ export class PassengerComponent implements OnInit, OnDestroy {
         this.passengers = passengers;
         this.isLoading = false;
       });
-    this.passengerService.fetchPassengers();
+    this.passengerService.fetchPassengers()
+      .catch(err => {
+        this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ${err}`,
+          this.messages.get('close'), { duration: 5000 });
+      });
   }
 
   ngOnDestroy() {

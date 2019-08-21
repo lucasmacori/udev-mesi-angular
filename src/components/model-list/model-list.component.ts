@@ -47,6 +47,7 @@ export class ModelListComponent implements OnInit, OnDestroy {
         this.messages.set('countBusinessSlots', messages.get('countBusinessSlots'));
         this.messages.set('menu_planes', messages.get('menu_planes'));
         this.messages.set('no_plane', messages.get('no_plane'));
+        this.messages.set('cannot_communicate_with_api', messages.get('cannot_communicate_with_api'));
       }
     );
     this.messageService.sendMessages();
@@ -82,7 +83,7 @@ export class ModelListComponent implements OnInit, OnDestroy {
           this.detailLoading = false;
         })
         .catch((err) => {
-          this.snackBar.open(err, this.messages.get('close'), { duration: 5000 });
+          this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ${err}`, this.messages.get('close'), { duration: 5000 });
         });
     }
   }

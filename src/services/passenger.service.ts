@@ -36,7 +36,7 @@ export class PassengerService {
           this._passengerSub.next(this._passengers);
           resolve();
         }, err => {
-          reject(err);
+          reject(err.error['message']);
         });
     });
   }
@@ -54,7 +54,7 @@ export class PassengerService {
             reject();
           }
         }, err => {
-          reject(err);
+          reject(err.error['message']);
         });
     });
   }
@@ -93,7 +93,8 @@ export class PassengerService {
           reject();
         }
       }, err => {
-        reject(err['message']);
+        console.log(err);
+        reject(err.error['message']);
       })
     });
   }
@@ -116,7 +117,7 @@ export class PassengerService {
           reject();
         }
       }, err => {
-        reject(err['message']);
+        reject(err.error['message']);
       });
     });
   }

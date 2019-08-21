@@ -34,7 +34,7 @@ export class ConstructorService {
           this._constructorSub.next(this._constructors);
           resolve();
         }, err => {
-          reject(err);
+          reject(err.error['message']);
         });
     });
   }
@@ -51,7 +51,7 @@ export class ConstructorService {
             reject();
           }
         }, err => {
-          reject(err);
+          reject(err.error['message']);
         });
     });
   }
@@ -81,7 +81,7 @@ export class ConstructorService {
           reject();
         }
       }, err => {
-        reject(err['message']);
+        reject(err.error['message']);
       })
     });
   }
@@ -104,7 +104,7 @@ export class ConstructorService {
           reject();
         }
       }, err => {
-        reject(err['message']);
+        reject(err.error['message']);
       });
     });
   }

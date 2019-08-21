@@ -55,7 +55,7 @@ export class FlightComponent implements OnInit, OnDestroy {
     });
     this.flightService.fetchFlights()
       .catch(err => {
-        this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ` + err.message,
+        this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ${err}`,
           this.messages.get('close'), { duration: 5000 });
       });
   }

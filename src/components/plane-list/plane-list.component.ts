@@ -47,6 +47,7 @@ export class PlaneListComponent implements OnInit, OnDestroy {
         this.messages.set('isUnderMaintenance', messages.get('under_maintenance'));
         this.messages.set('menu_planning', messages.get('menu_planning'));
         this.messages.set('no_planning', messages.get('no_planning'));
+        this.messages.set('cannot_communicate_with_api', messages.get('cannot_communicate_with_api'));
       }
     );
     this.messageService.sendMessages();
@@ -82,7 +83,7 @@ export class PlaneListComponent implements OnInit, OnDestroy {
           this.detailLoading = false;
         })
         .catch((err) => {
-          this.snackBar.open(err, this.messages.get('close'), { duration: 5000 });
+          this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ${err}`, this.messages.get('close'), { duration: 5000 });
         });
     }
   }

@@ -110,7 +110,7 @@
         <mat-form-field class="field">
           <input matInput #password type="password" [placeholder]="messages.get('password')" maxlength="30" autocomplete="off" [errorStateMatcher]="matcher" formControlName="password">
           <mat-hint align="end">{{ password.value.length }} / 30</mat-hint>
-          <mat-hint *ngIf="password.value.trim() === ''">{{ messages.get('password_will_not_be_edited') }}</mat-hint>
+          <mat-hint *ngIf="password.value.trim() === '' && currentPassenger.id">{{ messages.get('password_will_not_be_edited') }}</mat-hint>
           <mat-error *ngIf="passengerFormGroup.controls['IDNumber'].hasError('required')">
               {{ messages.get('field_is_required') }}
             </mat-error>

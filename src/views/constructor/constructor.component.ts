@@ -57,7 +57,7 @@ export class ConstructorComponent implements OnInit, OnDestroy {
     });
     this.constructorService.fetchConstructors()
       .catch(err => {
-        this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ` + err.message, 'Fermer', { duration: 5000 });
+        this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ${err}`, 'Fermer', { duration: 5000 });
       });
   }
 

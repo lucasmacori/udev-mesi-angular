@@ -35,7 +35,7 @@ export class FlightDetailService {
           this._flightDetailsub.next(this._flightDetails);
           resolve();
         }, err => {
-          reject(err);
+          reject(err.error['message']);
         });
     });
   }
@@ -54,7 +54,7 @@ export class FlightDetailService {
             reject();
           }
         }, err => {
-          reject(err);
+          reject(err.error['message']);
         });
     });
   }
@@ -87,7 +87,7 @@ export class FlightDetailService {
           reject();
         }
       }, err => {
-        reject(err['message']);
+        reject(err.error['message']);
       });
     });
   }
@@ -110,7 +110,7 @@ export class FlightDetailService {
           reject();
         }
       }, err => {
-        reject(err['message']);
+        reject(err.error['message']);
       });
     });
   }

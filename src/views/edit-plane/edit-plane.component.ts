@@ -66,6 +66,7 @@ export class EditPlaneComponent implements OnInit, OnDestroy {
         this.messages.set('plane_has_been_created', messages.get('plane_has_been_created'));
         this.messages.set('plane_has_been_edited', messages.get('plane_has_been_edited'));
         this.messages.set('plane_has_been_deleted', messages.get('plane_has_been_deleted'));
+        this.messages.set('cannot_communicate_with_api', messages.get('cannot_communicate_with_api'));
       }
     );
     this.messageService.sendMessages();
@@ -99,7 +100,7 @@ export class EditPlaneComponent implements OnInit, OnDestroy {
                   this.isLoading = false;
                 })
                 .catch(err => {
-                  this.snackBar.open((err.error) ? err.error.message : err.message, this.messages.get('close'), { duration: 5000 });
+                  this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ${err}`, this.messages.get('close'), { duration: 5000 });
                 });
             } else {
               this.currentPlane = new Plane('',
@@ -184,7 +185,7 @@ export class EditPlaneComponent implements OnInit, OnDestroy {
         this.isLoading = false;
       })
       .catch(err => {
-        this.snackBar.open(err, this.messages.get('close'), { duration: 5000 });
+        this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ${err}`, this.messages.get('close'), { duration: 5000 });
         this.isLoading = false;
       });
   }
@@ -199,7 +200,7 @@ export class EditPlaneComponent implements OnInit, OnDestroy {
         this.validateDeletion = false;
       })
       .catch(err => {
-        this.snackBar.open(err, this.messages.get('close'), { duration: 5000 });
+        this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ${err}`, this.messages.get('close'), { duration: 5000 });
         this.isLoading = false;
         this.validateDeletion = false;
       });

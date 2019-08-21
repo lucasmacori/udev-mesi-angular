@@ -34,7 +34,7 @@ export class ModelService {
           this._modelSub.next(this._models);
           resolve();
         }, err => {
-          reject(err);
+          reject(err.error['message']);
         });
     });
   }
@@ -52,7 +52,7 @@ export class ModelService {
             reject();
           }
         }, err => {
-          reject(err);
+          reject(err.error['message']);
         });
     });
   }
@@ -65,7 +65,7 @@ export class ModelService {
           const planes: Array<Plane> = (res['planes']) ? res['planes'] : [];
           resolve(planes);
         }, err => {
-          reject(err);
+          reject(err.error['message']);
         });
     });
   }
@@ -98,7 +98,7 @@ export class ModelService {
           reject();
         }
       }, err => {
-        reject(err['message']);
+        reject(err.error['message']);
       });
     });
   }
@@ -121,7 +121,7 @@ export class ModelService {
           reject();
         }
       }, err => {
-        reject(err['message']);
+        reject(err.error['message']);
       });
     });
   }
