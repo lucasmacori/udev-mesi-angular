@@ -1,0 +1,45 @@
+<div *ngIf="passengers && passengers.length !== 0">
+  <mat-form-field class="filterbar">
+    <input matInput (keyup)="applyFilter($event.target.value)" [placeholder]="messages.get('filter')" autocomplete="off" />
+  </mat-form-field>
+
+  <div class="mat-elevation-z8 tableContainer">
+    <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+
+      <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumns">
+        <th mat-header-cell *matHeaderCellDef> {{ messages.get(column) }} </th>
+        <td mat-cell *matCellDef="let passenger">
+          <span>{{ passenger[column] }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let passenger" [attr.colspan]="displayedColumns.length">
+          <div class="detail" [@detailExpand]="passenger == expandedElement ? 'expanded' : 'collapsed'">
+            <app-edit-button class="editButton" [routerLink]="'/passenger/' + passenger.id"></app-edit-button>
+            <mat-progress-spinner *ngIf="detailLoading"></mat-progress-spinner>
+            <div *ngIf="!detailLoading" class="detailInfo">
+              <!-- Placer les informations manquantes ici -->
+              <mat-list role="list">
+                <mat-list-item role="listitem"><span class="primaryColored">{{ messages.get('IDNumber') }} : </span>{{ passenger.IDNumber }}</mat-list-item>
+                <mat-list-item role="listitem"><span class="primaryColored">{{ messages.get('gender') }} : </span>{{ passenger.gender | identifyGender }}</mat-list-item>
+                <mat-list-item role="listitem"><span class="primaryColored">{{ messages.get('birthday') }} : </span>{{ passenger.birthday | date : 'dd-MM-yyyy' }}</mat-list-item>
+              </mat-list>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+      class="row"
+      [class.expandedRow]="expandedElement === row"
+      (click)="fetchDetail(row); expandedElement = expandedElement === row ? null : row"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detailRow"></tr>
+    </table>
+
+    <!--<mat-paginator [pageSizeOptions]="[20, 50, 100, 1000]" showFirstLastButtons></mat-paginator>-->
+  </div>
+</div>
+
+<app-nothing-to-do-here *ngIf="!passengers || passengers.length === 0" class="centered"></app-nothing-to-do-here>

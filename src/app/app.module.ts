@@ -41,6 +41,9 @@ import { FlightDetailListComponent } from '../components/flight-detail-list/flig
 import { DateTimePickerComponent } from '../components/date-time-picker/date-time-picker.component';
 import { FirstUpperCaseLetterPipe } from '../pipes/first-upper-case-letter.pipe';
 import { EditButtonComponent } from '../components/edit-button/edit-button.component';
+import { PassengerComponent } from '../views/passenger/passenger.component';
+import { PassengerListComponent } from '../components/passenger-list/passenger-list.component';
+import { IdentifyGenderPipe } from '../pipes/identify-gender.pipe';
 
 @NgModule({
   declarations: [
@@ -68,7 +71,10 @@ import { EditButtonComponent } from '../components/edit-button/edit-button.compo
     FlightDetailListComponent,
     DateTimePickerComponent,
     FirstUpperCaseLetterPipe,
-    EditButtonComponent
+    EditButtonComponent,
+    PassengerComponent,
+    PassengerListComponent,
+    IdentifyGenderPipe
   ],
   imports: [
     BrowserModule,
