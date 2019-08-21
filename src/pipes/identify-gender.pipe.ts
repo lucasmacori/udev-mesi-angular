@@ -3,7 +3,8 @@ import { MessageService } from '../services/message.service';
 import { Subscription } from 'rxjs';
 
 @Pipe({
-  name: 'identifyGender'
+  name: 'identifyGender',
+  pure: false
 })
 export class IdentifyGenderPipe implements PipeTransform {
 
@@ -18,7 +19,6 @@ export class IdentifyGenderPipe implements PipeTransform {
       .subscribe((messages: Map<string, string>) => {
         this.messages.set('man', messages.get('man'));
         this.messages.set('woman', messages.get('woman'));
-        this.messageSub.unsubscribe();
       });
     this.messageService.sendMessages();
   }

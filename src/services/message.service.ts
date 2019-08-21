@@ -129,7 +129,7 @@ export class MessageService {
       new Message('it', 'no_planning', 'Non c\'è pianificazione'),
       new Message('fr', 'no_plane', 'Il n\'y pas d\'avion'),
       new Message('en', 'no_plane', 'There is no plane'),
-      new Message('it', 'no_plane', 'Non c\'è un aeroplano'), // 'firstName', 'lastName', 'email', 'IDNumber'
+      new Message('it', 'no_plane', 'Non c\'è un aeroplano'),
 
       new Message('fr', 'firstName', 'Prénom'),
       new Message('en', 'firstName', 'First name'),
@@ -158,6 +158,9 @@ export class MessageService {
       new Message('fr', 'birthday', 'Date de naissance'),
       new Message('en', 'birthday', 'Birthday'),
       new Message('it', 'birthday', 'Compleanno'),
+      new Message('fr', 'password', 'Mot de passe'),
+      new Message('en', 'password', 'Password'),
+      new Message('it', 'password', 'Password'),
 
       // Errors
       new Message('fr', 'cannot_communicate_with_api', 'Une erreur s\'est produite lors de la communication avec l\'API'),
@@ -174,6 +177,18 @@ export class MessageService {
       new Message('fr', 'field_cannot_contain_less_than_2_characters', 'Ce champ ne peut pas contenir moins de deux caractères'),
       new Message('en', 'field_cannot_contain_less_than_2_characters', 'This field cannot contain less than two characters'),
       new Message('it', 'field_cannot_contain_less_than_2_characters', 'Questo campo non può contenere meno di due caratteri'),
+      new Message('fr', 'field_cannot_contain_less_than_4_characters', 'Ce champ ne peut pas contenir moins de quatre caractères'),
+      new Message('en', 'field_cannot_contain_less_than_4_characters', 'This field cannot contain less than four characters'),
+      new Message('it', 'field_cannot_contain_less_than_4_characters', 'Questo campo non può contenere meno di quattro caratteri'),
+      new Message('fr', 'password_will_not_be_edited', 'Le mot de passe ne sera pas modifié'),
+      new Message('en', 'password_will_not_be_edited', 'Password will not be edited'),
+      new Message('it', 'password_will_not_be_edited', 'La password non verrà modificata'),
+      new Message('fr', 'field_is_email', 'Ce n\'est pas une adresse email correcte'),
+      new Message('en', 'field_is_email', 'This is a not a valid email address'),
+      new Message('it', 'field_is_email', 'Questo non è un indirizzo email corretto'),
+      new Message('fr', 'field_is_numeric', 'Ce champ ne peut contenir que des chiffres'),
+      new Message('en', 'field_is_numeric', 'This field can only contain numbers'),
+      new Message('it', 'field_is_numeric', 'Questo campo può contenere solo numeri'),
 
       // Actions
       new Message('fr', 'constructor_has_been_created', 'Le constructeur a bien été créé'),
@@ -221,6 +236,18 @@ export class MessageService {
       new Message('fr', 'planning_has_been_deleted', 'La planification a bien été supprimée'),
       new Message('en', 'planning_has_been_deleted', 'The planning has succesfully been deleted'),
       new Message('it', 'planning_has_been_deleted', 'Il pianificazione è stato cancellato'),
+      new Message('fr', 'passenger_has_been_created', 'Le passager a bien été créé'),
+      new Message('en', 'passenger_has_been_created', 'The passenger has succesfully been created'),
+      new Message('it', 'passenger_has_been_created', 'Il passeggero è stato creato'),
+      new Message('fr', 'passenger_has_been_edited', 'Le passsager a bien été modifié'),
+      new Message('en', 'passenger_has_been_edited', 'The passenger has succesfully been edited'),
+      new Message('it', 'passenger_has_been_edited', 'Il passeggero è stato modificato'),
+      new Message('fr', 'passenger_has_been_deleted', 'Le passager a bien été supprimé'),
+      new Message('en', 'passenger_has_been_deleted', 'The passenger has succesfully been deleted'),
+      new Message('it', 'passenger_has_been_deleted', 'Il passeggero è stato cancellato'),
+      new Message('fr', 'choose_a_date', 'Choisissez une date'),
+      new Message('en', 'choose_a_date', 'Choose a date'),
+      new Message('it', 'choose_a_date', 'Scegli una data'),
       new Message('fr', 'choose_a_date_time', 'Choisissez une date et une heure'),
       new Message('en', 'choose_a_date_time', 'Choose a date and time'),
       new Message('it', 'choose_a_date_time', 'Scegli una data e un\'ora')

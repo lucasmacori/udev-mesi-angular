@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 
 // Material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCardModule, MatSidenavModule, MatIconModule, MatListModule, MatSelectModule, MatProgressSpinnerModule, MatSlideToggleModule, MatInputModule, MatFormFieldModule, MatSnackBarModule, MatChipsModule, MatTableModule, MatPaginatorModule, MatSortModule, MatToolbarModule, MatCheckboxModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatSidenavModule, MatIconModule, MatListModule, MatSelectModule, MatProgressSpinnerModule, MatSlideToggleModule, MatInputModule, MatFormFieldModule, MatSnackBarModule, MatChipsModule, MatTableModule, MatPaginatorModule, MatSortModule, MatToolbarModule, MatCheckboxModule, MatDatepickerModule, MatNativeDateModule, MatRadioModule } from '@angular/material';
 import { ConstructorComponent } from './../views/constructor/constructor.component';
 import { LanguageSelectorComponent } from '../components/language-selector/language-selector.component';
 import { ConstructorListComponent } from './../components/constructor-list/constructor-list.component';
@@ -44,6 +44,7 @@ import { EditButtonComponent } from '../components/edit-button/edit-button.compo
 import { PassengerComponent } from '../views/passenger/passenger.component';
 import { PassengerListComponent } from '../components/passenger-list/passenger-list.component';
 import { IdentifyGenderPipe } from '../pipes/identify-gender.pipe';
+import { EditPassengerComponent } from '../views/edit-passenger/edit-passenger.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { IdentifyGenderPipe } from '../pipes/identify-gender.pipe';
     EditButtonComponent,
     PassengerComponent,
     PassengerListComponent,
-    IdentifyGenderPipe
+    IdentifyGenderPipe,
+    EditPassengerComponent
   ],
   imports: [
     BrowserModule,
@@ -101,6 +103,7 @@ import { IdentifyGenderPipe } from '../pipes/identify-gender.pipe';
     MatSortModule,
     MatToolbarModule,
     MatCheckboxModule,
+    MatRadioModule,
     BrowserAnimationsModule,
     HttpClientModule
   ],

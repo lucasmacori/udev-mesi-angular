@@ -1,0 +1,44 @@
+.back_button {
+  position: relative;
+  left: 2.5%;
+  margin-top: 10px;
+}
+.mode_badges {
+  float: right;
+  position: relative;
+  right: 20px;
+  top: 25px;
+}
+.field {
+  max-width: 400px;
+  width: 100%;
+  display: block;
+  margin-top: 10px;
+}
+
+.actions {
+  position: fixed;
+  z-index: 1001;
+  bottom: 20px;
+  right: 20px;
+  .smallDelete {
+    position: relative;
+    bottom: 5px;
+    left: 8px;
+  }
+  .delete_label {
+    position: relative;
+    bottom: 50px;
+    left: 70px;
+  }
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+.mt-1 {
+  margin-top: 10px;
+}
+.mt-2 {
+  margin-top: 20px;
+}

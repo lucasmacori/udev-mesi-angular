@@ -46,7 +46,8 @@ export class PassengerService {
       this.httpClient.get(this.configService.URL + this.endpoint + `/${id}`,
       { headers: this.configService.HEADERS })
         .subscribe(res => {
-          let passenger = (res['passenger']) ? res['passenger'] : undefined;
+          let passenger: Passenger = (res['passenger']) ? res['passenger'] : undefined;
+          passenger.birthday = new Date(passenger.birthday);
           if (passenger) {
             resolve(res['passenger']);
           } else {

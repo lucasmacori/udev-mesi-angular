@@ -3,6 +3,8 @@ import { Subscription } from 'rxjs';
 import { Passenger } from '../../models/passenger.model';
 import { MessageService } from '../../services/message.service';
 import { PassengerService } from '../../services/passenger.service';
+import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-passenger',
@@ -21,7 +23,9 @@ export class PassengerComponent implements OnInit, OnDestroy {
 
   constructor(
     private messageService: MessageService,
-    private passengerService: PassengerService
+    private passengerService: PassengerService,
+    private activatedRoute: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -32,6 +36,15 @@ export class PassengerComponent implements OnInit, OnDestroy {
     this.messageSub = this.messageService.messagesSub
       .subscribe((messages: Map<string, string>) => {
         this.messages.set('menu_passengers', messages.get('menu_passengers'));
+      });
+
+    // Affichage d'un message si demandé
+    this.activatedRoute.params
+      .subscribe(params => {
+        const message = params.message;
+        if (message) {
+          this.snackBar.open(message, this.messages.get('close'), { duration: 5000 });
+        }
       });
 
     // Récupération des passagers
