@@ -42,7 +42,8 @@ export class EditPlaneComponent implements OnInit, OnDestroy {
     private constructorService: ConstructorService,
     private modelService: ModelService,
     private planeService: PlaneService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private location: Location
   ) { }
 
   ngOnInit() {

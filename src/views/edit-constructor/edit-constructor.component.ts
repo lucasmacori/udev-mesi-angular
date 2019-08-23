@@ -30,7 +30,8 @@ export class EditConstructorComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private constructorService: ConstructorService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private location: Location
   ) {}
 
   ngOnInit() {

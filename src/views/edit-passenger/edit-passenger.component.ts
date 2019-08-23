@@ -30,7 +30,8 @@ export class EditPassengerComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private passengerService: PassengerService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private location: Location
   ) {}
 
   ngOnInit() {

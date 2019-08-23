@@ -1,4 +1,4 @@
-<button mat-fab class="back_button" color="warn" routerLink="/models">
+<button mat-fab class="back_button" color="warn" (click)="location.back()">
   <mat-icon>arrow_back</mat-icon>
 </button>
 <mat-chip-list class="mode_badges" *ngIf="currentModel">

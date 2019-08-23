@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MessageService } from '../../services/message.service';
 import { Flight } from '../../models/flight.model';
 import { FlightService } from '../../services/flight.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-flight',
@@ -30,7 +31,8 @@ export class EditFlightComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private flightService: FlightService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private location: Location
   ) { }
 
   ngOnInit() {

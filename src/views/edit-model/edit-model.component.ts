@@ -36,7 +36,8 @@ export class EditModelComponent implements OnInit, OnDestroy {
     private router: Router,
     private constructorService: ConstructorService,
     private modelService: ModelService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private location: Location
   ) { }
 
   ngOnInit() {

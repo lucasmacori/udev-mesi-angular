@@ -47,7 +47,8 @@ export class EditFlightDetailComponent implements OnInit, OnDestroy {
     private flightDetailService: FlightDetailService,
     private flightService: FlightService,
     private planeService: PlaneService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private location: Location
   ) { }
 
   ngOnInit() {
