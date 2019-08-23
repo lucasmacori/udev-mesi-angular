@@ -189,6 +189,15 @@ export class MessageService {
       new Message('fr', 'field_is_numeric', 'Ce champ ne peut contenir que des chiffres'),
       new Message('en', 'field_is_numeric', 'This field can only contain numbers'),
       new Message('it', 'field_is_numeric', 'Questo campo può contenere solo numeri'),
+      new Message('fr', 'email_exists', 'Cette adresse email est déjà prise'),
+      new Message('en', 'email_exists', 'This email address is already taken'),
+      new Message('it', 'email_exists', 'Questo indirizzo e-mail è già stato preso'),
+      new Message('fr', 'phone_number_exists', 'Ce numéro de téléphone est déjà pris'),
+      new Message('en', 'phone_number_exists', 'This phone number is already taken'),
+      new Message('it', 'phone_number_exists', 'Questo numero di telefono è già stato preso'),
+      new Message('fr', 'id_number_exists', 'Ce numéro de carte d\'identité est déjà pris'),
+      new Message('en', 'id_number_exists', 'This ID number is already taken'),
+      new Message('it', 'id_number_exists', 'Questo numero di carta d\'identità è già stato preso'),
 
       // Actions
       new Message('fr', 'constructor_has_been_created', 'Le constructeur a bien été créé'),

@@ -64,6 +64,9 @@ export class EditPassengerComponent implements OnInit, OnDestroy {
         this.messages.set('passenger_has_been_deleted', messages.get('passenger_has_been_deleted'));
         this.messages.set('choose_a_date', messages.get('choose_a_date'));
         this.messages.set('cannot_communicate_with_api', messages.get('cannot_communicate_with_api'));
+        this.messages.set('email_exists', messages.get('email_exists'));
+        this.messages.set('phone_number_exists', messages.get('phone_number_exists'));
+        this.messages.set('id_number_exists', messages.get('id_number_exists'));
       }
     );
     this.messageService.sendMessages();
@@ -159,6 +162,20 @@ export class EditPassengerComponent implements OnInit, OnDestroy {
       this.passengerFormGroup.controls.phoneNumber.value !== this.currentPassenger.phoneNumber ||
       this.passengerFormGroup.controls.IDNumber.value !== this.currentPassenger.IDNumber ||
       password !== undefined);
+  }
+
+  checkField(fieldName: string, formControl: FormControl) {
+    this.passengerService.checkFieldExists(fieldName, formControl.value)
+      .then(exists => {
+        if (!!exists) {
+          formControl.setErrors({ exists: true });
+        } else {
+          formControl.setErrors({ exists: false });
+        }
+      })
+      .catch(err => {
+        this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ${err}`, this.messages.get('close'), { duration: 5000 });
+      });
   }
 
   save() {

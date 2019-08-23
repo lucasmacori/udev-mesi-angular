@@ -59,6 +59,22 @@ export class PassengerService {
     });
   }
 
+  public checkFieldExists(fieldName: string, value: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      this.httpClient.get(this.configService.URL + this.endpoint + `/${fieldName}Exists/${value}`,
+      { headers: this.configService.HEADERS })
+        .subscribe(res => {
+          if (res['exists']) {
+            resolve(res['exists']);
+          } else {
+            reject();
+          }
+        }, err => {
+          reject(err.error['message']);
+        });
+    });
+  }
+
   public savePassenger(passenger: Passenger): Promise<null> {
     return new Promise((resolve, reject) => {
 
