@@ -6,6 +6,7 @@ import { MessageService } from '../../services/message.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PassengerService } from '../../services/passenger.service';
 import { MatSnackBar } from '@angular/material';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-passenger',
@@ -31,7 +32,7 @@ export class EditPassengerComponent implements OnInit, OnDestroy {
     private router: Router,
     private passengerService: PassengerService,
     private snackBar: MatSnackBar,
-    private location: Location
+    public location: Location
   ) {}
 
   ngOnInit() {

@@ -6,6 +6,7 @@ import { Validators, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { MessageService } from 'src/services/message.service';
 import { Subscription } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-constructor',
@@ -31,7 +32,7 @@ export class EditConstructorComponent implements OnInit, OnDestroy {
     private router: Router,
     private constructorService: ConstructorService,
     private snackBar: MatSnackBar,
-    private location: Location
+    public location: Location
   ) {}
 
   ngOnInit() {

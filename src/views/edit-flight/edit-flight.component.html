@@ -20,22 +20,22 @@
     <h2>{{ title }}</h2>
     <form [formGroup]="flightFormGroup">
       <mat-form-field class="field">
-        <input matInput #departureCity [placeholder]="messages.get('departure_city')" maxlength="75" autocomplete="off" [errorStateMatcher]="matcher" formControlName="departureCity">
+        <input matInput #departureCity [placeholder]="messages.get('departure_city')" maxlength="75" autocomplete="off" formControlName="departureCity">
         <mat-hint align="end">{{ departureCity.value.length }} / 75</mat-hint>
-        <mat-error *ngIf="flightFormGroup.controls.departureCity.hasError('minlength') && !flightFormGroup.controls.departureCity.hasError('required')">
+        <mat-error *ngIf="flightFormGroup.controls['departureCity'].hasError('minlength') && !flightFormGroup.controls.departureCity.hasError('required')">
           {{ messages.get('field_cannot_contain_less_than_2_characters') }}
         </mat-error>
-        <mat-error *ngIf="flightFormGroup.controls.departureCity.hasError('required')">
+        <mat-error *ngIf="flightFormGroup.controls['departureCity'].hasError('required')">
           {{ messages.get('field_is_required') }}
         </mat-error>
       </mat-form-field>
       <mat-form-field class="field">
-        <input matInput #arrivalCity [placeholder]="messages.get('arrival_city')" maxlength="75" autocomplete="off" [errorStateMatcher]="matcher" formControlName="arrivalCity">
+        <input matInput #arrivalCity [placeholder]="messages.get('arrival_city')" maxlength="75" autocomplete="off" formControlName="arrivalCity">
         <mat-hint align="end">{{ arrivalCity.value.length }} / 75</mat-hint>
-        <mat-error *ngIf="flightFormGroup.controls.arrivalCity.hasError('minlength') && !flightFormGroup.controls.arrivalCity.hasError('required')">
+        <mat-error *ngIf="flightFormGroup.controls['arrivalCity'].hasError('minlength') && !flightFormGroup.controls.arrivalCity.hasError('required')">
           {{ messages.get('field_cannot_contain_less_than_2_characters') }}
         </mat-error>
-        <mat-error *ngIf="flightFormGroup.controls.arrivalCity.hasError('required')">
+        <mat-error *ngIf="flightFormGroup.controls['arrivalCity'].hasError('required')">
           {{ messages.get('field_is_required') }}
         </mat-error>
       </mat-form-field>

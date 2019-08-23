@@ -8,6 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MessageService } from '../../services/message.service';
 import { Constructor } from '../../models/constructor.model';
 import { ConstructorService } from '../../services/constructor.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-model',
@@ -37,7 +38,7 @@ export class EditModelComponent implements OnInit, OnDestroy {
     private constructorService: ConstructorService,
     private modelService: ModelService,
     private snackBar: MatSnackBar,
-    private location: Location
+    public location: Location
   ) { }
 
   ngOnInit() {

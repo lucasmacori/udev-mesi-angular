@@ -32,7 +32,7 @@ export class EditFlightComponent implements OnInit, OnDestroy {
     private router: Router,
     private flightService: FlightService,
     private snackBar: MatSnackBar,
-    private location: Location
+    public location: Location
   ) { }
 
   ngOnInit() {

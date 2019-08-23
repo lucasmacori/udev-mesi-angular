@@ -20,7 +20,7 @@
     <h2>{{ title }}</h2>
     <form [formGroup]="modelFormGroup">
       <mat-form-field class="field">
-        <input matInput #name [placeholder]="messages.get('name')" maxlength="50" autocomplete="off" [errorStateMatcher]="matcher" formControlName="name">
+        <input matInput #name [placeholder]="messages.get('name')" maxlength="50" autocomplete="off" formControlName="name">
         <mat-hint align="end">{{ name.value.length }} / 50</mat-hint>
         <mat-error *ngIf="modelFormGroup.controls['name'].hasError('minlength') && !modelFormGroup.controls['name'].hasError('required')">
           {{ messages.get('field_cannot_contain_less_than_2_characters') }}
@@ -39,13 +39,13 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field class="field">
-        <input matInput type="number" #countEcoSlots [placeholder]="messages.get('countEcoSlots')" autocomplete="off" [errorStateMatcher]="matcher" formControlName="countEcoSlots">
+        <input matInput type="number" #countEcoSlots [placeholder]="messages.get('countEcoSlots')" autocomplete="off" formControlName="countEcoSlots">
         <mat-error *ngIf="modelFormGroup.controls['countEcoSlots'].hasError('required')">
             {{ messages.get('field_is_required') }}
         </mat-error>
       </mat-form-field>
       <mat-form-field class="field">
-        <input matInput type="number" #countBusinessSlots [placeholder]="messages.get('countBusinessSlots')" autocomplete="off" [errorStateMatcher]="matcher" formControlName="countBusinessSlots">
+        <input matInput type="number" #countBusinessSlots [placeholder]="messages.get('countBusinessSlots')" autocomplete="off" formControlName="countBusinessSlots">
         <mat-error *ngIf="modelFormGroup.controls['countBusinessSlots'].hasError('required')">
           {{ messages.get('field_is_required') }}
         </mat-error>

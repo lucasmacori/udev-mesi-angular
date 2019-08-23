@@ -12,6 +12,8 @@ import { EditFlightDetailComponent } from 'src/views/edit-flight-detail/edit-fli
 import { FlightDetailComponent } from '../views/flight-detail/flight-detail.component';
 import { PassengerComponent } from '../views/passenger/passenger.component';
 import { EditPassengerComponent } from '../views/edit-passenger/edit-passenger.component';
+import { ReservationComponent } from 'src/views/reservation/reservation.component';
+import { EditReservationComponent } from 'src/views/edit-reservation/edit-reservation.component';
 
 
 const routes: Routes = [
@@ -33,7 +35,10 @@ const routes: Routes = [
   { path: 'planning/new', component: EditFlightDetailComponent },
   { path: 'passengers', component: PassengerComponent },
   { path: 'passenger/:id', component: EditPassengerComponent },
-  { path: 'passenger/new', component: EditPassengerComponent }
+  { path: 'passenger/new', component: EditPassengerComponent },
+  { path: 'reservations', component: ReservationComponent },
+  { path: 'reservation/:id', component: EditReservationComponent },
+  { path: 'reservation/new', component: EditReservationComponent }
 ];
 
 @NgModule({

@@ -21,7 +21,7 @@
       <form [formGroup]="passengerFormGroup">
         <!-- Prénom -->
         <mat-form-field class="field">
-          <input matInput #firstName [placeholder]="messages.get('firstName')" maxlength="35" autocomplete="off" [errorStateMatcher]="matcher" formControlName="firstName">
+          <input matInput #firstName [placeholder]="messages.get('firstName')" maxlength="35" autocomplete="off" formControlName="firstName">
           <mat-hint align="end">{{ firstName.value.length }} / 35</mat-hint>
           <mat-error *ngIf="passengerFormGroup.controls['firstName'].hasError('minlength') && !passengerFormGroup.controls['firstName'].hasError('required')">
             {{ messages.get('field_cannot_contain_less_than_2_characters') }}
@@ -33,7 +33,7 @@
 
         <!-- Nom de famille -->
         <mat-form-field class="field">
-          <input matInput #lastName [placeholder]="messages.get('lastName')" maxlength="40" autocomplete="off" [errorStateMatcher]="matcher" formControlName="lastName">
+          <input matInput #lastName [placeholder]="messages.get('lastName')" maxlength="40" autocomplete="off" formControlName="lastName">
           <mat-hint align="end">{{ lastName.value.length }} / 40</mat-hint>
           <mat-error *ngIf="passengerFormGroup.controls['lastName'].hasError('minlength') && !passengerFormGroup.controls['lastName'].hasError('required')">
             {{ messages.get('field_cannot_contain_less_than_2_characters') }}
@@ -45,7 +45,7 @@
 
         <!-- Email -->
         <mat-form-field class="field">
-          <input matInput #email [placeholder]="messages.get('email')" maxlength="50" autocomplete="off" [errorStateMatcher]="matcher"
+          <input matInput #email [placeholder]="messages.get('email')" maxlength="50" autocomplete="off"
             (blur)="checkField('email', passengerFormGroup.controls['email'])" formControlName="email">
           <mat-hint align="end">{{ email.value.length }} / 50</mat-hint>
           <mat-error *ngIf="passengerFormGroup.controls['email'].hasError('minlength') && !passengerFormGroup.controls['email'].hasError('required')">
@@ -82,7 +82,7 @@
 
         <!-- Numéro de téléphone -->
         <mat-form-field class="field">
-          <input matInput #phoneNumber [placeholder]="messages.get('phoneNumber')" maxlength="15" autocomplete="off" [errorStateMatcher]="matcher"
+          <input matInput #phoneNumber [placeholder]="messages.get('phoneNumber')" maxlength="15" autocomplete="off"
             (blur)="checkField('phoneNumber', passengerFormGroup.controls['phoneNumber'])" formControlName="phoneNumber">
           <mat-hint align="end">{{ phoneNumber.value.length }} / 15</mat-hint>
           <mat-error *ngIf="passengerFormGroup.controls['phoneNumber'].hasError('minlength') && !passengerFormGroup.controls['phoneNumber'].hasError('required')">
@@ -101,7 +101,7 @@
 
         <!-- Numéro de carte d'identité -->
         <mat-form-field class="field">
-          <input matInput #IDNumber [placeholder]="messages.get('IDNumber')" maxlength="20" autocomplete="off" [errorStateMatcher]="matcher"
+          <input matInput #IDNumber [placeholder]="messages.get('IDNumber')" maxlength="20" autocomplete="off"
             (blur)="checkField('IDNumber', passengerFormGroup.controls['IDNumber'])" formControlName="IDNumber">
           <mat-hint align="end">{{ IDNumber.value.length }} / 20</mat-hint>
           <mat-error *ngIf="passengerFormGroup.controls['IDNumber'].hasError('minlength') && !passengerFormGroup.controls['IDNumber'].hasError('required')">
@@ -120,7 +120,7 @@
 
         <!-- Password -->
         <mat-form-field class="field">
-          <input matInput #password type="password" [placeholder]="messages.get('password')" maxlength="30" autocomplete="off" [errorStateMatcher]="matcher" formControlName="password">
+          <input matInput #password type="password" [placeholder]="messages.get('password')" maxlength="30" autocomplete="off" formControlName="password">
           <mat-hint align="end">{{ password.value.length }} / 30</mat-hint>
           <mat-hint *ngIf="password.value.trim() === '' && currentPassenger.id">{{ messages.get('password_will_not_be_edited') }}</mat-hint>
           <mat-error *ngIf="passengerFormGroup.controls['IDNumber'].hasError('required')">

@@ -10,6 +10,7 @@ import { Plane } from '../../models/plane.model';
 import { PlaneService } from '../../services/plane.service';
 import { Constructor } from '../../models/constructor.model';
 import { ConstructorService } from '../../services/constructor.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-plane',
@@ -43,7 +44,7 @@ export class EditPlaneComponent implements OnInit, OnDestroy {
     private modelService: ModelService,
     private planeService: PlaneService,
     private snackBar: MatSnackBar,
-    private location: Location
+    public location: Location
   ) { }
 
   ngOnInit() {

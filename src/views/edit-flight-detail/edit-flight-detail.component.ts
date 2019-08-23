@@ -13,7 +13,7 @@ import { Flight } from '../../models/flight.model';
 import { FormatService } from '../../services/format.service';
 import { FlightService } from '../../services/flight.service';
 import { PlaneService } from '../../services/plane.service';
-import { DatePipe } from '@angular/common';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-flight-detail',
@@ -48,7 +48,7 @@ export class EditFlightDetailComponent implements OnInit, OnDestroy {
     private flightService: FlightService,
     private planeService: PlaneService,
     private snackBar: MatSnackBar,
-    private location: Location
+    public location: Location
   ) { }
 
   ngOnInit() {

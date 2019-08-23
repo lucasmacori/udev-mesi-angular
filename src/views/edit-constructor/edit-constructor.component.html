@@ -20,7 +20,7 @@
       <h2>{{ title }}</h2>
       <form>
         <mat-form-field class="field">
-          <input matInput #name [placeholder]="messages.get('name')" maxlength="50" autocomplete="off" [formControl]="constructorFormControl" [errorStateMatcher]="matcher">
+          <input matInput #name [placeholder]="messages.get('name')" maxlength="50" autocomplete="off" [formControl]="constructorFormControl">
           <mat-hint align="end">{{ name.value.length }} / 50</mat-hint>
           <mat-error *ngIf="constructorFormControl.hasError('minlength') && !constructorFormControl.hasError('required')">
             {{ messages.get('field_cannot_contain_less_than_2_characters') }}

@@ -6,7 +6,10 @@ import { AppComponent } from './app.component';
 
 // Material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCardModule, MatSidenavModule, MatIconModule, MatListModule, MatSelectModule, MatProgressSpinnerModule, MatSlideToggleModule, MatInputModule, MatFormFieldModule, MatSnackBarModule, MatChipsModule, MatTableModule, MatPaginatorModule, MatSortModule, MatToolbarModule, MatCheckboxModule, MatDatepickerModule, MatNativeDateModule, MatRadioModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatSidenavModule, MatIconModule, MatListModule, MatSelectModule,
+  MatProgressSpinnerModule, MatSlideToggleModule, MatInputModule, MatFormFieldModule, MatSnackBarModule,
+  MatChipsModule, MatTableModule, MatPaginatorModule, MatSortModule, MatToolbarModule, MatCheckboxModule,
+  MatDatepickerModule, MatNativeDateModule, MatRadioModule } from '@angular/material';
 import { ConstructorComponent } from './../views/constructor/constructor.component';
 import { LanguageSelectorComponent } from '../components/language-selector/language-selector.component';
 import { ConstructorListComponent } from './../components/constructor-list/constructor-list.component';
@@ -45,6 +48,12 @@ import { PassengerComponent } from '../views/passenger/passenger.component';
 import { PassengerListComponent } from '../components/passenger-list/passenger-list.component';
 import { IdentifyGenderPipe } from '../pipes/identify-gender.pipe';
 import { EditPassengerComponent } from '../views/edit-passenger/edit-passenger.component';
+import { ReservationComponent } from '../views/reservation/reservation.component';
+import { ReservationListComponent } from '../components/reservation-list/reservation-list.component';
+import { EditReservationComponent } from '../views/edit-reservation/edit-reservation.component';
+import { PassengerService } from '../services/passenger.service';
+import { ReservationService } from 'src/services/reservation.service';
+import { IdentifyClassPipe } from '../pipes/identify-class.pipe';
 
 @NgModule({
   declarations: [
@@ -76,7 +85,11 @@ import { EditPassengerComponent } from '../views/edit-passenger/edit-passenger.c
     PassengerComponent,
     PassengerListComponent,
     IdentifyGenderPipe,
-    EditPassengerComponent
+    EditPassengerComponent,
+    ReservationComponent,
+    ReservationListComponent,
+    EditReservationComponent,
+    IdentifyClassPipe
   ],
   imports: [
     BrowserModule,
@@ -115,7 +128,9 @@ import { EditPassengerComponent } from '../views/edit-passenger/edit-passenger.c
     ModelService,
     PlaneService,
     FlightService,
-    FlightDetailService
+    FlightDetailService,
+    PassengerService,
+    ReservationService
   ],
   bootstrap: [AppComponent]
 })

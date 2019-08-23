@@ -1,0 +1,8 @@
+<mat-card class="content">
+  <h2>{{ messages.get('menu_reservations') }}</h2>
+  <app-reservation-list [reservations]="reservations" *ngIf="!isLoading"></app-reservation-list>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+</mat-card>
+<div class="actions">
+  <app-create-button routerLink="/reservation/new"></app-create-button>
+</div>
