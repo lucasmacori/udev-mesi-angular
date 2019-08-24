@@ -15,6 +15,7 @@ import { Plane } from '../../models/plane.model';
 import { Model } from 'src/models/model.model';
 import { Constructor } from '../../models/constructor.model';
 import { FlightService } from '../../services/flight.service';
+import { FlightDetailService } from '../../services/flight-detail.service';
 
 @Component({
   selector: 'app-edit-reservation',
@@ -40,12 +41,15 @@ export class EditReservationComponent implements OnInit, OnDestroy {
   public reservationFormGroup: FormGroup;
   public validateDeletion: boolean;
 
+  public flightChipText: string;
+
   constructor(
     private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router,
     private reservationService: ReservationService,
     private flightService: FlightService,
+    private flightDetailService: FlightDetailService,
     private passengerService: PassengerService,
     private snackBar: MatSnackBar,
     public location: Location
@@ -65,7 +69,10 @@ export class EditReservationComponent implements OnInit, OnDestroy {
         this.messages.set('crud_edition', messages.get('crud_edition'));
         this.messages.set('close', messages.get('close'));
         this.messages.set('entity_reservation', messages.get('entity_reservation'));
+        this.messages.set('entity_passenger', messages.get('entity_passenger'));
         this.messages.set('entity_planning', messages.get('entity_planning'));
+        this.messages.set('economic', messages.get('economic'));
+        this.messages.set('business', messages.get('business'));
         this.messages.set('field_is_required', messages.get('field_is_required'));
         this.messages.set('field_cannot_contain_less_than_2_characters', messages.get('field_cannot_contain_less_than_2_characters'));
         this.messages.set('reservation_has_been_created', messages.get('reservation_has_been_created'));
@@ -113,6 +120,9 @@ export class EditReservationComponent implements OnInit, OnDestroy {
 
                   // Création du formulaire
                   this.initForm();
+
+                  // Affichage du vol dans le chip
+                  this.getFlightNameFromFlightDetailId(this.reservationFormGroup.controls['flightDetail'].value);
 
                   this.isLoading = false;
                 })
@@ -178,15 +188,15 @@ export class EditReservationComponent implements OnInit, OnDestroy {
       this.reservationFormGroup.controls.reservationClass.value !== this.currentReservation.reservationClass);
   }
 
-  getFlightNameFromFlightDetailId(flightDetailId: number) {
-    this.flights.forEach((flight: Flight) => {
-      /*flight.flightDetails.forEach((flightDetail: FlightDetail) => {
-        if (flightDetail.id === flightDetailId) {
-          return flight;
-        }
-      });*/
-      return 'issou';
-    });
+  getFlightNameFromFlightDetailId(flightDetailId: string) {
+    this.flightDetailService.getFlightDetailById(parseInt(flightDetailId, 10))
+      .then((flightDetail: FlightDetail) => {
+        this.flightChipText = `${flightDetail.flight.departureCity} - ${flightDetail.flight.arrivalCity}`;
+      })
+      .catch(err => {
+        this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ${err}`, this.messages.get('close'), { duration: 5000 });
+        this.flightChipText = undefined;
+      });
   }
 
   save() {

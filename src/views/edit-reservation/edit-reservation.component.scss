@@ -16,6 +16,9 @@
   margin-top: 10px;
 }
 
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
 .actions {
   position: fixed;
   z-index: 1001;

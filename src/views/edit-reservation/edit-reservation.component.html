@@ -19,9 +19,11 @@
   <div *ngIf="currentReservation && !isLoading">
     <h2>{{ title }}</h2>
     <form [formGroup]="reservationFormGroup">
+
+      <!-- Planning -->
       <mat-form-field class="field">
         <mat-label>{{ messages.get('entity_planning') }}</mat-label>
-        <mat-select formControlName="flightDetail">
+        <mat-select formControlName="flightDetail" (selectionChange)="getFlightNameFromFlightDetailId($event.value)">
           <mat-option *ngIf="currentReservation.id" [value]="currentReservation.flightDetails.id">
             {{ currentReservation.flightDetails.flight.departureCity }} - {{ currentReservation.flightDetails.flight.arrivalCity }} ->
             {{ currentReservation.flightDetails.departureDateTime }} : {{ currentReservation.flightDetails.arrivalDateTime }}
@@ -33,7 +35,26 @@
           </mat-optgroup>
         </mat-select>
       </mat-form-field>
-      <mat-chip *ngIf="reservationFormGroup.controls['flightDetail'].value">{{ getFlightNameFromFlightDetailId(reservationFormGroup.controls['flightDetail'].value) }}</mat-chip>
+      <mat-chip color="primary" selected *ngIf="reservationFormGroup.controls['flightDetail'].value">{{ flightChipText }}</mat-chip>
+
+      <!-- Passager -->
+      <mat-form-field class="field">
+        <mat-label>{{ messages.get('entity_passenger') }}</mat-label>
+        <mat-select formControlName="passenger">
+          <mat-option *ngIf="currentReservation.id" [value]="currentReservation.passenger.id">
+            {{ currentReservation.passenger.firstName }} {{ currentReservation.passenger.lastName }}
+          </mat-option>
+          <mat-option *ngFor="let passenger of passengers" [value]="passenger.id">
+            {{ passenger.firstName }} {{ passenger.lastName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Classe -->
+      <mat-radio-group color="warn" formControlName="reservationClass">
+        <mat-radio-button value="E">{{ messages.get('economic') }}</mat-radio-button>
+        <mat-radio-button value="B">{{ messages.get('business') }}</mat-radio-button>
+      </mat-radio-group>
     </form>
   </div>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
