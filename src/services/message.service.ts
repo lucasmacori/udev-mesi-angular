@@ -266,6 +266,17 @@ export class MessageService {
       new Message('fr', 'passenger_has_been_deleted', 'Le passager a bien été supprimé'),
       new Message('en', 'passenger_has_been_deleted', 'The passenger has succesfully been deleted'),
       new Message('it', 'passenger_has_been_deleted', 'Il passeggero è stato cancellato'),
+
+      new Message('fr', 'reservation_has_been_created', 'La réservation a bien été créée'),
+      new Message('en', 'reservation_has_been_created', 'The reservation has succesfully been created'),
+      new Message('it', 'reservation_has_been_created', 'La prenotazione è stata creata'),
+      new Message('fr', 'reservation_has_been_edited', 'La réservation a bien été modifiée'),
+      new Message('en', 'reservation_has_been_edited', 'The reservation has succesfully been edited'),
+      new Message('it', 'reservation_has_been_edited', 'La prenotazione è stata modificata'),
+      new Message('fr', 'reservation_has_been_deleted', 'La réservation a bien été supprimée'),
+      new Message('en', 'reservation_has_been_deleted', 'The reservation has succesfully been deleted'),
+      new Message('it', 'reservation_has_been_deleted', 'La prenotazione è stata cancellata'),
+
       new Message('fr', 'choose_a_date', 'Choisissez une date'),
       new Message('en', 'choose_a_date', 'Choose a date'),
       new Message('it', 'choose_a_date', 'Scegli una data'),

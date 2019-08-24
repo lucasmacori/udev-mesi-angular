@@ -139,6 +139,7 @@ export class EditFlightDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.messagesSub.unsubscribe();
     this.flightSub.unsubscribe();
+    this.planeSub.unsubscribe();
   }
 
   initForm() {

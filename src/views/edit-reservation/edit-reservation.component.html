@@ -1,1 +1,45 @@
-<p>edit-reservation works!</p>
+<button mat-fab class="back_button" color="warn" (click)="location.back()">
+  <mat-icon>arrow_back</mat-icon>
+</button>
+<mat-chip-list class="mode_badges" *ngIf="currentReservation">
+  <mat-chip color="primary" *ngIf="currentReservation.id && !hasChanged()">
+    <mat-icon>remove_red_eye</mat-icon>
+    {{ messages.get('crud_read') }}
+  </mat-chip>
+  <mat-chip color="primary" *ngIf="currentReservation.id && hasChanged()">
+    <mat-icon>create</mat-icon>
+    {{ messages.get('crud_edition') }}
+  </mat-chip>
+  <mat-chip *ngIf="!currentReservation.id">
+    <mat-icon>create</mat-icon>
+    {{ messages.get('crud_creation') }}
+  </mat-chip>
+</mat-chip-list>
+<mat-card class="content">
+  <div *ngIf="currentReservation && !isLoading">
+    <h2>{{ title }}</h2>
+    <form [formGroup]="reservationFormGroup">
+      <mat-form-field class="field">
+        <mat-label>{{ messages.get('entity_planning') }}</mat-label>
+        <mat-select formControlName="flightDetail">
+          <mat-option *ngIf="currentReservation.id" [value]="currentReservation.flightDetails.id">
+            {{ currentReservation.flightDetails.flight.departureCity }} - {{ currentReservation.flightDetails.flight.arrivalCity }} ->
+            {{ currentReservation.flightDetails.departureDateTime }} : {{ currentReservation.flightDetails.arrivalDateTime }}
+          </mat-option>
+          <mat-optgroup *ngFor="let flight of flights" [label]="flight.departureCity + ' - ' + flight.arrivalCity">
+            <mat-option *ngFor="let flightDetail of flight.flightDetails" [value]="flightDetail.id">
+              {{ flightDetail.departureDateTime + ' - ' + flightDetail.arrivalDateTime }}
+            </mat-option>
+          </mat-optgroup>
+        </mat-select>
+      </mat-form-field>
+      <mat-chip *ngIf="reservationFormGroup.controls['flightDetail'].value">{{ getFlightNameFromFlightDetailId(reservationFormGroup.controls['flightDetail'].value) }}</mat-chip>
+    </form>
+  </div>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+</mat-card>
+<div class="actions" *ngIf="currentReservation">
+  <app-delete-button [displayed]="currentReservation.id" [smallButton]="hasChanged()" (validated)="delete()"></app-delete-button>
+  <br />
+  <app-save-button [displayed]="hasChanged()" [disabled]="!reservationFormGroup.valid" (validated)="save()"></app-save-button>
+</div>

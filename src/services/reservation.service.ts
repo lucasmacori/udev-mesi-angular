@@ -39,7 +39,7 @@ export class ReservationService {
     });
   }
 
-  public getReservationByARN(id: number): Promise<Reservation> {
+  public getReservationById(id: number): Promise<Reservation> {
     return new Promise((resolve, reject) => {
       this.httpClient.get(this.configService.URL + this.endpoint + `/${id}`,
       { headers: this.configService.HEADERS })
@@ -70,7 +70,7 @@ export class ReservationService {
     });
   }
 
-  public saveFlightDetail(reservation: Reservation): Promise<null> {
+  public saveReservation(reservation: Reservation): Promise<null> {
     return new Promise((resolve, reject) => {
 
       const body = new URLSearchParams();

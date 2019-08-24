@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Passenger } from '../../models/passenger.model';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, Validators, FormGroup, ValidationErrors } from '@angular/forms';
 import { MessageService } from '../../services/message.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PassengerService } from '../../services/passenger.service';
@@ -169,11 +169,12 @@ export class EditPassengerComponent implements OnInit, OnDestroy {
   checkField(fieldName: string, formControl: FormControl) {
     this.passengerService.checkFieldExists(fieldName, formControl.value)
       .then(exists => {
-        if (!!exists) {
+        if (!exists) {
           formControl.setErrors({ exists: true });
         } else {
           formControl.setErrors({ exists: false });
         }
+        formControl.updateValueAndValidity();
       })
       .catch(err => {
         this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ${err}`, this.messages.get('close'), { duration: 5000 });
