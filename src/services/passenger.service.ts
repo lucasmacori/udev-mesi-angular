@@ -65,7 +65,7 @@ export class PassengerService {
       { headers: this.configService.HEADERS })
         .subscribe(res => {
           if (res['exists']) {
-            resolve(res['exists']);
+            resolve(res['exists'] === 'true');
           } else {
             reject();
           }

@@ -168,13 +168,14 @@ export class EditPassengerComponent implements OnInit, OnDestroy {
 
   checkField(fieldName: string, formControl: FormControl) {
     this.passengerService.checkFieldExists(fieldName, formControl.value)
-      .then(exists => {
-        if (!exists) {
+      .then((exists: boolean) => {
+        if (exists) {
+          console.log(typeof exists, 'keke');
           formControl.setErrors({ exists: true });
         } else {
           formControl.setErrors({ exists: false });
+          formControl.updateValueAndValidity();
         }
-        formControl.updateValueAndValidity();
       })
       .catch(err => {
         this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ${err}`, this.messages.get('close'), { duration: 5000 });
