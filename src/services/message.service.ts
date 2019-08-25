@@ -142,6 +142,12 @@ export class MessageService {
       new Message('fr', 'economic', 'Économique'),
       new Message('en', 'economic', 'Economic'),
       new Message('it', 'economic', 'Economico'),
+      new Message('fr', 'plan_flight', 'Planifier un vol'),
+      new Message('en', 'plan_flight', 'Plan a flight'),
+      new Message('it', 'plan_flight', 'Pianificare un volo'),
+      new Message('fr', 'create_reservation', 'Faire une réservation'),
+      new Message('en', 'create_reservation', 'Make a reservation'),
+      new Message('it', 'create_reservation', 'Effettuare una prenotazione'),
 
       new Message('fr', 'firstName', 'Prénom'),
       new Message('en', 'firstName', 'First name'),

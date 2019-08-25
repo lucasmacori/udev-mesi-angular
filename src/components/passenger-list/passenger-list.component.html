@@ -25,6 +25,15 @@
                 <mat-list-item role="listitem"><span class="primaryColored">{{ messages.get('gender') }} : </span>{{ passenger.gender | identifyGender }}</mat-list-item>
                 <mat-list-item role="listitem"><span class="primaryColored">{{ messages.get('birthday') }} : </span>{{ passenger.birthday | date : 'dd-MM-yyyy' }}</mat-list-item>
               </mat-list>
+
+              <label class="accentColored">{{ messages.get('menu_reservations') }}</label>
+              <mat-nav-list role="list">
+                <mat-list-item *ngFor="let reservation of passenger.reservations" role="listitem" [routerLink]="'/reservation/' + reservation.id">
+                  <span class="primaryColored">N°{{ reservation.id }} : </span>
+                  {{ reservation.flightDetails.flight.departureCity }} - {{ reservation.flightDetails.flight.arrivalCity }} ->
+                  {{ reservation.flightDetails.departureDateTime }} - {{ reservation.flightDetails.arrivalDateTime }}
+                </mat-list-item>
+              </mat-nav-list>
             </div>
           </div>
         </td>

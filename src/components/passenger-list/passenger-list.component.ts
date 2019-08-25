@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { DetailExpandAnimation } from '../../animations/detailExpand.animation';
 import { Passenger } from '../../models/passenger.model';
 import { PassengerService } from '../../services/passenger.service';
+import { Reservation } from 'src/models/reservation.model';
 
 @Component({
   selector: 'app-passenger-list',
@@ -47,6 +48,7 @@ export class PassengerListComponent implements OnInit, OnDestroy {
         this.messages.set('gender', messages.get('gender'));
         this.messages.set('birthday', messages.get('birthday'));
         this.messages.set('phoneNumber', messages.get('phoneNumber'));
+        this.messages.set('menu_reservations', messages.get('menu_reservations'));
       }
     );
     this.messageService.sendMessages();
@@ -68,5 +70,13 @@ export class PassengerListComponent implements OnInit, OnDestroy {
     }
   }
 
-  fetchDetail(passenger: Passenger) {}
+  fetchDetail(passenger: Passenger) {
+    this.passengerService.getReservationsOfPassenger(passenger.id)
+      .then((reservations: Array<Reservation>) => {
+        passenger.reservations = reservations;
+      })
+      .catch(err => {
+        this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ${err}`, this.messages.get('close'), { duration: 5000 });
+      });
+  }
 }

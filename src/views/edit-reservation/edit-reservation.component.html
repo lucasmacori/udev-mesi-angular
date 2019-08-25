@@ -17,7 +17,8 @@
 </mat-chip-list>
 <mat-card class="content">
   <div *ngIf="currentReservation && !isLoading">
-    <h2>{{ title }}</h2>
+    <h2 *ngIf="title">{{ messages.get('entity_reservation') }} {{ title }}</h2>
+    <h2 *ngIf="!title">{{ messages.get('create_reservation') }}</h2>
     <form [formGroup]="reservationFormGroup">
 
       <!-- Planning -->
@@ -42,10 +43,10 @@
         <mat-label>{{ messages.get('entity_passenger') }}</mat-label>
         <mat-select formControlName="passenger">
           <mat-option *ngIf="currentReservation.id" [value]="currentReservation.passenger.id">
-            {{ currentReservation.passenger.firstName }} {{ currentReservation.passenger.lastName }}
+            {{ currentReservation.passenger.lastName }} {{ currentReservation.passenger.firstName }}
           </mat-option>
           <mat-option *ngFor="let passenger of passengers" [value]="passenger.id">
-            {{ passenger.firstName }} {{ passenger.lastName }}
+            {{ passenger.lastName }} {{ passenger.firstName }}
           </mat-option>
         </mat-select>
       </mat-form-field>

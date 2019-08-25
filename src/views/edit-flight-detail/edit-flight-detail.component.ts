@@ -66,8 +66,11 @@ export class EditFlightDetailComponent implements OnInit, OnDestroy {
         this.messages.set('close', messages.get('close'));
         this.messages.set('departure_city', messages.get('departure_city'));
         this.messages.set('arrival_city', messages.get('arrival_city'));
+        this.messages.set('departure_date_time', messages.get('departure_date_time'));
+        this.messages.set('arrival_date_time', messages.get('arrival_date_time'));
         this.messages.set('entity_plane', messages.get('entity_plane'));
         this.messages.set('entity_flight', messages.get('entity_flight'));
+        this.messages.set('plan_flight', messages.get('plan_flight'));
         this.messages.set('field_is_required', messages.get('field_is_required'));
         this.messages.set('field_cannot_contain_less_than_2_characters', messages.get('field_cannot_contain_less_than_2_characters'));
         this.messages.set('planning_has_been_created', messages.get('planning_has_been_created'));
@@ -110,7 +113,6 @@ export class EditFlightDetailComponent implements OnInit, OnDestroy {
                   this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ${err}`, this.messages.get('close'), { duration: 5000 });
                 });
             } else {
-              this.title = 'Planifier un vol';
               const date = new Date();
               this.currentFlightDetail = new FlightDetail(undefined, date, date,
                 new Flight(null, '', ''),

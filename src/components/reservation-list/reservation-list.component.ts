@@ -5,6 +5,7 @@ import { MessageService } from '../../services/message.service';
 import { ReservationService } from '../../services/reservation.service';
 import { Subscription } from 'rxjs';
 import { DetailExpandAnimation } from '../../animations/detailExpand.animation';
+import { Passenger } from '../../models/passenger.model';
 
 @Component({
   selector: 'app-reservation-list',
@@ -64,6 +65,4 @@ export class ReservationListComponent implements OnInit, OnDestroy {
       this.dataSource.paginator.firstPage();
     }
   }
-
-  fetchDetail(reservation: Reservation) {}
 }

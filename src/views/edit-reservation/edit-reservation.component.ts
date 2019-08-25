@@ -71,6 +71,7 @@ export class EditReservationComponent implements OnInit, OnDestroy {
         this.messages.set('entity_reservation', messages.get('entity_reservation'));
         this.messages.set('entity_passenger', messages.get('entity_passenger'));
         this.messages.set('entity_planning', messages.get('entity_planning'));
+        this.messages.set('create_reservation', messages.get('create_reservation'));
         this.messages.set('economic', messages.get('economic'));
         this.messages.set('business', messages.get('business'));
         this.messages.set('field_is_required', messages.get('field_is_required'));
@@ -116,7 +117,7 @@ export class EditReservationComponent implements OnInit, OnDestroy {
               this.reservationService.getReservationById(this.id)
                 .then((reservation: Reservation) => {
                   this.currentReservation = reservation;
-                  this.title = `${this.messages.get('entity_reservation')} N°${reservation.id}`;
+                  this.title = `N°${reservation.id}`;
 
                   // Création du formulaire
                   this.initForm();
@@ -131,7 +132,6 @@ export class EditReservationComponent implements OnInit, OnDestroy {
                     { duration: 5000 });
                 });
             } else {
-              this.title = 'Réserver un vol';
               const date = new Date();
               this.currentReservation = new Reservation(undefined, undefined, 'E',
                 new FlightDetail(undefined, date, date,

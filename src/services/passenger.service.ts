@@ -4,6 +4,7 @@ import { Subject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from './config.service';
 import { FormatService } from './format.service';
+import { Reservation } from 'src/models/reservation.model';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,19 @@ export class PassengerService {
           } else {
             reject();
           }
+        }, err => {
+          reject(err.error['message']);
+        });
+    });
+  }
+
+  public getReservationsOfPassenger(id: number): Promise<Array<Reservation>> {
+    return new Promise((resolve, reject) => {
+      this.httpClient.get(this.configService.URL + this.endpoint + `/${id}` + '/reservations',
+      { headers: this.configService.HEADERS })
+        .subscribe(res => {
+          const reservations: Array<Reservation> = (res['reservations']) ? res['reservations'] : [];
+          resolve(reservations);
         }, err => {
           reject(err.error['message']);
         });

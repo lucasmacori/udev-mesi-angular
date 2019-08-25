@@ -1,3 +1,5 @@
+import { Reservation } from './reservation.model';
+
 export class Passenger {
   constructor(
     public id?: number,
@@ -9,6 +11,7 @@ export class Passenger {
     public gender?: string,
     public birthday?: Date,
     public phoneNumber?: string,
-    public IDNumber?: string
+    public IDNumber?: string,
+    public reservations?: Array<Reservation>
   ) {}
 }

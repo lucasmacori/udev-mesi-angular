@@ -32,7 +32,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"
       class="row"
       [class.expandedRow]="expandedElement === row"
-      (click)="fetchDetail(row); expandedElement = expandedElement === row ? null : row"></tr>
+      (click)="expandedElement = expandedElement === row ? null : row"></tr>
       <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detailRow"></tr>
     </table>
 
