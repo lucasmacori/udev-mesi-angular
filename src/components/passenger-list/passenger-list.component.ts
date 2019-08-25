@@ -49,6 +49,7 @@ export class PassengerListComponent implements OnInit, OnDestroy {
         this.messages.set('birthday', messages.get('birthday'));
         this.messages.set('phoneNumber', messages.get('phoneNumber'));
         this.messages.set('menu_reservations', messages.get('menu_reservations'));
+        this.messages.set('no_reservation', messages.get('no_reservation'));
       }
     );
     this.messageService.sendMessages();
