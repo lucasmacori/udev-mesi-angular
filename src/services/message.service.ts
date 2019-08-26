@@ -151,6 +151,9 @@ export class MessageService {
       new Message('fr', 'create_reservation', 'Faire une réservation'),
       new Message('en', 'create_reservation', 'Make a reservation'),
       new Message('it', 'create_reservation', 'Effettuare una prenotazione'),
+      new Message('fr', 'create_return', 'Créer également un vol retour'),
+      new Message('en', 'create_return', 'Also create the return flight'),
+      new Message('it', 'create_return', 'Anche creare il ritorno'),
 
       new Message('fr', 'firstName', 'Prénom'),
       new Message('en', 'firstName', 'First name'),

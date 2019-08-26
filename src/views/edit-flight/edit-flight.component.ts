@@ -56,6 +56,7 @@ export class EditFlightComponent implements OnInit, OnDestroy {
         this.messages.set('flight_has_been_edited', messages.get('flight_has_been_edited'));
         this.messages.set('flight_has_been_deleted', messages.get('flight_has_been_deleted'));
         this.messages.set('cannot_communicate_with_api', messages.get('cannot_communicate_with_api'));
+        this.messages.set('create_return', messages.get('create_return'));
       }
     );
     this.messageService.sendMessages();
@@ -104,7 +105,10 @@ export class EditFlightComponent implements OnInit, OnDestroy {
           Validators.maxLength(50),
           Validators.minLength(2)
         ]
-      )
+      ),
+      createReturn: new FormControl(false, [
+        Validators.required
+      ])
     });
   }
 
@@ -124,8 +128,22 @@ export class EditFlightComponent implements OnInit, OnDestroy {
     // Appel du web service
     this.flightService.saveFlight(this.currentFlight)
       .then(() => {
-        this.router.navigate(['/flights', { message }]);
-        this.isLoading = false;
+        if (this.flightFormGroup.controls.createReturn && !this.currentFlight.id) {
+          this.currentFlight.departureCity = this.flightFormGroup.controls.arrivalCity.value;
+          this.currentFlight.arrivalCity = this.flightFormGroup.controls.departureCity.value;
+          this.flightService.saveFlight(this.currentFlight)
+            .then(() => {
+              this.router.navigate(['/flights', { message }]);
+              this.isLoading = false;
+            })
+            .catch(err => {
+              this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ${err}`, this.messages.get('close'), { duration: 5000 });
+              this.isLoading = false;
+            });
+        } else {
+          this.router.navigate(['/flights', { message }]);
+          this.isLoading = false;
+        }
       })
       .catch(err => {
         this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ${err}`, this.messages.get('close'), { duration: 5000 });

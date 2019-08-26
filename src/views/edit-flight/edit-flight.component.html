@@ -39,6 +39,7 @@
           {{ messages.get('field_is_required') }}
         </mat-error>
       </mat-form-field>
+      <mat-checkbox color="warn" formControlName="createReturn">{{ messages.get('create_return') }}</mat-checkbox>
     </form>
   </div>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
