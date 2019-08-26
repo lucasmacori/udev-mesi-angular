@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MessageService } from 'src/services/message.service';
 import { Subscription } from 'rxjs';
 import { ConfigService } from '../services/config.service';
+import { ThemeService } from 'src/services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -17,13 +18,25 @@ export class AppComponent implements OnInit, OnDestroy {
   private messagesSub: Subscription;
   public messages: Map<string, string>;
 
+  private themeSub: Subscription;
+  public theme: string;
+
   constructor(
     private router: Router,
     private messageService: MessageService,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private themeService: ThemeService
   ) {}
 
   ngOnInit() {
+
+    // Récupération du theme depuis le service
+    this.themeSub = this.themeService.themeSub
+      .subscribe((theme: string) => {
+        this.theme = theme;
+      });
+    this.themeService.getTheme();
+
     const defaultMode = (this.configService.isMobile()) ? 'over' : 'side';
 
     // Récupération du mode depuis le local storage
@@ -55,6 +68,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.messagesSub.unsubscribe();
+    this.themeSub.unsubscribe();
   }
 
   toggleSidebar(force: boolean = false, forceClose: boolean = false) {
@@ -73,5 +87,10 @@ export class AppComponent implements OnInit, OnDestroy {
   toggleMenu() {
     this.mode = (this.mode === 'over') ? 'side' : 'over';
     localStorage.setItem('menu_mode', this.mode);
+  }
+
+  toggleTheme() {
+    const newTheme = (this.theme === 'light') ? 'dark' : 'light';
+    this.themeService.chooseTheme(newTheme);
   }
 }

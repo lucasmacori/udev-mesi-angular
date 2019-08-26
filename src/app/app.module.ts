@@ -54,6 +54,7 @@ import { EditReservationComponent } from '../views/edit-reservation/edit-reserva
 import { PassengerService } from '../services/passenger.service';
 import { ReservationService } from 'src/services/reservation.service';
 import { IdentifyClassPipe } from '../pipes/identify-class.pipe';
+import { ThemeService } from 'src/services/theme.service';
 
 @NgModule({
   declarations: [
@@ -130,7 +131,8 @@ import { IdentifyClassPipe } from '../pipes/identify-class.pipe';
     FlightService,
     FlightDetailService,
     PassengerService,
-    ReservationService
+    ReservationService,
+    ThemeService
   ],
   bootstrap: [AppComponent]
 })
