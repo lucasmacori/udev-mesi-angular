@@ -1,0 +1,8 @@
+<mat-nav-list>
+  <mat-list-item *ngFor="let report of reports">
+      <a matLine [routerLink]="'/report/' + report.code">
+        <span class="primaryColored">{{ report.code }} </span>: {{ report.description }}
+      </a>
+  </mat-list-item>
+  <app-nothing-to-do-here *ngIf="!reports || reports.length === 0" class="centered"></app-nothing-to-do-here>
+</mat-nav-list>

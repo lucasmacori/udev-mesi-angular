@@ -61,6 +61,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.messages.set('menu_planning', messages.get('menu_planning'));
         this.messages.set('menu_passengers', messages.get('menu_passengers'));
         this.messages.set('menu_reservations', messages.get('menu_reservations'));
+        this.messages.set('menu_reports', messages.get('menu_reports'));
       }
     );
     this.messageService.sendMessages();

@@ -46,6 +46,9 @@ export class MessageService {
       new Message('fr', 'menu_reservations', 'Réservations'),
       new Message('en', 'menu_reservations', 'Reservations'),
       new Message('it', 'menu_reservations', 'Prenotazioni'),
+      new Message('fr', 'menu_reports', 'Rapports'),
+      new Message('en', 'menu_reports', 'Reports'),
+      new Message('it', 'menu_reports', 'Rapporti'),
 
       // CRUD
       new Message('fr', 'crud_creation', 'Création'),

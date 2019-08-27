@@ -14,6 +14,7 @@ import { PassengerComponent } from '../views/passenger/passenger.component';
 import { EditPassengerComponent } from '../views/edit-passenger/edit-passenger.component';
 import { ReservationComponent } from 'src/views/reservation/reservation.component';
 import { EditReservationComponent } from 'src/views/edit-reservation/edit-reservation.component';
+import { ReportComponent } from 'src/views/report/report.component';
 
 
 const routes: Routes = [
@@ -38,7 +39,8 @@ const routes: Routes = [
   { path: 'passenger/new', component: EditPassengerComponent },
   { path: 'reservations', component: ReservationComponent },
   { path: 'reservation/:id', component: EditReservationComponent },
-  { path: 'reservation/new', component: EditReservationComponent }
+  { path: 'reservation/new', component: EditReservationComponent },
+  { path: 'reports', component: ReportComponent },
 ];
 
 @NgModule({

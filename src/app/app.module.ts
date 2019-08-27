@@ -55,6 +55,9 @@ import { PassengerService } from '../services/passenger.service';
 import { ReservationService } from 'src/services/reservation.service';
 import { IdentifyClassPipe } from '../pipes/identify-class.pipe';
 import { ThemeService } from 'src/services/theme.service';
+import { ReportService } from 'src/services/report-results.service';
+import { ReportComponent } from '../views/report/report.component';
+import { ReportsListComponent } from '../components/reports-list/reports-list.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +93,9 @@ import { ThemeService } from 'src/services/theme.service';
     ReservationComponent,
     ReservationListComponent,
     EditReservationComponent,
-    IdentifyClassPipe
+    IdentifyClassPipe,
+    ReportComponent,
+    ReportsListComponent
   ],
   imports: [
     BrowserModule,
@@ -132,7 +137,8 @@ import { ThemeService } from 'src/services/theme.service';
     FlightDetailService,
     PassengerService,
     ReservationService,
-    ThemeService
+    ThemeService,
+    ReportService
   ],
   bootstrap: [AppComponent]
 })

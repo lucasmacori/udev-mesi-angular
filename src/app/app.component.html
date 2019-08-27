@@ -55,6 +55,13 @@
             <a matLine>{{ messages.get('menu_reservations') }}</a>
           </button>
         </mat-list-item>
+        <mat-list-item routerLink="/reports" (click)="toggleSidebar()">
+          <button mat-button [ngClass]="{'active-light': this.router.url.startsWith('/report') && theme === 'light',
+            'active-dark': this.router.url.startsWith('/report') && theme === 'dark'}">
+            <mat-icon class="button-icon">print</mat-icon>
+            <a matLine>{{ messages.get('menu_reports') }}</a>
+          </button>
+        </mat-list-item>
         <mat-list-item>
           <app-language-selector class="language-selector"></app-language-selector>
         </mat-list-item>
