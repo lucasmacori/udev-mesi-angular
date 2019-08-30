@@ -86,6 +86,9 @@ export class MessageService {
       new Message('fr', 'entity_reservation', 'Réservation'),
       new Message('en', 'entity_reservation', 'Reservation'),
       new Message('it', 'entity_reservation', 'Prenotazione'),
+      new Message('fr', 'entity_report', 'Rapport'),
+      new Message('en', 'entity_report', 'Report'),
+      new Message('it', 'entity_report', 'Rapporto'),
 
       // General
       new Message('fr', 'close', 'Fermer'),

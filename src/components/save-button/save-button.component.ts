@@ -9,6 +9,7 @@ export class SaveButtonComponent {
 
   @Input() displayed: boolean;
   @Input() disabled: boolean;
+  @Input() icon: string;
   @Output() validated = new EventEmitter<null>();
 
   validate() {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { popAnimation } from 'src/animations/pop.animation';
 
@@ -10,6 +10,7 @@ import { popAnimation } from 'src/animations/pop.animation';
 })
 export class CreateButtonComponent implements OnInit {
 
+  @Input() icon: string;
   public shouldToggle = false;
 
   constructor() { }

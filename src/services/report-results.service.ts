@@ -52,11 +52,18 @@ export class ReportService {
     });
   }
 
-  public executeReport(code: string, parameters: object): Promise<ReportResults> {
+  public executeReport(code: string, parameters: Map<string, string>): Promise<ReportResults> {
     return new Promise((resolve, reject) => {
-      parameters['code'] = code;
-      this.httpClient.post(`${this.configService.URL}${this.endpoint}`, parameters,
-        {  headers: this.configService.HEADERS })
+
+      // Création de la requête
+      const body = new URLSearchParams();
+      parameters.forEach((value: string, parameter: string) => {
+        body.set(parameter, value);
+      });
+
+      // Appel du web service
+      this.httpClient.post(`${this.configService.URL}${this.endpoint}`, body,
+        { headers: this.configService.HEADERS })
         .subscribe((res) => {
           resolve((res['results']) ? res['results'] : undefined);
         }, err => {
