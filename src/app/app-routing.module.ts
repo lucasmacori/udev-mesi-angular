@@ -15,6 +15,7 @@ import { EditPassengerComponent } from '../views/edit-passenger/edit-passenger.c
 import { ReservationComponent } from 'src/views/reservation/reservation.component';
 import { EditReservationComponent } from 'src/views/edit-reservation/edit-reservation.component';
 import { ReportComponent } from 'src/views/report/report.component';
+import { GenerateReportComponent } from 'src/views/generate-report/generate-report.component';
 
 
 const routes: Routes = [
@@ -41,6 +42,7 @@ const routes: Routes = [
   { path: 'reservation/:id', component: EditReservationComponent },
   { path: 'reservation/new', component: EditReservationComponent },
   { path: 'reports', component: ReportComponent },
+  { path: 'report/:code', component: GenerateReportComponent }
 ];
 
 @NgModule({

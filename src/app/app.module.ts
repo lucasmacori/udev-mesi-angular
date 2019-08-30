@@ -58,6 +58,7 @@ import { ThemeService } from 'src/services/theme.service';
 import { ReportService } from 'src/services/report-results.service';
 import { ReportComponent } from '../views/report/report.component';
 import { ReportsListComponent } from '../components/reports-list/reports-list.component';
+import { GenerateReportComponent } from '../views/generate-report/generate-report.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,8 @@ import { ReportsListComponent } from '../components/reports-list/reports-list.co
     EditReservationComponent,
     IdentifyClassPipe,
     ReportComponent,
-    ReportsListComponent
+    ReportsListComponent,
+    GenerateReportComponent
   ],
   imports: [
     BrowserModule,

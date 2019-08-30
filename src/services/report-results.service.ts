@@ -26,10 +26,26 @@ export class ReportService {
     return new Promise((resolve, reject) => {
       this.httpClient.get(`${this.configService.URL}${this.endpoint}`,
         {  headers: this.configService.HEADERS })
-        .subscribe((res) => {
+        .subscribe(res => {
           this.reports = (res['reports']) ? res['reports'] : undefined;
           this.reportSub.next(this.reports);
           resolve();
+        }, err => {
+          reject(err.error['message']);
+        });
+    });
+  }
+
+  public getReportByCode(code: string): Promise<Report> {
+    return new Promise((resolve, reject) => {
+      this.httpClient.get(`${this.configService.URL}${this.endpoint}/${code}`,
+        { headers: this.configService.HEADERS })
+        .subscribe(res => {
+          if (res['report']) {
+            resolve(res['report']);
+          } else {
+            reject();
+          }
         }, err => {
           reject(err.error['message']);
         });
