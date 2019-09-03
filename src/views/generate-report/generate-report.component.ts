@@ -67,14 +67,16 @@ export class GenerateReportComponent implements OnInit, OnDestroy {
     const controls = {};
 
     // Parcours des paramètres à envoyer pour générer le rapport
-    this.report.parameters.forEach((parameter: string) => {
-      if (parameter.endsWith('Date')) {
-        controls[parameter] = new FormControl(new Date(), [
-          Validators.required
-        ]);
-      }
-      // TODO: Ajouter d'autres champs lorsque ce sera nécéssaire
-    });
+    if (this.report.parameters) {
+      this.report.parameters.forEach((parameter: string) => {
+        if (parameter.endsWith('Date')) {
+          controls[parameter] = new FormControl(new Date(), [
+            Validators.required
+          ]);
+        }
+        // TODO: Ajouter d'autres champs lorsque ce sera nécéssaire
+      });
+    }
 
     // Liaison des contrôles au form group
     this.reportFormGroup = new FormGroup(controls);
