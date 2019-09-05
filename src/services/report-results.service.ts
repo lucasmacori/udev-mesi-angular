@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ConfigService } from './config.service';
 import { Subject } from 'rxjs';
 import { Report } from 'src/models/report.model';
+import { FormatService } from './format.service';
 
 @Injectable()
 export class ReportService {
@@ -15,7 +16,8 @@ export class ReportService {
 
   constructor(
     private configService: ConfigService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private formatService: FormatService
   ) {}
 
   public get reportSub(): Subject<Array<Report>> {
@@ -52,17 +54,21 @@ export class ReportService {
     });
   }
 
-  public executeReport(code: string, parameters: Map<string, string>): Promise<ReportResults> {
+  public executeReport(code: string, parameters: Map<string, any>): Promise<ReportResults> {
     return new Promise((resolve, reject) => {
 
       // Création de la requête
       const body = new URLSearchParams();
-      parameters.forEach((value: string, parameter: string) => {
+      body.set('code', code);
+      parameters.forEach((value: any, parameter: string) => {
+        if (parameter.trim().toLowerCase().endsWith('date')) {
+          value = this.formatService.dateStringFormat(value);
+        }
         body.set(parameter, value);
       });
 
       // Appel du web service
-      this.httpClient.post(`${this.configService.URL}${this.endpoint}`, body,
+      this.httpClient.post(`${this.configService.URL}${this.endpoint}`, body.toString(),
         { headers: this.configService.HEADERS })
         .subscribe((res) => {
           resolve((res['results']) ? res['results'] : undefined);

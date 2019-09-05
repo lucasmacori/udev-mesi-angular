@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Report } from 'src/models/report.model';
 import { MatSnackBar } from '@angular/material';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ReportResults } from 'src/models/report-results.model';
 
 @Component({
   selector: 'app-generate-report',
@@ -22,6 +23,8 @@ export class GenerateReportComponent implements OnInit, OnDestroy {
 
   private messageSub: Subscription;
   public messages: Map<string, string>;
+
+  public results: ReportResults;
 
   constructor(
     private route: ActivatedRoute,
@@ -85,10 +88,19 @@ export class GenerateReportComponent implements OnInit, OnDestroy {
   generate() {
     // Création de l'association clé-valeur
     const parameters = new Map<string, string>();
-    this.report.parameters.forEach((parameter: string) => {
-      parameters.set(parameter, this.reportFormGroup.controls[parameter].value);
-    });
+    if (this.report.parameters && this.report.parameters.length > 0) {
+      this.report.parameters.forEach((parameter: string) => {
+        parameters.set(parameter, this.reportFormGroup.controls[parameter].value);
+      });
+    }
 
-    this.reportService.executeReport(this.report.code, parameters);
+    this.reportService.executeReport(this.report.code, parameters)
+      .then((results: ReportResults) => {
+        this.results = results;
+      })
+      .catch(err => {
+        this.snackBar.open(`${this.messages.get('cannot_communicate_with_api')}: ${err}`, this.messages.get('close'),
+          { duration: 5000 });
+      });
   }
 }

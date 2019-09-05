@@ -1,19 +1,40 @@
 <mat-card class="content">
-  <div *ngIf="!isLoading">
-    <h2>{{ messages.get('entity_report') }} : {{ report.code }}</h2>
-  </div>
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form *ngIf="!isLoading" [formGroup]="reportFormGroup">
-    <div *ngFor="let parameter of report.parameters">
-      <mat-form-field *ngIf="parameter.endsWith('Date')">
-        <input matInput [matDatepicker]="picker" [placeholder]="messages.get('choose_a_date') + ': ' + parameter" [formControlName]="parameter">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-      <!-- TODO: Ajouter d'autres champs lorsque ce sera nécéssaire -->
+
+    <div *ngIf="!isLoading">
+      <h2>{{ messages.get('entity_report') }} : {{ report.code }}</h2>
     </div>
-  </form>
+    <!-- TODO: Traduire les messages -->
+
+  <!-- Génération -->
+  <mat-expansion-panel [expanded]="!results">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Génération
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form *ngIf="!isLoading" [formGroup]="reportFormGroup">
+      <div *ngFor="let parameter of report.parameters">
+        <mat-form-field *ngIf="parameter.endsWith('Date')">
+          <input matInput [matDatepicker]="picker" [placeholder]="messages.get('choose_a_date') + ': ' + parameter" [formControlName]="parameter">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </form>
+    <button mat-raised-button color="primary" (click)="generate()">
+      <mat-icon>print</mat-icon>
+      Générer
+    </button>
+  </mat-expansion-panel>
+
+  <!--Résultats -->
+  <mat-expansion-panel [expanded]="results">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Résultats
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-report-results *ngIf="results" [results]="results"></app-report-results>
+  </mat-expansion-panel>
 </mat-card>
-<div class="actions" *ngIf="!isLoading">
-  <app-save-button icon="print" [disabled]="!reportFormGroup.valid" (validated)="generate()"></app-save-button>
-</div>

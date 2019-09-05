@@ -1,0 +1,19 @@
+<div *ngIf="results.results">
+    <!-- Affichage d'un tableau de résultat -->
+    <table *ngIf="isArray()">
+        <thead>
+            <tr>
+                <th *ngFor="let field of results.fields">{{ field }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let result of results.results">
+                <p>Test</p>
+                <td *ngFor="let field of results.fields">{{ result[field] }}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <!-- Affichage d'un seul résultat -->
+    <p><span class="primaryColored">{{ results.fields }} :</span> {{ results.results.item }}</p>
+</div>

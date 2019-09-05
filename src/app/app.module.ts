@@ -9,7 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCardModule, MatSidenavModule, MatIconModule, MatListModule, MatSelectModule,
   MatProgressSpinnerModule, MatSlideToggleModule, MatInputModule, MatFormFieldModule, MatSnackBarModule,
   MatChipsModule, MatTableModule, MatPaginatorModule, MatSortModule, MatToolbarModule, MatCheckboxModule,
-  MatDatepickerModule, MatNativeDateModule, MatRadioModule } from '@angular/material';
+  MatDatepickerModule, MatNativeDateModule, MatRadioModule, MatExpansionModule } from '@angular/material';
 import { ConstructorComponent } from './../views/constructor/constructor.component';
 import { LanguageSelectorComponent } from '../components/language-selector/language-selector.component';
 import { ConstructorListComponent } from './../components/constructor-list/constructor-list.component';
@@ -59,6 +59,7 @@ import { ReportService } from 'src/services/report-results.service';
 import { ReportComponent } from '../views/report/report.component';
 import { ReportsListComponent } from '../components/reports-list/reports-list.component';
 import { GenerateReportComponent } from '../views/generate-report/generate-report.component';
+import { ReportResultsComponent } from '../components/report-results/report-results.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import { GenerateReportComponent } from '../views/generate-report/generate-repor
     IdentifyClassPipe,
     ReportComponent,
     ReportsListComponent,
-    GenerateReportComponent
+    GenerateReportComponent,
+    ReportResultsComponent
   ],
   imports: [
     BrowserModule,
@@ -125,6 +127,7 @@ import { GenerateReportComponent } from '../views/generate-report/generate-repor
     MatToolbarModule,
     MatCheckboxModule,
     MatRadioModule,
+    MatExpansionModule,
     BrowserAnimationsModule,
     HttpClientModule
   ],

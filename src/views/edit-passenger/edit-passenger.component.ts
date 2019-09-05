@@ -170,7 +170,6 @@ export class EditPassengerComponent implements OnInit, OnDestroy {
     this.passengerService.checkFieldExists(fieldName, formControl.value)
       .then((exists: boolean) => {
         if (exists) {
-          console.log(typeof exists, 'keke');
           formControl.setErrors({ exists: true });
         } else {
           formControl.setErrors({ exists: false });
