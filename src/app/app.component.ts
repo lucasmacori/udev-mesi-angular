@@ -14,6 +14,7 @@ import { AuthService } from 'src/services/auth.service';
 export class AppComponent implements OnInit, OnDestroy {
 
   public isAuth: Promise<boolean>;
+  public username: string;
 
   public mode: string;
   public menuOpened: boolean;
@@ -36,6 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     // Récupération de la connexion
     this.loadAuth();
+    this.username = this.authService.username;
 
     // Récupération du theme depuis le service
     this.themeSub = this.themeService.themeSub

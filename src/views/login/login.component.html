@@ -3,9 +3,11 @@
     <form [formGroup]="authFormGroup">
         <mat-form-field>
             <input matInput type="text" minlength="3" maxlength="50" [placeholder]="messages.get('username')" formControlName="username" autocomplete="off" />
+            <mat-hint>Le compte par défaut est "admin"</mat-hint>
         </mat-form-field>
         <mat-form-field>
             <input matInput type="password" minlength="8" maxlength="30" [placeholder]="messages.get('password')" formControlName="password" autocomplete="off"  />
+            <mat-hint>Le mot de passe par défaut est "admin123"</mat-hint>
         </mat-form-field>
         <button mat-raised-button color="primary" [disabled]="!authFormGroup.valid" (click)="login()">
             {{ messages.get('menu_login') }}
