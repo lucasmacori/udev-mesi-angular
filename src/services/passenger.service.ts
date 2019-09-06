@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ConfigService } from './config.service';
 import { FormatService } from './format.service';
 import { Reservation } from 'src/models/reservation.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ import { Reservation } from 'src/models/reservation.model';
 export class PassengerService {
 
   private endpoint = 'passenger';
+  private HEADERS: any;
 
   private _passengerSub: Subject<Array<Passenger>>;
   private _passengers: Array<Passenger>;
@@ -19,9 +21,15 @@ export class PassengerService {
   constructor(
     private httpClient: HttpClient,
     private configService: ConfigService,
+    private authService: AuthService,
     private formatService: FormatService
   ) {
     this._passengerSub = new Subject<Array<Passenger>>();
+
+    // Configuration de l'entête HTTP
+    this.HEADERS = this.configService.HEADERS;
+    this.HEADERS['username'] = this.authService.username;
+    this.HEADERS['token'] = this.authService.token;
   }
 
   public get passengerSub(): Subject<Array<Passenger>> {
@@ -31,7 +39,7 @@ export class PassengerService {
   public fetchPassengers(): Promise<null> {
     return new Promise((resolve, reject) => {
       this.httpClient.get(this.configService.URL + this.endpoint,
-        { headers: this.configService.HEADERS })
+        { headers: this.HEADERS })
         .subscribe(res => {
           this._passengers = (res['passengers']) ? res['passengers'] : [];
           this._passengerSub.next(this._passengers);
@@ -45,7 +53,7 @@ export class PassengerService {
   public getPassengerById(id: number): Promise<Passenger> {
     return new Promise((resolve, reject) => {
       this.httpClient.get(this.configService.URL + this.endpoint + `/${id}`,
-      { headers: this.configService.HEADERS })
+      { headers: this.HEADERS })
         .subscribe(res => {
           let passenger: Passenger = (res['passenger']) ? res['passenger'] : undefined;
           passenger.birthday = new Date(passenger.birthday);
@@ -63,7 +71,7 @@ export class PassengerService {
   public getReservationsOfPassenger(id: number): Promise<Array<Reservation>> {
     return new Promise((resolve, reject) => {
       this.httpClient.get(this.configService.URL + this.endpoint + `/${id}` + '/reservations',
-      { headers: this.configService.HEADERS })
+      { headers: this.HEADERS })
         .subscribe(res => {
           const reservations: Array<Reservation> = (res['reservations']) ? res['reservations'] : [];
           resolve(reservations);
@@ -76,7 +84,7 @@ export class PassengerService {
   public checkFieldExists(fieldName: string, value: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.httpClient.get(this.configService.URL + this.endpoint + `/${fieldName}Exists/${value}`,
-      { headers: this.configService.HEADERS })
+      { headers: this.HEADERS })
         .subscribe(res => {
           if (res['exists']) {
             resolve(res['exists'] === 'true');
@@ -109,10 +117,10 @@ export class PassengerService {
       if (passenger.id) {
         body.set('id', passenger.id.toString())
         response = this.httpClient.put(this.configService.URL + this.endpoint, body.toString(),
-        { headers: this.configService.HEADERS });
+        { headers: this.HEADERS });
       } else {
         response = this.httpClient.post(this.configService.URL + this.endpoint, body.toString(),
-        { headers: this.configService.HEADERS });
+        { headers: this.HEADERS });
       }
 
       // Récupération de la réponse
@@ -136,7 +144,7 @@ export class PassengerService {
       let response: Observable<any>;
       if (passenger.id) {
         response = this.httpClient.delete(this.configService.URL + this.endpoint + `/${passenger.id}`,
-        { headers: this.configService.HEADERS });
+        { headers: this.HEADERS });
       }
 
       // Récupération de la réponse

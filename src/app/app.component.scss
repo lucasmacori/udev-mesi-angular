@@ -37,6 +37,9 @@
             top: 4px;
             color: $udev-mesi-angular-title;
           }
+          mat-icon.warnColored {
+            color: #f44336;
+          }
           .menu_toggle {
             @extend .toggle;
           }

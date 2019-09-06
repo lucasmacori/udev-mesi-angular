@@ -1,0 +1,17 @@
+mat-card {
+    margin-top: 20px;
+    max-width: 800px;
+    margin: auto;
+    form {
+        min-width: 150px;
+        width: 100%;
+        mat-form-field {
+            width: 100%;
+        }
+        app-language-selector {
+            position: absolute;
+            right: 20px;
+            bottom: 1px;
+        }
+    }
+}

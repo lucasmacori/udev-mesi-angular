@@ -4,6 +4,7 @@ import { MessageService } from 'src/services/message.service';
 import { Subscription } from 'rxjs';
 import { ConfigService } from '../services/config.service';
 import { ThemeService } from 'src/services/theme.service';
+import { AuthService } from 'src/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,8 @@ import { ThemeService } from 'src/services/theme.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
+
+  public isAuth: Promise<boolean>;
 
   public mode: string;
   public menuOpened: boolean;
@@ -23,12 +26,16 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private authService: AuthService,
     private messageService: MessageService,
     private configService: ConfigService,
     private themeService: ThemeService
   ) {}
 
   ngOnInit() {
+
+    // Récupération de la connexion
+    this.loadAuth();
 
     // Récupération du theme depuis le service
     this.themeSub = this.themeService.themeSub
@@ -62,6 +69,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.messages.set('menu_passengers', messages.get('menu_passengers'));
         this.messages.set('menu_reservations', messages.get('menu_reservations'));
         this.messages.set('menu_reports', messages.get('menu_reports'));
+        this.messages.set('menu_logout', messages.get('menu_logout'));
       }
     );
     this.messageService.sendMessages();
@@ -70,6 +78,10 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.messagesSub.unsubscribe();
     this.themeSub.unsubscribe();
+  }
+
+  loadAuth() {
+    this.isAuth = this.authService.loadFromFromLocalStorage();
   }
 
   toggleSidebar(force: boolean = false, forceClose: boolean = false) {
@@ -93,5 +105,10 @@ export class AppComponent implements OnInit, OnDestroy {
   toggleTheme() {
     const newTheme = (this.theme === 'light') ? 'dark' : 'light';
     this.themeService.chooseTheme(newTheme);
+  }
+
+  logout() {
+    this.authService.logout();
+    this.loadAuth();
   }
 }

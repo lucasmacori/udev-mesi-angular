@@ -9,7 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCardModule, MatSidenavModule, MatIconModule, MatListModule, MatSelectModule,
   MatProgressSpinnerModule, MatSlideToggleModule, MatInputModule, MatFormFieldModule, MatSnackBarModule,
   MatChipsModule, MatTableModule, MatPaginatorModule, MatSortModule, MatToolbarModule, MatCheckboxModule,
-  MatDatepickerModule, MatNativeDateModule, MatRadioModule, MatExpansionModule } from '@angular/material';
+  MatDatepickerModule, MatNativeDateModule, MatRadioModule, MatExpansionModule, MatGridListModule } from '@angular/material';
 import { ConstructorComponent } from './../views/constructor/constructor.component';
 import { LanguageSelectorComponent } from '../components/language-selector/language-selector.component';
 import { ConstructorListComponent } from './../components/constructor-list/constructor-list.component';
@@ -60,6 +60,8 @@ import { ReportComponent } from '../views/report/report.component';
 import { ReportsListComponent } from '../components/reports-list/reports-list.component';
 import { GenerateReportComponent } from '../views/generate-report/generate-report.component';
 import { ReportResultsComponent } from '../components/report-results/report-results.component';
+import { AuthService } from 'src/services/auth.service';
+import { LoginComponent } from '../views/login/login.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +101,8 @@ import { ReportResultsComponent } from '../components/report-results/report-resu
     ReportComponent,
     ReportsListComponent,
     GenerateReportComponent,
-    ReportResultsComponent
+    ReportResultsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -129,9 +132,11 @@ import { ReportResultsComponent } from '../components/report-results/report-resu
     MatRadioModule,
     MatExpansionModule,
     BrowserAnimationsModule,
+    MatGridListModule,
     HttpClientModule
   ],
   providers: [
+    AuthService,
     ConfigService,
     FormatService,
     MessageService,

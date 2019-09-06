@@ -1,4 +1,4 @@
-<div [ngClass]="{lightTheme: theme === 'light', darkTheme: theme === 'dark'}">
+<div *ngIf="isAuth | async" [ngClass]="{lightTheme: theme === 'light', darkTheme: theme === 'dark'}">
   <mat-drawer-container #sidebar class="container">
     <mat-drawer [mode]="mode" [opened]="menuOpened" (closedStart)="toggleSidebar(true, true)">
       <div class="header">
@@ -62,6 +62,12 @@
             <a matLine>{{ messages.get('menu_reports') }}</a>
           </button>
         </mat-list-item>
+        <mat-list-item (click)="logout()">
+          <button mat-button>
+            <mat-icon class="button-icon warnColored">logout</mat-icon>
+            <a matLine>{{ messages.get('menu_logout') }}</a>
+          </button>
+        </mat-list-item>
         <mat-list-item>
           <app-language-selector class="language-selector"></app-language-selector>
         </mat-list-item>
@@ -92,3 +98,5 @@
     </mat-drawer-content>
   </mat-drawer-container>
 </div>
+
+ <app-login *ngIf="!(isAuth | async)" (loggedIn)="loadAuth()"></app-login>

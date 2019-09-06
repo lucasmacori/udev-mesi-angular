@@ -49,6 +49,12 @@ export class MessageService {
       new Message('fr', 'menu_reports', 'Rapports'),
       new Message('en', 'menu_reports', 'Reports'),
       new Message('it', 'menu_reports', 'Rapporti'),
+      new Message('fr', 'menu_login', 'Connexion'),
+      new Message('en', 'menu_login', 'Login'),
+      new Message('it', 'menu_login', 'Connessione'),
+      new Message('fr', 'menu_logout', 'Déconnexion'),
+      new Message('en', 'menu_logout', 'Logout'),
+      new Message('it', 'menu_logout', 'Scollegamento'),
 
       // CRUD
       new Message('fr', 'crud_creation', 'Création'),
@@ -188,6 +194,9 @@ export class MessageService {
       new Message('fr', 'birthday', 'Date de naissance'),
       new Message('en', 'birthday', 'Birthday'),
       new Message('it', 'birthday', 'Compleanno'),
+      new Message('fr', 'username', 'Nom d\'utilisateur'),
+      new Message('en', 'username', 'Username'),
+      new Message('it', 'username', 'Nome utente'),
       new Message('fr', 'password', 'Mot de passe'),
       new Message('en', 'password', 'Password'),
       new Message('it', 'password', 'Password'),

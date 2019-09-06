@@ -4,20 +4,28 @@ import { HttpClient } from '@angular/common/http';
 import { ConfigService } from './config.service';
 import { Reservation } from '../models/reservation.model';
 import { FlightDetail } from '../models/flightDetail.model';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class ReservationService {
 
   private endpoint = 'reservation';
+  private HEADERS: any;
 
   private _reservationSub: Subject<Array<Reservation>>;
   private _reservations: Array<Reservation>;
 
   constructor(
     private httpClient: HttpClient,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private authService: AuthService
   ) {
     this._reservationSub = new Subject<Array<Reservation>>();
+
+    // Configuration de l'entête HTTP
+    this.HEADERS = this.configService.HEADERS;
+    this.HEADERS['username'] = this.authService.username;
+    this.HEADERS['token'] = this.authService.token;
   }
 
   public get reservationSub(): Subject<Array<Reservation>> {
@@ -27,7 +35,7 @@ export class ReservationService {
   public fetchReservations(): Promise<null> {
     return new Promise((resolve, reject) => {
       this.httpClient.get(this.configService.URL + this.endpoint,
-        { headers: this.configService.HEADERS })
+        { headers: this.HEADERS })
         .subscribe(res => {
           this._reservations = (res['reservations']) ? res['reservations'] : [];
           this._reservations = this.fillNames(this._reservations);
@@ -42,7 +50,7 @@ export class ReservationService {
   public getReservationById(id: number): Promise<Reservation> {
     return new Promise((resolve, reject) => {
       this.httpClient.get(this.configService.URL + this.endpoint + `/${id}`,
-      { headers: this.configService.HEADERS })
+      { headers: this.HEADERS })
         .subscribe(res => {
           let reservation: Reservation = (res['reservation']) ? res['reservation'] : undefined;
           if (reservation) {
@@ -70,10 +78,10 @@ export class ReservationService {
       if (reservation.id) {
         body.set('id', reservation.id.toString());
         response = this.httpClient.put(this.configService.URL + this.endpoint, body.toString(),
-        { headers: this.configService.HEADERS });
+        { headers: this.HEADERS });
       } else {
         response = this.httpClient.post(this.configService.URL + this.endpoint, body.toString(),
-        { headers: this.configService.HEADERS });
+        { headers: this.HEADERS });
       }
 
       // Récupération de la réponse
@@ -96,7 +104,7 @@ export class ReservationService {
       let response: Observable<any>;
       if (reservation.id) {
         response = this.httpClient.delete(this.configService.URL + this.endpoint + `/${reservation.id}`,
-        { headers: this.configService.HEADERS });
+        { headers: this.HEADERS });
       }
 
       // Récupération de la réponse

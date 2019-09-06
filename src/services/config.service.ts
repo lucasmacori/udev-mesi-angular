@@ -1,20 +1,27 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import config from './../assets/config.json';
+import { AuthService } from './auth.service.js';
 
 @Injectable()
 export class ConfigService {
 
   private _URL: string;
-  public HEADERS: any;
+  public _HEADERS: any;
 
-  constructor() {
+  constructor(
+    private injector: Injector
+  ) {
     // Récupération des valeurs depuis le fichier de configuration
     this._URL = config.url;
-    this.HEADERS = { 'Accept-Language': 'fr', 'Content-Type': 'application/x-www-form-urlencoded' };
+    this._HEADERS = { 'Accept-Language': 'fr', 'Content-Type': 'application/x-www-form-urlencoded' };
   }
 
   public get URL(): string {
     return this._URL;
+  }
+
+  public get HEADERS(): any {
+    return this._HEADERS;
   }
 
   public isMobile(): boolean {

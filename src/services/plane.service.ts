@@ -5,20 +5,28 @@ import { ConfigService } from './config.service';
 import { Plane } from '../models/plane.model';
 import { FlightDetail } from '../models/flightDetail.model';
 import { MessageService } from './message.service';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class PlaneService {
 
   private endpoint = 'plane';
+  private HEADERS: any;
 
   private _planeSub: Subject<Array<Plane>>;
   private _planes: Array<Plane>;
 
   constructor(
     private httpClient: HttpClient,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private authService: AuthService
   ) {
     this._planeSub = new Subject<Array<Plane>>();
+
+    // Configuration de l'entête HTTP
+    this.HEADERS = this.configService.HEADERS;
+    this.HEADERS['username'] = this.authService.username;
+    this.HEADERS['token'] = this.authService.token;
   }
 
   public get planeSub(): Subject<Array<Plane>> {
@@ -28,7 +36,7 @@ export class PlaneService {
   public fetchPlanes(): Promise<null> {
     return new Promise((resolve, reject) => {
       this.httpClient.get(this.configService.URL + this.endpoint,
-        { headers: this.configService.HEADERS })
+        { headers: this.HEADERS })
         .subscribe(res => {
           this._planes = (res['planes']) ? res['planes'] : [];
           this._planes = this.fillModelName(this._planes);
@@ -43,7 +51,7 @@ export class PlaneService {
   public getPlaneByARN(ARN: string): Promise<Plane> {
     return new Promise((resolve, reject) => {
       this.httpClient.get(this.configService.URL + this.endpoint + `/${ARN}`,
-      { headers: this.configService.HEADERS })
+      { headers: this.HEADERS })
         .subscribe(res => {
           let plane: Plane = (res['plane']) ? res['plane'] : undefined;
           if (plane) {
@@ -62,7 +70,7 @@ export class PlaneService {
   public getFlightDetailOfPlane(ARN: string): Promise<Array<FlightDetail>> {
     return new Promise((resolve, reject) => {
       this.httpClient.get(this.configService.URL + this.endpoint + `/${ARN}` + '/flightDetails',
-      { headers: this.configService.HEADERS })
+      { headers: this.HEADERS })
         .subscribe(res => {
           const flightDetails: Array<FlightDetail> = (res['flightDetails']) ? res['flightDetails'] : [];
           resolve(flightDetails);
@@ -82,7 +90,7 @@ export class PlaneService {
       // Appel du web service
       let response: Observable<any>;
       response = this.httpClient.post(this.configService.URL + this.endpoint, body.toString(),
-        { headers: this.configService.HEADERS });
+        { headers: this.HEADERS });
 
       // Récupération de la réponse
       response.subscribe(res => {
@@ -108,7 +116,7 @@ export class PlaneService {
       // Appel du web service
       let response: Observable<any>;
       response = this.httpClient.put(this.configService.URL + this.endpoint, body.toString(),
-        { headers: this.configService.HEADERS });
+        { headers: this.HEADERS });
 
       // Récupération de la réponse
       response.subscribe(res => {
@@ -130,7 +138,7 @@ export class PlaneService {
       let response: Observable<any>;
       if (plane.ARN) {
         response = this.httpClient.delete(this.configService.URL + this.endpoint + `/${plane.ARN}`,
-        { headers: this.configService.HEADERS });
+        { headers: this.HEADERS });
       }
 
       // Récupération de la réponse

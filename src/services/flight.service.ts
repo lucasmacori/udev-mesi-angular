@@ -4,21 +4,29 @@ import { HttpClient } from '@angular/common/http';
 import { ConfigService } from './config.service';
 import { Flight } from '../models/flight.model';
 import { FlightDetail } from '../models/flightDetail.model';
+import { AuthService } from './auth.service';
 
 
 @Injectable()
 export class FlightService {
 
   private endpoint = 'flight';
+  private HEADERS: any;
 
   private _flightsub: Subject<Array<Flight>>;
   private _flights: Array<Flight>;
 
   constructor(
     private httpClient: HttpClient,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private authService: AuthService
   ) {
     this._flightsub = new Subject<Array<Flight>>();
+
+    // Configuration de l'entête HTTP
+    this.HEADERS = this.configService.HEADERS;
+    this.HEADERS['username'] = this.authService.username;
+    this.HEADERS['token'] = this.authService.token;
   }
 
   public get flightSub(): Subject<Array<Flight>> {
@@ -28,7 +36,7 @@ export class FlightService {
   public fetchFlights(): Promise<null> {
     return new Promise((resolve, reject) => {
       this.httpClient.get(this.configService.URL + this.endpoint,
-        { headers: this.configService.HEADERS })
+        { headers: this.HEADERS })
         .subscribe(res => {
           this._flights = (res['flights']) ? res['flights'] : [];
           this._flightsub.next(this._flights);
@@ -42,7 +50,7 @@ export class FlightService {
   public getFlightById(id: number): Promise<Flight> {
     return new Promise((resolve, reject) => {
       this.httpClient.get(this.configService.URL + this.endpoint + `/${id}`,
-      { headers: this.configService.HEADERS })
+      { headers: this.HEADERS })
         .subscribe(res => {
           const flight: Flight = (res['flight']) ? res['flight'] : undefined;
           if (flight) {
@@ -59,7 +67,7 @@ export class FlightService {
   public getFlightDetailOfFlight(id: number): Promise<Array<FlightDetail>> {
     return new Promise((resolve, reject) => {
       this.httpClient.get(this.configService.URL + this.endpoint + `/${id}` + '/flightDetails',
-      { headers: this.configService.HEADERS })
+      { headers: this.HEADERS })
         .subscribe(res => {
           const flightDetails: Array<FlightDetail> = res['flightDetails'];
           resolve(flightDetails);
@@ -81,10 +89,10 @@ export class FlightService {
       if (flight.id) {
         body.set('id', flight.id.toString());
         response = this.httpClient.put(this.configService.URL + this.endpoint, body.toString(),
-        { headers: this.configService.HEADERS });
+        { headers: this.HEADERS });
       } else {
         response = this.httpClient.post(this.configService.URL + this.endpoint, body.toString(),
-        { headers: this.configService.HEADERS });
+        { headers: this.HEADERS });
       }
 
       // Récupération de la réponse
@@ -107,7 +115,7 @@ export class FlightService {
       let response: Observable<any>;
       if (flight.id) {
         response = this.httpClient.delete(this.configService.URL + this.endpoint + `/${flight.id}`,
-        { headers: this.configService.HEADERS });
+        { headers: this.HEADERS });
       }
 
       // Récupération de la réponse
