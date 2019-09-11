@@ -86,7 +86,6 @@ export class AuthService {
           this._token = token;
           this.checkToken()
             .then(status => {
-              console.log("OK, status: " + status)
               resolve(status);
             })
             .catch(err => {

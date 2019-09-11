@@ -131,7 +131,6 @@ export class PassengerService {
           reject();
         }
       }, err => {
-        console.log(err);
         reject(err.error['message']);
       })
     });

@@ -3,6 +3,7 @@ import { ReportResults } from 'src/models/report-results.model';
 import { DataSource } from '@angular/cdk/table';
 import { MatTableDataSource } from '@angular/material';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { ReportService } from 'src/services/report-results.service';
 
 @Component({
   selector: 'app-report-results',
@@ -15,12 +16,17 @@ export class ReportResultsComponent implements OnInit {
 
   public datasource;
 
-  constructor() { }
+  constructor(
+    private reportService: ReportService
+  ) { }
 
   ngOnInit() {}
 
   isArray() {
-    console.log(this.results.results.length > 1 || this.results.results[0]['item'][1].length > 1);
     return this.results.results.length > 1 || this.results.results[0]['item'][1].length > 1;
+  }
+
+  export() {
+    this.reportService.exportToCSV(this.results);
   }
 }

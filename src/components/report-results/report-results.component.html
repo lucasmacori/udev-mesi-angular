@@ -15,4 +15,9 @@
     
     <!-- Affichage d'un seul résultat -->
     <p *ngIf="!isArray()"><span class="primaryColored">{{ results.fields[0] }} :</span> {{ results.results[0].item[0] }}</p>
+
+    <button mat-raised-button color="warn" (click)="export()">
+        <mat-icon>grid_on</mat-icon>
+        Exporter vers Excel
+    </button>
 </div>

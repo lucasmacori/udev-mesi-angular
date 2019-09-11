@@ -85,4 +85,27 @@ export class ReportService {
         });
     });
   }
+
+  public exportToCSV(results: ReportResults) {
+    let csv = '';
+    results.results.forEach(result => {
+      for (let i = 0; i < results.fields.length; i++) {
+        csv += `${result['item'][i]};`;
+      }
+    });
+    this.download(`${results.code}.csv`, csv);
+  }
+
+  private download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
+  }
 }
