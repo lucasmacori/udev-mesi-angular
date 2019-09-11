@@ -20,6 +20,7 @@ export class ReportResultsComponent implements OnInit {
   ngOnInit() {}
 
   isArray() {
-    return Array.isArray(this.results.results);
+    console.log(this.results.results.length > 1 || this.results.results[0]['item'][1].length > 1);
+    return this.results.results.length > 1 || this.results.results[0]['item'][1].length > 1;
   }
 }

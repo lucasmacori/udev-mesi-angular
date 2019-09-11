@@ -8,12 +8,11 @@
         </thead>
         <tbody>
             <tr *ngFor="let result of results.results">
-                <p>Test</p>
-                <td *ngFor="let field of results.fields">{{ result[field] }}</td>
+                <td *ngFor="let field of results.fields; let i = index">{{ result.item[i] }}</td>
             </tr>
         </tbody>
     </table>
     
     <!-- Affichage d'un seul résultat -->
-    <p><span class="primaryColored">{{ results.fields }} :</span> {{ results.results.item }}</p>
+    <p *ngIf="!isArray()"><span class="primaryColored">{{ results.fields[0] }} :</span> {{ results.results[0].item[0] }}</p>
 </div>
