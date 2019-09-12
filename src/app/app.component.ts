@@ -25,6 +25,8 @@ export class AppComponent implements OnInit, OnDestroy {
   private themeSub: Subscription;
   public theme: string;
 
+  private authIsLoaded: boolean;
+
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -36,6 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     // Récupération de la connexion
+    this.authIsLoaded = false;
     this.loadAuth();
     this.username = this.authService.username;
 
@@ -84,6 +87,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   loadAuth() {
     this.isAuth = this.authService.loadFromFromLocalStorage();
+    this.isAuth
+      .then(() => {
+        this.authIsLoaded = true;
+      });
   }
 
   toggleSidebar(force: boolean = false, forceClose: boolean = false) {

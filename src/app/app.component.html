@@ -99,4 +99,5 @@
   </mat-drawer-container>
 </div>
 
- <app-login *ngIf="!(isAuth | async)" (loggedIn)="loadAuth()"></app-login>
+<app-login *ngIf="authIsLoaded && !(isAuth | async)" (loggedIn)="loadAuth()"></app-login>
+<mat-spinner *ngIf="!authIsLoaded && !(isAuth | async)"></mat-spinner>
